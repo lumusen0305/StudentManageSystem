@@ -8,9 +8,20 @@ Vue.use(VueRouter)
 //匯出vue-router 設置
 export default new VueRouter({
     routes: [{
-        name: 'Index', //元件呈現的名稱
-        path: '/Index', //對應的路徑
-        component: Index //對應的元件
-    }
+        path: '/',
+        redirect: '/Index'
+    },
+        {
+            path: '/',
+            component: () => import(/* webpackChunkName: "home" */ '../common/Home.vue'),
+            meta: {title: '自述文件'},
+            children: [
+                {
+                    path: '/Index',
+                    component: Index,
+                    meta: {title: '系统首页'}
+                }
+            ]
+        },
     ]
-})
+});
