@@ -113,10 +113,10 @@
     import Schart from 'vue-schart';
     import bus from '../common/bus';
     export default {
-        name: 'dashboard',
+        name: 'Index',
         data() {
             return {
-                name: localStorage.getItem('ms_username'),
+                name: localStorage.getItem('user-info-name'),
                 todoList: [
                     {
                         title: '今天要修复100个bug',

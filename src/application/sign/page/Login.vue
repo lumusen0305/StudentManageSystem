@@ -56,7 +56,7 @@
                 });
             },
             login(){
-                document.location.href = "/work#/Home";
+                document.location.href = "/work";
             }
         },
     };

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Index from '@/application/work/page/index.vue'
+import classTable from '@/application/work/page/classTable.vue'
 
 //使用 vue-router
 Vue.use(VueRouter)
@@ -20,7 +21,12 @@ export default new VueRouter({
                     path: '/Index',
                     component: Index,
                     meta: {title: '系统首页'}
-                }
+                },
+                {
+                    path: '/classTable',
+                    component: classTable,
+                    meta: { title: '基础表格' }
+                },
             ]
         },
     ]
