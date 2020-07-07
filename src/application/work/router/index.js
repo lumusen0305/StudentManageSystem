@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Index from '@/application/work/page/index.vue'
 import classTable from '@/application/work/page/classTable.vue'
+import commitHomework from '@/application/work/page/commitHomework'
 
 //使用 vue-router
 Vue.use(VueRouter)
@@ -26,6 +27,11 @@ export default new VueRouter({
                     path: '/classTable',
                     component: classTable,
                     meta: { title: '基础表格' }
+                },
+                {
+                    path: '/commitHomework',
+                    component: commitHomework,
+                    meta: { title: '提交作業' }
                 },
             ]
         },

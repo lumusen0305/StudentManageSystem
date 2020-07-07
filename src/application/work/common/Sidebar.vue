@@ -68,7 +68,7 @@
                     },
                     {
                         icon: 'el-icon-lx-copy',
-                        index: 'homeWork',
+                        index: 'commitHomework',
                         title: '提交作業'
                     },
                     {
