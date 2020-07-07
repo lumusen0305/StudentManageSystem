@@ -12,7 +12,7 @@
 
 指導老師：老師
 
-後端：[spring boot 後端](https://github.com/)
+後端：[spring boot 後端](https://gitee.com/csu_chen/studentplat)
 
 ## Project setup
 
