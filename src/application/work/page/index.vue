@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="Index">
         <el-row :gutter="20">
             <el-col :span="8">
                 <el-card shadow="hover" class="mgb20" style="height:252px;">
@@ -59,7 +59,7 @@
                         </div>
                         <div>
                             <div class="user-info-list">
-                                {{chickenSoup}}
+                              {{chickenSoup}}
                             </div>
                         </div>
                 </el-card>
@@ -78,7 +78,7 @@
 
 <script>
     import Schart from 'vue-schart';
-    import bus from '../common/bus';
+    import axios from "axios";
     export default {
         name: 'Index',
         data() {
@@ -107,17 +107,6 @@
         },
         computed: {
         },
-        // created() {
-        //     this.handleListener();
-        //     this.changeDate();
-        // },
-        // activated() {
-        //     this.handleListener();
-        // },
-        // deactivated() {
-        //     window.removeEventListener('resize', this.renderChart);
-        //     bus.$off('collapse', this.handleBus);
-        // },
         methods: {
             changeDate() {
                 const now = new Date().getTime();
@@ -125,7 +114,7 @@
                     const date = new Date(now - (6 - index) * 86400000);
                     item.name = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
                 });
-            }
+            },
             // handleListener() {
             //     bus.$on('collapse', this.handleBus);
             //     // 调用renderChart方法对图表进行重新渲染
@@ -140,7 +129,40 @@
             //     this.$refs.bar.renderChart();
             //     this.$refs.line.renderChart();
             // }
-        }
+            getSoup(){
+                axios({
+                    method: 'get',
+                    url: 'http://api.tianapi.com/txapi/dujitang/index',
+                    data:{},
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    params: {
+                        key:'95f3103398a0a3217e75e3c1c04c313e'
+            }
+                }).then((response) => {
+
+                    this.chickenSoup =JSON.parse(JSON.stringify(response.data))['newslist'][0].content
+                    console.log(response.data)
+
+                })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            }
+        },
+        created() {
+            //     this.handleListener();
+            //     this.changeDate();
+            // },
+            // activated() {
+            //     this.handleListener();
+            // },
+            // deactivated() {
+            //     window.removeEventListener('resize', this.renderChart);
+            //     bus.$off('collapse', this.handleBus);
+            this.getSoup();
+        },
     };
 </script>
 

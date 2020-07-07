@@ -1,67 +1,60 @@
 <template>
-    <div>
-        <div class="crumbs">
-            <el-breadcrumb separator="/">
-                <el-breadcrumb-item><i class="el-icon-lx-calendar"></i> 表单</el-breadcrumb-item>
-                <el-breadcrumb-item>图片上传</el-breadcrumb-item>
-            </el-breadcrumb>
-        </div>
-        <div class="container">
-            <div class="content-title">支持拖拽</div>
-            <div class="plugins-tips">
-                Element UI自带上传组件。
-                访问地址：<a href="http://element.eleme.io/#/zh-CN/component/upload" target="_blank">Element UI Upload</a>
-            </div>
-            <el-upload
-                    class="upload-demo"
-                    drag
-                    action="http://jsonplaceholder.typicode.com/api/posts/"
-                    multiple>
-                <i class="el-icon-upload"></i>
-                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-            </el-upload>
-            <div class="content-title">支持裁剪</div>
-            <div class="plugins-tips">
-                vue-cropperjs：一个封装了 cropperjs 的 Vue 组件。
-                访问地址：<a href="https://github.com/Agontuk/vue-cropperjs" target="_blank">vue-cropperjs</a>
-            </div>
-            <div class="crop-demo">
-                <img :src="cropImg" class="pre-img">
-                <div class="crop-demo-btn">选择图片
-                    <input class="crop-input" type="file" name="image" accept="image/*" @change="setImage"/>
-                </div>
-            </div>
-
-            <el-dialog title="裁剪图片" :visible.sync="dialogVisible" width="30%">
-                <vue-cropper ref='cropper' :src="imgSrc" :ready="cropImage" :zoom="cropImage" :cropmove="cropImage" style="width:100%;height:300px;"></vue-cropper>
-                <span slot="footer" class="dialog-footer">
-                    <el-button @click="cancelCrop">取 消</el-button>
-                    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-                </span>
-            </el-dialog>
-        </div>
+    <div id="commitHomework">
+        <el-row :gutter="20">
+            <el-col :span="12" :offset="6">
+                <el-card shadow="hover" class="mgb20" style="height:80px;">
+                    <el-row :gutter="20">
+                        <el-button :span="6" :offset="2" type="primary" @click="dialogFormVisible = true">添加課堂</el-button>
+                        <el-dialog title="添加課堂" :visible.sync="dialogFormVisible"   width="30%" center>
+                            <el-form :model="form">
+                                <el-form-item label="課堂號">
+                                    <el-input v-model="form.classId" autocomplete="off" class="classInput"></el-input>
+                                </el-form-item>
+                            </el-form>
+                            <div slot="footer" class="dialog-footer">
+                                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                            </div>
+                        </el-dialog>
+                        <div  :span="6" :offset="12" >
+                            sss
+                        </div>
+                    </el-row>
+                </el-card>
+                <el-card shadow="hover" style="height:252px;">
+                    <div slot="header" class="clearfix">
+                        <span>各年PR值</span>
+                    </div>
+                </el-card>
+            </el-col>
+        </el-row>
     </div>
 </template>
 
 <script>
-    import VueCropper  from 'vue-cropperjs';
+    import VueCropper from 'vue-cropperjs';
+
     export default {
         name: 'commitHomework',
-        data: function(){
+        data: function () {
             return {
+                dialogFormVisible: false,
                 defaultSrc: require('../../../assets/img/img.jpg'),
                 fileList: [],
                 imgSrc: '',
                 cropImg: '',
                 dialogVisible: false,
+                form: {
+                    classId: '',
+                },
+                formLabelWidth: '60px'
             }
-        },
+            },
         components: {
             VueCropper
         },
-        methods:{
-            setImage(e){
+        methods: {
+            setImage(e) {
                 const file = e.target.files[0];
                 if (!file.type.includes('image/')) {
                     return;
@@ -74,68 +67,151 @@
                 };
                 reader.readAsDataURL(file);
             },
-            cropImage () {
+            cropImage() {
                 this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
             },
-            cancelCrop(){
+            cancelCrop() {
                 this.dialogVisible = false;
                 this.cropImg = this.defaultSrc;
             },
             imageuploaded(res) {
                 console.log(res)
             },
-            handleError(){
+            handleError() {
                 this.$notify.error({
                     title: '上传失败',
                     message: '图片上传接口上传失败，可更改为自己的服务器接口'
                 });
             }
         },
-        created(){
+        created() {
             this.cropImg = this.defaultSrc;
         }
     }
 </script>
 
 <style scoped>
-    .content-title{
-        font-weight: 400;
-        line-height: 50px;
-        margin: 10px 0;
-        font-size: 22px;
-        color: #1f2f3d;
+    .el-row {
+        margin-bottom: 20px;
     }
-    .pre-img{
+
+    .grid-content {
+        display: flex;
+        align-items: center;
+        height: 100px;
+    }
+
+    .grid-cont-right {
+        flex: 1;
+        text-align: center;
+        font-size: 14px;
+        color: #999;
+    }
+
+    .grid-num {
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .grid-con-icon {
+        font-size: 50px;
         width: 100px;
         height: 100px;
-        background: #f8f8f8;
-        border: 1px solid #eee;
-        border-radius: 5px;
-    }
-    .crop-demo{
-        display: flex;
-        align-items: flex-end;
-    }
-    .crop-demo-btn{
-        position: relative;
-        width: 100px;
-        height: 40px;
-        line-height: 40px;
-        padding: 0 20px;
-        margin-left: 30px;
-        background-color: #409eff;
+        text-align: center;
+        line-height: 100px;
         color: #fff;
-        font-size: 14px;
-        border-radius: 4px;
-        box-sizing: border-box;
     }
-    .crop-input{
-        position: absolute;
-        width: 100px;
-        height: 40px;
-        left: 0;
-        top: 0;
-        opacity: 0;
-        cursor: pointer;
+
+    .grid-con-1 .grid-con-icon {
+        background: rgb(45, 140, 240);
+    }
+
+    .grid-con-1 .grid-num {
+        color: rgb(45, 140, 240);
+    }
+
+    .grid-con-2 .grid-con-icon {
+        background: rgb(100, 213, 114);
+    }
+
+    .grid-con-2 .grid-num {
+        color: rgb(45, 140, 240);
+    }
+
+    .grid-con-3 .grid-con-icon {
+        background: rgb(242, 94, 67);
+    }
+
+    .grid-con-3 .grid-num {
+        color: rgb(242, 94, 67);
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #ccc;
+        margin-bottom: 20px;
+    }
+
+    .user-avator {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+    }
+
+    .user-info-cont {
+        padding-left: 50px;
+        flex: 1;
+        font-size: 14px;
+        color: #999;
+    }
+
+    .shoup-info-cont {
+        padding-left: 10px;
+        flex: 1;
+        font-size: 14px;
+        color: #999;
+    }
+
+    .user-info-cont div:first-child {
+        font-size: 30px;
+        color: #222;
+    }
+
+    .shoup-info-cont div:first-child {
+        font-size: 30px;
+        color: #222;
+    }
+
+    .user-info-list {
+        font-size: 14px;
+        color: #999;
+        line-height: 25px;
+    }
+
+    .user-info-list span {
+        margin-left: 70px;
+    }
+
+    .mgb20 {
+        margin-bottom: 20px;
+    }
+
+    .todo-item {
+        font-size: 14px;
+    }
+
+    .todo-item-del {
+        text-decoration: line-through;
+        color: #999;
+    }
+
+    .schart {
+        width: 100%;
+        height: 300px;
+    }
+    .classInput{
+        width: 50%;
     }
 </style>
