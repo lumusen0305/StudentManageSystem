@@ -4,26 +4,138 @@
             <el-col :span="12" :offset="6">
                 <el-card shadow="hover" class="mgb20" style="height:80px;">
                     <el-row :gutter="20">
-                        <el-button :span="6" :offset="2" type="primary" @click="dialogFormVisible = true">添加課堂</el-button>
-                        <el-dialog title="添加課堂" :visible.sync="dialogFormVisible"   width="30%" center>
-                            <el-form :model="form">
-                                <el-form-item label="課堂號">
-                                    <el-input v-model="form.classId" autocomplete="off" class="classInput"></el-input>
-                                </el-form-item>
-                            </el-form>
-                            <div slot="footer" class="dialog-footer">
-                                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                        <el-col :span="3">
+                            <div>
+                                <el-button  type="primary" @click="dialogFormVisible = true">添加課堂</el-button>
+                                <el-dialog title="添加課堂" :visible.sync="dialogFormVisible"   width="25%" center>
+                                    <el-form :model="form">
+                                        <el-form-item label="課堂號">
+                                            <el-input v-model="form.classId" autocomplete="off" class="classInput"></el-input>
+                                        </el-form-item>
+                                    </el-form>
+                                    <div slot="footer" class="dialog-footer">
+                                        <el-button @click="dialogFormVisible = false">取 消</el-button>
+                                        <el-button type="primary" @click="dialogFormVisible = false">確定添加</el-button>
+                                    </div>
+                                </el-dialog>
                             </div>
-                        </el-dialog>
-                        <div  :span="6" :offset="12" >
-                            sss
-                        </div>
+
+                        </el-col>
+                        <el-col :span="6" :offset="12">
+                            <div>
+                                <el-input v-model="input" placeholder="搜尋課堂"></el-input>
+                            </div>
+                        </el-col>
+                        <el-col :span="3" :offset="0">
+                            <div>
+                                <el-button type="primary" icon="el-icon-search">搜索</el-button>
+                            </div>
+                        </el-col>
                     </el-row>
                 </el-card>
                 <el-card shadow="hover" style="height:252px;">
                     <div slot="header" class="clearfix">
-                        <span>各年PR值</span>
+                        <el-row :gutter="20">
+
+                            <el-col :span="6">
+                                <div class="topBox">
+                                    <span >学年</span>
+                                    <el-select v-model="chooseSchoolYear" collapse-tags multiple placeholder="请选择"  style="width:80% ;display: flex;">
+
+                                        <el-option
+                                                v-for="item in schoolYears"
+                                                :key="item.value"
+                                                :label="item.label"
+                                                :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                            </div>
+                            </el-col>
+                            <el-col :span="6">
+                                <div class="topBox">
+                                    <span>学期</span>
+                                   <el-select v-model="chooseSemester" collapse-tags multiple placeholder="请选择"  style="width:80% ;display: flex;">
+                                        <el-option
+                                                v-for="item in semesters"
+                                                :key="item.value"
+                                                :label="item.label"
+                                                :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                            </div>
+                            </el-col>
+                            <el-col :span="6">
+                                <div class="topBox">
+                                    <span>状态</span>
+                                    <el-select v-model="chooseStatus" collapse-tags multiple placeholder="请选择"  style="width:80% ;display: flex;">
+                                        <el-option
+                                                v-for="item in status"
+                                                :key="item.value"
+                                                :label="item.label"
+                                                :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                            </div>
+                            </el-col>
+                            <el-col :span="6">
+                                <div class="topBox">
+                                    <span>角色</span>
+                                    <el-select v-model="chooseRole" collapse-tags multiple placeholder="请选择"  style="width:80% ;display: flex;">
+                                        <el-option
+                                                v-for="item in roles"
+                                                :key="item.value"
+                                                :label="item.label"
+                                                :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                            </div>
+                            </el-col>
+
+                        </el-row>
+                        <el-row :gutter="20">
+
+                            <el-col :span="6">
+                                <div class="topBox">
+                                    <span>院系</span>
+
+                                   <el-select v-model="chooseSemester" collapse-tags multiple placeholder="请选择"  style="width:80% ;display: flex;">
+                                        <el-option
+                                                v-for="item in options"
+                                                :key="item.value"
+                                                :label="item.label"
+                                                :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </div>
+                            </el-col>
+                            <el-col :span="6">
+                                <div class="topBox">
+                                    <span>年级</span>
+                                   <el-select v-model="chooseGrade" collapse-tags multiple placeholder="请选择"  style="width:80% ;display: flex;">
+                                        <el-option
+                                                v-for="item in grades"
+                                                :key="item.value"
+                                                :label="item.label"
+                                                :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </div>
+                            </el-col>
+                            <el-col :span="6">
+                                <div class="topBox">
+                                    <span>班级</span>
+                                   <el-select v-model="chooseClass" collapse-tags multiple placeholder="请选择"  style="width:80% ;display: flex;">
+                                        <el-option
+                                                v-for="item in classes"
+                                                :key="item.value"
+                                                :label="item.label"
+                                                :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </div>
+                            </el-col>
+
+                        </el-row>
                     </div>
                 </el-card>
             </el-col>
@@ -47,9 +159,84 @@
                 form: {
                     classId: '',
                 },
-                formLabelWidth: '60px'
+                formLabelWidth: '60px',
+                schoolYears: [{
+                    value: '选项1',
+                    label: '2018~20119'
+                }, {
+                    value: '选项2',
+                    label: '2019~2020'
+                }],
+                chooseSchoolYear: [],
+                semesters: [{
+                    value: '选项1',
+                    label: '上學期'
+                }, {
+                    value: '选项2',
+                    label: '下學期'
+                }],
+                chooseSemester: [],
+                status: [{
+                    value: '选项1',
+                    label: '進行中'
+                },
+                    {
+                        value: '选项2',
+                        label: '以結束'
+                    }
+                ],
+                chooseStatus: [],
+                roles:[
+                    {
+                    value: '选项1',
+                    label: '學生'
+                    },
+                    {
+                        value: '选项2',
+                        label: '老師'
+                    }],
+                chooseRole:[],
+                grades:[
+                    {
+                        value: '选项1',
+                        label: '大一'
+                    }, {
+                        value: '选项2',
+                        label: '大二'
+                    }, {
+                        value: '选项3',
+                        label: '大三'
+                    }, {
+                        value: '选项4',
+                        label: '大四'
+                    }
+                ],
+                chooseGrade:[],
+                classes:[
+                    {
+                        value: '选项1',
+                        label: '1801'
+                    },
+                    {
+                        value: '选项2',
+                        label: '1802'
+                    },
+                    {
+                        value: '选项3',
+                        label: '1803'
+                    },
+                    {
+                        value: '选项4',
+                        label: '1804'
+                    },
+                    {
+                        value: '选项5',
+                        label: '1805'
+                    },
+                ]
             }
-            },
+        },
+        chooseClass:[],
         components: {
             VueCropper
         },
@@ -112,7 +299,10 @@
         font-size: 30px;
         font-weight: bold;
     }
-
+    .topBox{
+        display: flex;
+        margin: 3px;
+    }
     .grid-con-icon {
         font-size: 50px;
         width: 100px;
