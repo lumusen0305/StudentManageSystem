@@ -1,7 +1,7 @@
 <template>
     <div id="commitHomework">
         <el-row :gutter="20">
-            <el-col :span="12" :offset="6">
+            <el-col :span="18" :offset="3">
                 <el-card shadow="hover" class="mgb20" style="height:80px;">
                     <el-row :gutter="20">
                         <el-col :span="3">
@@ -33,7 +33,7 @@
                         </el-col>
                     </el-row>
                 </el-card>
-                <el-card shadow="hover" style="height:252px;">
+                <el-card shadow="hover">
                     <div slot="header" class="clearfix">
                         <el-row :gutter="20">
 
@@ -134,9 +134,33 @@
                                     </el-select>
                                 </div>
                             </el-col>
-
                         </el-row>
                     </div>
+                    <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
+                        <li v-for="i in classCount" class="infinite-list-item">
+                            <el-row class="class_box" justify="around">
+                                <el-col :span="5">
+                                    <div>
+                                        <img src="../../../assets/img/1049843.png" class="user-avator" alt />
+                                    </div>
+                                </el-col>
+                                <el-col :span="18">
+                                    <el-row class="class-info-cont">
+                                        <div>
+                                            <a class="class-info-name" href="/work#/classDetail" >
+                                                SSD7
+                                            </a>
+                                        </div>
+                                        <div class="classIntroduce">软件工程系 开课: 2019.11.13  － 课程结束日期: 2020.01.01</div>
+                                        <div>授课班级: 软件工程1801-06 必选修别: 必修 学分数: 2.0 授课教师:    <el-tooltip class="item" effect="dark" content="隔壁老王" placement="top">
+                                            <a class="el-icon-user-solid" style="border-radius:100%"></a>
+                                        </el-tooltip></div>
+                                    </el-row>
+                                </el-col>
+                            </el-row>
+
+                        </li>
+                    </ul>
                 </el-card>
             </el-col>
         </el-row>
@@ -233,10 +257,11 @@
                         value: '选项5',
                         label: '1805'
                     },
-                ]
+                ],
+                chooseClass:[],
+                classCount:10,
             }
         },
-        chooseClass:[],
         components: {
             VueCropper
         },
@@ -270,6 +295,7 @@
                     message: '图片上传接口上传失败，可更改为自己的服务器接口'
                 });
             }
+
         },
         created() {
             this.cropImg = this.defaultSrc;
@@ -300,7 +326,6 @@
         font-weight: bold;
     }
     .topBox{
-        display: flex;
         margin: 3px;
     }
     .grid-con-icon {
@@ -338,16 +363,47 @@
 
     .user-info {
         display: flex;
-        align-items: center;
-        padding-bottom: 20px;
-        border-bottom: 2px solid #ccc;
+        /*align-items: center;*/
+        padding-bottom: 15px;
+        border-bottom: 3px solid #ccc;
         margin-bottom: 20px;
     }
-
+    .class_box{
+        /*align-items: center;*/
+        padding-bottom: 15px;
+        border-bottom: 3px solid #ccc;
+        margin-bottom: 20px;
+    }
+    a {
+        color: black;
+    }
+    a:hover
+    {
+        color:#20a0ff;
+    }
+    .class-info-cont{
+        padding-left: 10px;
+        flex: 1;
+        font-size: 14px;
+        color: #999;
+    }
+    .class-info-cont div:first-child {
+        padding-left: 0%;
+        font-size: 35px;
+        color: black;
+        /*padding-bottom: px;*/
+        border-bottom: 1px solid #ccc;
+        /*margin-bottom: 20px;*/
+    }
+    .classIntroduce{
+        flex: 1;
+        font-size: 17px;
+        color:black;
+    }
     .user-avator {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
+        width: 150px;
+        height: 130px;
+        border-radius: 0%;
     }
 
     .user-info-cont {
@@ -365,6 +421,7 @@
     }
 
     .user-info-cont div:first-child {
+
         font-size: 30px;
         color: #222;
     }
