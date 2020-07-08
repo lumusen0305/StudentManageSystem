@@ -1,5 +1,6 @@
 <template>
     <div id="commitHomework">
+
         <el-row :gutter="20">
             <el-col :span="18" :offset="3">
                 <el-card shadow="hover" class="mgb20" style="height:80px;">
@@ -304,27 +305,6 @@
 </script>
 
 <style scoped>
-    .el-row {
-        margin-bottom: 20px;
-    }
-
-    .grid-content {
-        display: flex;
-        align-items: center;
-        height: 100px;
-    }
-
-    .grid-cont-right {
-        flex: 1;
-        text-align: center;
-        font-size: 14px;
-        color: #999;
-    }
-
-    .grid-num {
-        font-size: 30px;
-        font-weight: bold;
-    }
     .topBox{
         margin: 3px;
     }
@@ -361,13 +341,6 @@
         color: rgb(242, 94, 67);
     }
 
-    .user-info {
-        display: flex;
-        /*align-items: center;*/
-        padding-bottom: 15px;
-        border-bottom: 3px solid #ccc;
-        margin-bottom: 20px;
-    }
     .class_box{
         /*align-items: center;*/
         padding-bottom: 15px;
@@ -442,8 +415,9 @@
     }
 
     .mgb20 {
-        margin-bottom: 20px;
+        margin-bottom: 0px;
     }
+
 
     .todo-item {
         font-size: 14px;

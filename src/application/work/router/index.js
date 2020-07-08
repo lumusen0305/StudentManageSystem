@@ -34,13 +34,12 @@ export default new VueRouter({
                     path: '/chooseClasses',
                     component: chooseClasses,
                     meta: { title: '提交作業' },
-                    children:[
-                        {
-                            path: '/classDetail',
-                            component: classDetail,
-                            meta: {title: '課程介紹'}
-                        }
-                    ]
+
+                },
+                {
+                    path: '/classDetail',
+                    component: classDetail,
+                    meta: {title: '課程介紹'}
                 },
                 {
                     path: '/complete',
