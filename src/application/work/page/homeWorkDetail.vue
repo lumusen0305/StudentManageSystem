@@ -89,14 +89,54 @@
                                     </el-card>
                                     <el-card shadow="never"  style="background-color:rgba(245, 232, 213,0.5);"  class="mgb20">
                                     <div class="second_box">
-                                        评分方式 ( 教师评阅 100.0% )
+                                        <span >评分方式 ( 教师评阅 100.0% )</span>
                                     </div>
+                                        <div>
+                                            <div class="row-index-border"></div>
+                                            <span style="font-size: 17px"> 教师评阅</span>
+                                            <div class="second_box_instructions" style="padding-bottom: 10px">
+                                                <el-row>
+                                                    <el-col :span="4">
+                                                        <span>占成绩比例</span>
+                                                    </el-col>
+                                                    <el-col :span="4" >
+                                                        <span>100%</span>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </div>
                                     </el-card>
+                                    <div class="thrid_box">
+                                        <el-row class="table_titile">
+                                            <el-col :span="18">
+                                                <span>附件名</span>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <span>大小</span>
+                                            </el-col>
+                                        </el-row>
+                                        <ul class="infinite-list" v-infinite-scroll="load" >
+                                            <ol v-for="i in classCount" class="attachment-row " >
+                                                <div @click="jump" >
+                                                    <el-row style="padding-top:12px">
+                                                        <el-col :span="18">
+                                                            <span class="el-icon-document"></span>
+                                                            <span style="padding-left: 10px">数据库系统练习_1.docx</span>
+                                                        </el-col>
+                                                        <el-col :span="6">
+                                                            <span>15 KB</span>
+                                                        </el-col>
+                                                    </el-row>
+                                                </div>
+                                            </ol>
+                                        </ul>
+                                    </div>
                                 </el-col>
                             </el-row>
                         </el-tab-pane>
-                        <el-tab-pane label="我的作業" name="second"></el-tab-pane>
-
+                        <el-tab-pane label="我的作業" name="second">
+                            sss
+                        </el-tab-pane>
                     </el-tabs>
                 </el-card>
             </el-col>
@@ -109,15 +149,63 @@
         name: "homeWorkDetail",
         data() {
             return {
-                activeName: 'first',
+                activeName: 'second',
+                classCount:2,
             };
             },
+        methods :{
+            jump() {
+                alert("123")
+            },
+        }
     }
 </script>
 
 <style scoped>
-    .second_box{
+    .attachment-row:hover {
+        background-color:#ccc;
+    }
+    .attachment-row {
+        align-items: center;
+        line-height:20px;
+        cursor: pointer;
+        height: 40px;
+    }
 
+    .table_titile{
+        padding-top: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #ccc;
+    }
+    .table_titile span{
+        padding-left: 10px;
+        flex: 1;
+        font-size: 16px;
+        color: #999;
+    }
+    .second_box_instructions{
+        padding-top: 12px;
+    }
+    .second_box_instructions span{
+        padding-left: 10px;
+        flex: 1;
+        font-size: 16px;
+        color: #999;
+    }
+    .row-index-border {
+        display: inline-block;
+        height: 16px;
+        width: 5px;
+        margin-right: 5px;
+        background-color: #00bbbd;
+        vertical-align: middle;
+    }
+    .second_box{
+        font-size: 18px;
+        padding-bottom: 15px;
+        padding-left: 2%;
+        border-bottom: 1.5px solid #ccc;
+        margin-bottom: 20px;
     }
     .homework_detail div{
         text-align: left;
