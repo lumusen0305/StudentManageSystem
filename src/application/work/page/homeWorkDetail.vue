@@ -1,0 +1,184 @@
+<template>
+    <div id="homeWorkDetail">
+        <el-row :gutter="20">
+            <el-col :span="18" :offset="3">
+                <el-card shadow="hover"  class="mgb10"  style="height:120px;">
+                    <el-col :span="18">
+                        <el-row class="class-info-cont">
+                            <div>
+                                <div class="class-info-name" >
+                                    SSD7
+                                </div>
+                            </div>
+                            <div class="classIntroduce">2019-2020 2019-2020第二学期 建筑与艺术学院(教学)
+                            </div>
+                        </el-row>
+                    </el-col>
+                    <el-col :span="6" class="teacher_box">
+                        <span>授課教師：</span><el-tooltip class="item" effect="dark" content="隔壁老王" placement="top">
+                        <a style="border-radius:100%">
+                            <img src="../../../assets/img/1049843.png" class="user-avator" alt />
+                        </a>
+                    </el-tooltip>
+                    </el-col>
+                </el-card>
+                <el-card shadow="hover" class="mgb20">
+                    <a class="el-icon-caret-left"  href="javascript:history.go(-1)">返回</a>
+                    <div class="homework-info-name" >
+                        练习2
+                    </div>
+                    <div style="padding-top: 1%;
+">
+                    <el-alert
+                            title="已交付"
+                            type="success"
+                            show-icon
+                            style="height: 50px;"
+                    >
+                    </el-alert>
+                    </div>
+                    <el-tabs v-model="activeName" @tab-click="handleClick"style="padding-top: 20px">
+                        <el-tab-pane label="作業要求" name="first">
+                            <el-row :gutter="20">
+                                <el-col :span="22" :offset="1">
+                                    <el-card shadow="never"  style="background-color:rgba(245, 232, 213,0.5);"  class="mgb20">
+                                        <el-row justify="center" class="homework_detail">
+                                            <el-col :span="3" :offset="1">
+                                                <div style="height: 25px;">占成绩比例</div>
+                                            </el-col>
+                                            <el-col :span="1" :offset="1">
+                                                <nav style="height: 25px;">5.0%</nav>
+                                            </el-col>
+                                            <el-col :span="4" :offset="6">
+                                                <div style="height: 25px;">公布成绩时间</div>
+                                            </el-col>
+                                            <el-col :span="7" :offset="1">
+                                                <nav style="height: 25px;">不公布</nav>
+                                            </el-col>
+                                        </el-row>
+
+                                        <el-row justify="center" class="homework_detail" style="padding-top: 20px">
+                                            <el-col :span="3" :offset="1">
+                                                <div style="height: 25px;">开放时间</div>
+                                            </el-col>
+                                            <el-col :span="6" :offset="1">
+                                                <nav style="height: 25px;">2020.03.28 00:28</nav>
+                                            </el-col>
+                                            <el-col :span="4" :offset="1">
+                                                <div style="height: 25px;">作业交付截止</div>
+                                            </el-col>
+                                            <el-col :span="6" :offset="1">
+                                                <nav style="height: 25px;">2020.04.18 00:27</nav>
+                                            </el-col>
+                                        </el-row>
+
+                                        <el-row justify="center" class="homework_detail" style="padding-top: 20px">
+                                            <el-col :span="3" :offset="1">
+                                                <div style="height: 25px;">作业形式</div>
+                                            </el-col>
+                                            <el-col :span="3" :offset="1">
+                                                <nav style="height: 25px;">个人作业</nav>
+                                            </el-col>
+                                            <el-col :span="3" :offset="4">
+                                                <div style="height: 25px;">完成指标</div>
+                                            </el-col>
+                                            <el-col :span="3" :offset="2">
+                                                <nav style="height: 25px;">提交作业</nav>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card shadow="never"  style="background-color:rgba(245, 232, 213,0.5);"  class="mgb20">
+                                    <div class="second_box">
+                                        评分方式 ( 教师评阅 100.0% )
+                                    </div>
+                                    </el-card>
+                                </el-col>
+                            </el-row>
+                        </el-tab-pane>
+                        <el-tab-pane label="我的作業" name="second"></el-tab-pane>
+
+                    </el-tabs>
+                </el-card>
+            </el-col>
+        </el-row>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "homeWorkDetail",
+        data() {
+            return {
+                activeName: 'first',
+            };
+            },
+    }
+</script>
+
+<style scoped>
+    .second_box{
+
+    }
+    .homework_detail div{
+        text-align: left;
+        line-height:100%;
+        flex: 1;
+        font-size: 14px;
+        color: #999;
+    }
+    .homework_detail nav{
+        text-align: left;
+        line-height:100%;
+        flex: 1;
+        font-size: 14px;
+        color: black;
+    }
+    .mgb20 {
+        margin-bottom: 20px;
+    }
+    .mgb10 {
+        margin-bottom: 10px;
+    }
+    .homework_title{
+        padding-left: 20px;
+    }
+    .class_box{
+        /*align-items: center;*/
+        padding-bottom: 15px;
+        border-bottom: 3px solid #ccc;
+        margin-bottom: 20px;
+    }
+    .teacher_box{
+        padding-top: 3.5%;
+    }
+    a {
+        color: black;
+    }
+    a:hover
+    {
+        color:#20a0ff;
+    }
+    .class-info-cont{
+        padding-left: 10px;
+        flex: 1;
+        font-size: 16px;
+        color: #999;
+    }
+    .class-info-cont div:first-child {
+        padding-left: 0%;
+        font-size: 28px;
+        color: black;
+        /*padding-bottom: px;*/
+        /*margin-bottom: 20px;*/
+    }
+    .user-avator {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+    .homework-info-name{
+        padding-top: 3%;
+        padding-bottom: 1%;
+        font-size: 20px;
+    }
+</style>

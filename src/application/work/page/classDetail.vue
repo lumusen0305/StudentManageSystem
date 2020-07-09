@@ -31,7 +31,7 @@
                             <el-row class="class_box" justify="around" style=" font-size:20px; padding-left: 15px">
                                 <el-col :span="5">
                                     <div  class="el-icon-edit">
-                                        <a class="homework_title">第一次作業</a>
+                                        <a class="homework_title" href="work#/homeWorkDetail">第一次作業</a>
                                     </div>
                                 </el-col>
                                 <el-col :span="5" :offset="19" class="el-icon-check

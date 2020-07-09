@@ -5,7 +5,7 @@ import classTable from '@/application/work/page/classTable.vue'
 import chooseClasses from '@/application/work/page/chooseClasses'
 import classDetail from '@/application/work/page/classDetail'
 import complete from '@/application/work/page/complete'
-
+import homeWorkDetail from '@/application/work/page/homeWorkDetail'
 //使用 vue-router
 Vue.use(VueRouter)
 
@@ -40,6 +40,11 @@ export default new VueRouter({
                     path: '/classDetail',
                     component: classDetail,
                     meta: {title: '課程介紹'}
+                },
+                {
+                    path: '/homeWorkDetail',
+                    component: homeWorkDetail,
+                    meta: {title: '作業提交'}
                 },
                 {
                     path: '/complete',
