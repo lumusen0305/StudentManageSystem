@@ -12,9 +12,6 @@
                             </div>
                             <div class="classIntroduce">2019-2020 2019-2020第二学期 建筑与艺术学院(教学)
                             </div>
-<!--                            <div>授课班级: 软件工程1801-06 必选修别: 必修 学分数: 2.0 授课教师:    <el-tooltip class="item" effect="dark" content="隔壁老王" placement="top">-->
-<!--                                <a class="el-icon-user-solid" style="border-radius:100%"></a>-->
-<!--                            </el-tooltip></div>-->
                         </el-row>
                     </el-col>
                     <el-col :span="6" class="teacher_box">
@@ -26,6 +23,8 @@
                     </el-col>
                 </el-card>
                     <el-card shadow="hover" class="mgb20">
+                        <a class="el-icon-caret-left"  href="javascript:history.go(-1)">返回</a>
+
                         <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
                         <li v-for="i in classCount" class="infinite-list-item">
                             <el-row class="class_box" justify="around" style=" font-size:20px; padding-left: 15px">
@@ -102,4 +101,5 @@
         height: 50px;
         border-radius: 50%;
     }
+
 </style>

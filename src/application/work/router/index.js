@@ -4,8 +4,11 @@ import Index from '@/application/work/page/index.vue'
 import classTable from '@/application/work/page/classTable.vue'
 import chooseClasses from '@/application/work/page/chooseClasses'
 import classDetail from '@/application/work/page/classDetail'
-import complete from '@/application/work/page/complete'
+import discuss from '@/application/work/page/discuss'
 import homeWorkDetail from '@/application/work/page/homeWorkDetail'
+import competition from '@/application/work/page/discussBar'
+import recruit from '@/application/work/page/recruit'
+
 //使用 vue-router
 Vue.use(VueRouter)
 
@@ -47,9 +50,19 @@ export default new VueRouter({
                     meta: {title: '作業提交'}
                 },
                 {
-                    path: '/complete',
-                    component: complete,
-                    meta: { title: '賽事' }
+                    path: '/discussBar',
+                    component: competition,
+                    meta: { title: '討論區' }
+                },
+                {
+                    path: '/recruit',
+                    component: recruit,
+                    meta: { title: '招募隊友' }
+                },
+                {
+                    path: '/discuss',
+                    component: discuss,
+                    meta: { title: '討論' }
                 },
             ]
         },

@@ -57,50 +57,26 @@
                 collapse: false,
                 items: [
                     {
-                        icon: 'el-icon-lx-home',
+                        icon: 'el-icon-s-home\n',
                         index: 'Index',
                         title: '系统首页'
                     },
                     {
-                        icon: 'el-icon-lx-cascades',
+                        icon: 'el-icon-date',
                         index: 'classTable',
                         title: '我的課表'
                     },
                     {
-                        icon: 'el-icon-lx-copy',
+                        icon: 'el-icon-edit-outline',
                         index: 'chooseClasses',
                         title: '提交作業'
                     },
                     {
-                        icon: 'el-icon-lx-calendar',
-                        index: '2',
-                        title: '比賽相关',
-                        subs: [
-                            {
-                                index: 'complete',
-                                title: '賽事'
-                            },
-                            {
-                                index: 'company',
-                                title: '招人'
-                            },
-                        ]
+                        icon: 'el-icon-chat-line-round',
+                        index: 'discussBar',
+                        title: '帖子',
                     },
-                    {
-                        icon: 'el-icon-lx-calendar',
-                        index: '3',
-                        title: '討論',
-                        subs: [
-                            {
-                                index: 'ASK',
-                                title: '問答'
-                            },
-                            {
-                                index: 'sd',
-                                title: '分享生活'
-                            },
-                        ]
-                    },
+
                 ]
             };
         },
