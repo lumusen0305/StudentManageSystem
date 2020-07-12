@@ -23,13 +23,8 @@ const announcement = () => import('@/application/work/page/teacher/announcement'
 =======
 import competition from '@/application/work/page/discussBar'
 import recruit from '@/application/work/page/recruit'
-<<<<<<< HEAD
 >>>>>>> master
 
-=======
-import remind from '@/application/work/page/remind'
-import remindOther from '@/application/work/page/remindOther'
->>>>>>> d4ab6aa1b7f1cc3aef33bb9eb6a5e9738fcd5202
 //使用 vue-router
 Vue.use(VueRouter)
 
@@ -86,7 +81,6 @@ export default new VueRouter({
                     meta: { title: '討論' }
                 },
                 {
-<<<<<<< HEAD
                     path: '/manageClasses',
                     component: manageClasses,
                     meta: { title: '课程管理' }
@@ -130,16 +124,6 @@ export default new VueRouter({
                     path: '/announcement',
                     component: announcement,
                     meta: { title: '公告页面' },
-=======
-                    path: '/remind',
-                    component: remind,
-                    meta: { title: '提醒' }
-                },
-                {
-                    path: '/remindOther',
-                    component: remindOther,
-                    meta: { title: '發送提醒' }
->>>>>>> d4ab6aa1b7f1cc3aef33bb9eb6a5e9738fcd5202
                 },
             ]
         },
