@@ -9,7 +9,7 @@ import homeWorkDetail from '@/application/work/page/homeWorkDetail'
 import competition from '@/application/work/page/discussBar'
 import recruit from '@/application/work/page/recruit'
 import remind from '@/application/work/page/remind'
-
+import remindOther from '@/application/work/page/remindOther'
 //使用 vue-router
 Vue.use(VueRouter)
 
@@ -69,6 +69,11 @@ export default new VueRouter({
                     path: '/remind',
                     component: remind,
                     meta: { title: '提醒' }
+                },
+                {
+                    path: '/remindOther',
+                    component: remindOther,
+                    meta: { title: '發送提醒' }
                 },
             ]
         },

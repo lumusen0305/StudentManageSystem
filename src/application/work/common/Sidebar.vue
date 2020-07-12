@@ -48,7 +48,7 @@
             </template>
             </template>
 
-            <template  v-if="this.$cookie.get('menber')=='sutdentLeader'">
+            <template  v-else-if="this.$cookie.get('menber')=='sutdentLeader'">
                 <template v-for="item in students_leader_bar">
                     <template v-if="item.subs">
                         <el-submenu :index="item.index" :key="item.index">
@@ -179,7 +179,7 @@
                     },
                     {
                         icon: 'el-icon-position',
-                        index: 'remind',
+                        index: 'remindOther',
                         title: '發送提醒',
                     },
 
