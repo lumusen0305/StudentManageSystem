@@ -99,6 +99,11 @@ export default {
           icon: "el-icon-lx-copy",
           index: "manageClasses",
           title: "课程管理"
+        },
+        {
+          icon: "el-icon-lx-copy",
+          index: "announcement",
+          title: "公告"
         }
       ]
     };

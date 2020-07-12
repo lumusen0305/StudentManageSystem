@@ -33,16 +33,16 @@
                         <el-table-column label="状态" width="120px">
                             <template slot-scope="scope">
                                 <span
-                                    v-if="homeworkLists[scope.$index].status===true"
+                                    v-if="homeworkLists[scope.$index].status!==true"
                                     style="margin-left:10px;color:red">未交</span>
-                                <span v-else="v-else" style="margin-left: 10px;color:green">已交</span>
+                                <span v-else style="margin-left: 10px;color:green">已交</span>
 
                             </template>
                         </el-table-column>
                         <el-table-column prop="date" label="日期" width="150px"></el-table-column>
                         <el-table-column fixed="right" label="操作">
-                            <template slot-scope="scope">
-                                <a class="class-info-name" href="/work#/studentHomework">
+                            <template slot-scope="scope" >
+                                <a class="class-info-name" href="/work#/studentHomework" v-if="homeworkLists[scope.$index].status===true">
                                     <el-button size="small">批阅</el-button>
                                 </a>
                             </template>
@@ -173,3 +173,5 @@
         font-size: 20px;
     }
 </style>
+
+

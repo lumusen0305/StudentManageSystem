@@ -1,15 +1,8 @@
 <template>
     <div >
         <div>
-            <homeworkBar style="position:relative;margin-left:0"></homeworkBar>
-            <manageWorks style="display:block;position:relative;top:-80px"></manageWorks>
-
-            <!-- <homeworkTable
-            style="display:block;position:relative;top:-80px"></homeworkTable> -->
-            <el-dialog :visible.sync="isShow" >
-                <issueHomework ></issueHomework>
-            </el-dialog>
-            <!-- <studentHomework></studentHomework> -->
+            <!-- <homeworkBar style="position:relative;margin-left:0"></homeworkBar> -->
+            <manageWorks style="display:block;position:relative;"></manageWorks>
         </div>
     </div>
 </template>
@@ -23,6 +16,7 @@
     const homeworkTable = () => import ("../page/teacher/homeworkTable")
     const issueHomework = () => import ("../page/teacher/issueWorks")
     const studentHomework = () => import ("../page/teacher/studentHomework")
+    const announcement = () => import("../page/teacher/announcement")
 
     export default {
         data() {
@@ -37,7 +31,8 @@
             manageWorks,
             homeworkTable,
             issueHomework,
-            studentHomework
+            studentHomework,
+            announcement
         }
     }
 </script>

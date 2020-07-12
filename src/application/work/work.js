@@ -14,6 +14,11 @@ import http from './api/config';
 import './mock/index';
 
 
+
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+Vue.use(mavonEditor)
+
 Vue.config.productionTip = false
 
 

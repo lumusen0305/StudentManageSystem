@@ -119,7 +119,10 @@ export default{
                 currentWork:{
                     title:Mock.Random.ctitle(),
                     description:Mock.Random.csentence(),
-                    url:Mock.Random.url(),
+                    fileList:[{
+                        name:Mock.Random.name(),
+                        url:Mock.Random.image(),
+                    }],
                     opentime:Mock.Random.datetime('yyyy/MM/dd HH:mm:ss'),
                     closetime:Mock.Random.datetime('yyyy/MM/dd HH:mm:ss')
                 },

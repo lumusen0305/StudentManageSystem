@@ -18,7 +18,7 @@ const homeworkTable = () => import('@/application/work/page/teacher/homeworkTabl
 const issueWorks = () => import('@/application/work/page/teacher/issueWorks') 
 const studentHomework = () => import('@/application/work/page/teacher/studentHomework') 
 const workHome = () => import('@/application/work/common/WorkHome')
-
+const announcement = () => import('@/application/work/page/teacher/announcement')
 
 //使用 vue-router
 Vue.use(VueRouter)
@@ -104,6 +104,11 @@ export default new VueRouter({
                     path: '/workHome',
                     component: workHome,
                     meta: { title: '作业页面' },
+                },
+                {
+                    path: '/announcement',
+                    component: announcement,
+                    meta: { title: '公告页面' },
                 },
             ]
         },

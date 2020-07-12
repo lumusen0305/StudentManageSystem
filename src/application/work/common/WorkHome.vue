@@ -1,12 +1,13 @@
 <template>
     <div class="wrapper">
         <div>
-            <homeworkBar style="position:relative;margin-left:0"></homeworkBar>
+            <!-- <homeworkBar style="position:relative;margin-left:0"></homeworkBar> -->
           <!-- <manageWorks style="display:block;position:relative;top:-80px"></manageWorks> -->
           
-            <homeworkTable style="display:block;position:relative;top:-80px"></homeworkTable>
+            <homeworkTable style="display:block;position:relative;"></homeworkTable>
             <!-- <issueHomework></issueHomework> -->
-            <studentHomework></studentHomework>
+            <!-- <studentHomework></studentHomework> -->
+            <!-- <announcement style="display:block;position:relative;"></announcement> -->
         </div>
     </div>
 </template>
@@ -20,7 +21,7 @@
     const homeworkTable = () => import("../page/teacher/homeworkTable")
     const issueHomework = () => import("../page/teacher/issueWorks")
     const studentHomework = () => import("../page/teacher/studentHomework")
-
+    const announcement = () => import("../page/teacher/announcement")
     export default {
         components: {
             vHead,
@@ -28,7 +29,8 @@
             manageWorks,
             homeworkTable,
             issueHomework,
-            studentHomework
+            studentHomework,
+            announcement,
         },
         
     }
