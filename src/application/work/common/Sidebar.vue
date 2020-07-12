@@ -42,6 +42,7 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import bus from "./bus";
 export default {
   data() {
@@ -62,6 +63,37 @@ export default {
           icon: "el-icon-lx-copy",
           index: "chooseClasses",
           title: "提交作業"
+=======
+    import bus from './bus';
+    export default {
+        data() {
+            return {
+                collapse: false,
+                items: [
+                    {
+                        icon: 'el-icon-s-home\n',
+                        index: 'Index',
+                        title: '系统首页'
+                    },
+                    {
+                        icon: 'el-icon-date',
+                        index: 'classTable',
+                        title: '我的課表'
+                    },
+                    {
+                        icon: 'el-icon-edit-outline',
+                        index: 'chooseClasses',
+                        title: '提交作業'
+                    },
+                    {
+                        icon: 'el-icon-chat-line-round',
+                        index: 'discussBar',
+                        title: '帖子',
+                    },
+
+                ]
+            };
+>>>>>>> master
         },
         {
           icon: "el-icon-lx-calendar",

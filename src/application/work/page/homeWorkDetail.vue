@@ -89,14 +89,103 @@
                                     </el-card>
                                     <el-card shadow="never"  style="background-color:rgba(245, 232, 213,0.5);"  class="mgb20">
                                     <div class="second_box">
-                                        评分方式 ( 教师评阅 100.0% )
+                                        <span >评分方式 ( 教师评阅 100.0% )</span>
                                     </div>
+                                        <div>
+                                            <div class="row-index-border"></div>
+                                            <span style="font-size: 17px"> 教师评阅</span>
+                                            <div class="second_box_instructions" style="padding-bottom: 10px">
+                                                <el-row>
+                                                    <el-col :span="4">
+                                                        <span>占成绩比例</span>
+                                                    </el-col>
+                                                    <el-col :span="4" >
+                                                        <span>100%</span>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </div>
                                     </el-card>
+                                    <div class="thrid_box">
+                                        <el-row class="table_titile">
+                                            <el-col :span="18">
+                                                <span>附件名</span>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <span>大小</span>
+                                            </el-col>
+                                        </el-row>
+                                        <ul class="infinite-list" v-infinite-scroll="load" >
+                                            <ol v-for="i in classCount" class="attachment-row " >
+                                                <div @click="jump" >
+                                                    <el-row style="padding-top:12px">
+                                                        <el-col :span="18">
+                                                            <span class="el-icon-document"></span>
+                                                            <span style="padding-left: 10px">数据库系统练习_1.docx</span>
+                                                        </el-col>
+                                                        <el-col :span="6">
+                                                            <span>15 KB</span>
+                                                        </el-col>
+                                                    </el-row>
+                                                </div>
+                                            </ol>
+                                        </ul>
+                                    </div>
                                 </el-col>
                             </el-row>
                         </el-tab-pane>
-                        <el-tab-pane label="我的作業" name="second"></el-tab-pane>
-
+                        <el-tab-pane label="我的作業" name="second">
+                            <div v-if="homeworkLog">
+                                <div class="thrid_box">
+                                    <el-row class="homework_log_titile">
+                                        <el-col :span="18">
+                                            <span>交付历史与批改记录</span>
+                                        </el-col>
+                                    </el-row>
+                                    <ul class="infinite-list" v-infinite-scroll="load" style="padding-bottom: 200px">
+                                        <ol v-for="i in classCount" class="attachment-row " >
+                                            <div @click="jump" >
+                                                <el-row style="padding-top:12px">
+                                                    <el-col :span="18">
+                                                        <span class="el-icon-document"></span>
+                                                        <span style="padding-left: 10px">2020.06.25 04:08</span>
+                                                    </el-col>
+                                                    <el-col :span="6">
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </ol>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <el-row style="padding-top:20px;padding-bottom: 200px">
+                                    <el-col :span="18">
+                                        <span style="padding-left: 12px;">你尚未交付该作业，请尽快交付</span>
+                                    </el-col>
+                                    <el-col :span="3" :offset="3">
+                                        <el-button type="primary" icon="el-icon-edit" circle  @click="commitPage = true"></el-button>
+                                        <el-dialog title="提交做業" :visible.sync="commitPage"   width="500px" center>
+                                            <div class="commit_fork">
+                                                <el-upload
+                                                        class="upload-demo"
+                                                        drag
+                                                        action="https://jsonplaceholder.typicode.com/posts/"
+                                                        multiple>
+                                                    <i class="el-icon-upload"></i>
+                                                    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                                                    <div class="el-upload__tip" slot="tip" style="color: #ccc">只能上传jpg/png文件，且不超过500kb</div>
+                                                </el-upload>
+                                            </div>
+                                            <div slot="footer" class="dialog-footer">
+                                                <el-button @click="commitPage = false">取 消</el-button>
+                                                <el-button type="primary" @click="commitPage = false">確定提交</el-button>
+                                            </div>
+                                        </el-dialog>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-tab-pane>
                     </el-tabs>
                 </el-card>
             </el-col>
@@ -109,15 +198,78 @@
         name: "homeWorkDetail",
         data() {
             return {
-                activeName: 'first',
+                activeName: 'second',
+                classCount:2,
+                homeworkLog: true,
+                commitPage:false,
             };
             },
+        methods :{
+            jump() {
+                alert("123")
+            },
+        }
     }
 </script>
 
 <style scoped>
+    .commit_fork{
+        padding-left: 10%;
+    }
+    .attachment-row:hover {
+        background-color:#ccc;
+    }
+    .attachment-row {
+        align-items: center;
+        line-height:20px;
+        cursor: pointer;
+        height: 40px;
+    }
+    .homework_log_titile{
+        padding-top: 20px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #ccc;
+    }
+    .homework_log_titile span{
+        padding-left: 10px;
+        flex: 1;
+        font-size: 12px;
+        color: #999;
+    }
+    .table_titile{
+        padding-top: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #ccc;
+    }
+    .table_titile span{
+        padding-left: 10px;
+        flex: 1;
+        font-size: 16px;
+        color: #999;
+    }
+    .second_box_instructions{
+        padding-top: 12px;
+    }
+    .second_box_instructions span{
+        padding-left: 10px;
+        flex: 1;
+        font-size: 16px;
+        color: #999;
+    }
+    .row-index-border {
+        display: inline-block;
+        height: 16px;
+        width: 5px;
+        margin-right: 5px;
+        background-color: #00bbbd;
+        vertical-align: middle;
+    }
     .second_box{
-
+        font-size: 18px;
+        padding-bottom: 15px;
+        padding-left: 2%;
+        border-bottom: 1.5px solid #ccc;
+        margin-bottom: 20px;
     }
     .homework_detail div{
         text-align: left;
