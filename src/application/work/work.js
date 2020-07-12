@@ -1,12 +1,24 @@
 import Vue from 'vue'
 import App from './work.vue'
 import ElementUI from 'element-ui';
+
+
 import router from './router';
+import store from './store'
+
 import './assets/css/icon.css';
 import './common/directives';
 import 'babel-polyfill';
 import 'element-ui/lib/theme-chalk/index.css';
+import http from './api/config';
+import './mock/index';
+
+
 Vue.config.productionTip = false
+
+
+//使得我们可以使用axiod
+Vue.prototype.$http = http
 
 Vue.use(ElementUI, {
     size: 'small'
@@ -32,5 +44,6 @@ router.beforeEach((to, from, next) => {
 });
 new Vue({
     router,
+    store,
     render: h => h(App)
 }).$mount('#app')
