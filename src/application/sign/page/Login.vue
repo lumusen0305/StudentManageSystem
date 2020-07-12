@@ -59,6 +59,10 @@
                 document.location.href = "/work";
             }
         },
+        created() {
+            this.$cookie.set('menber', 'sutdentLeader', 1);
+            console.log(this.$cookie.get('menber'));
+        }
     };
 </script>
 

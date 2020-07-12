@@ -8,6 +8,7 @@ import discuss from '@/application/work/page/discuss'
 import homeWorkDetail from '@/application/work/page/homeWorkDetail'
 import competition from '@/application/work/page/discussBar'
 import recruit from '@/application/work/page/recruit'
+import remind from '@/application/work/page/remind'
 
 //使用 vue-router
 Vue.use(VueRouter)
@@ -63,6 +64,11 @@ export default new VueRouter({
                     path: '/discuss',
                     component: discuss,
                     meta: { title: '討論' }
+                },
+                {
+                    path: '/remind',
+                    component: remind,
+                    meta: { title: '提醒' }
                 },
             ]
         },

@@ -1,4 +1,8 @@
 import Vue from 'vue'
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 import App from './work.vue'
 import ElementUI from 'element-ui';
 import router from './router';
@@ -6,7 +10,10 @@ import './assets/css/icon.css';
 import './common/directives';
 import 'babel-polyfill';
 import 'element-ui/lib/theme-chalk/index.css';
+import VueCookie from 'vue-cookie'
 Vue.config.productionTip = false
+Vue.use(VueQuillEditor)
+Vue.use(VueCookie)   // 掛在在全域性了
 
 Vue.use(ElementUI, {
     size: 'small'

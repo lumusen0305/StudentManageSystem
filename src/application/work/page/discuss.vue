@@ -1,11 +1,24 @@
 <template>
-
+    <div>
+        <div>
+            <el-button type="primary" icon="el-icon-edit" class="select_top_button" circle  @click="dialogFormVisible = true"></el-button>
+            <el-dialog title="新增留言" :visible.sync="dialogFormVisible"   width="80%" center>
+                <quill-editor ref="myTextEditor" v-model="content" :options="editorOption"></quill-editor>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="dialogFormVisible = false">取 消</el-button>
+                    <el-button class="editor-btn" type="primary" @click="submit">提交</el-button>
+<!--                    <el-button type="primary" @click="dialogFormVisible = false">確定添加</el-button>-->
+                </div>
+            </el-dialog>
+        </div>
     <el-row :gutter="20">
         <el-col :span="18" :offset="3">
             <div style="padding-bottom: 20px">
             <el-card shadow="hover"  class="mgb10"  style="height:120px;">
-                <el-col :span="2" :offset="1">
+
+                <el-col :span="2" >
                     <el-row class="class-info-cont">
+
                         <el-tooltip class="item" effect="dark" content="隔壁老王" placement="top">
                         <a style="border-radius:100%">
                             <img src="../../../assets/img/1049843.png" class="user-avator" alt />
@@ -52,15 +65,11 @@
                         </li>
                     </ul>
 
-                    <el-button type="primary" icon="el-icon-edit" class="select_top_button" circle>
-
-                    </el-button>
-
                 </div>
             </div>
         </el-col>
     </el-row>
-
+    </div>
 </template>
 
 <script>
@@ -68,6 +77,7 @@
         name: "discuss",
         data() {
             return {
+                dialogFormVisible:false,
                 classCount:5,
             }
         },
