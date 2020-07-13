@@ -52,6 +52,7 @@
 
 <script>
     import {isPhone,isEmail} from "../static/validate";
+    import axios from "axios";
 
     export default {
         data: function() {
@@ -78,13 +79,32 @@
         },
         methods: {
             submitForm() {
-                this.$refs.login.validate(valid => {
+                this.$refs.register.validate(valid => {
                     if (valid) {
                         this.$message.success('登入成功');
                         localStorage.setItem('ms_username', this.param.username);
+                        axios({
+                            method: 'get',
+                            url: 'http://api.tianapi.com/txapi/dujitang/index',
+                            data:{},
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            params: {
+                                key:'95f3103398a0a3217e75e3c1c04c313e'
+                            }
+                        }).then((response) => {
+
+                            this.chickenSoup =JSON.parse(JSON.stringify(response.data))['newslist'][0].content
+                            console.log(response.data)
+
+                        })
+                            .catch((err) => {
+                                console.log(err)
+                            })
                         this.$router.push('/');
                     } else {
-                        this.$message.error('請輸入帳密');
+                        this.$message.error('填滿很難嗎？');
                         console.log('error submit!!');
                         return false;
                     }
