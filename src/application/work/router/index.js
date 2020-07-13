@@ -4,8 +4,12 @@ import Index from '@/application/work/page/index.vue'
 import classTable from '@/application/work/page/classTable.vue'
 import chooseClasses from '@/application/work/page/chooseClasses'
 import classDetail from '@/application/work/page/classDetail'
-import complete from '@/application/work/page/complete'
+import discuss from '@/application/work/page/discuss'
 import homeWorkDetail from '@/application/work/page/homeWorkDetail'
+import competition from '@/application/work/page/discussBar'
+import recruit from '@/application/work/page/recruit'
+import remind from '@/application/work/page/remind'
+import remindOther from '@/application/work/page/remindOther'
 
 
 //teacher模块
@@ -14,11 +18,15 @@ const manageClasses = () => import('@/application/work/page/teacher/manageClasse
 const classHome = () => import('@/application/work/common/ClassHome')
 const classSide = () => import('@/application/work/common/ClassSide')
 const manageWorks = () => import('@/application/work//page/teacher/manageWorks')
-const homeworkTable = () => import('@/application/work/page/teacher/homeworkTable') 
-const issueWorks = () => import('@/application/work/page/teacher/issueWorks') 
-const studentHomework = () => import('@/application/work/page/teacher/studentHomework') 
+const homeworkTable = () => import('@/application/work/page/teacher/homeworkTable')
+const issueWorks = () => import('@/application/work/page/teacher/issueWorks')
+const studentHomework = () => import('@/application/work/page/teacher/studentHomework')
 const workHome = () => import('@/application/work/common/WorkHome')
 const announcement = () => import('@/application/work/page/teacher/announcement')
+const ManagerHome = () => import('@/application/work/common/ManagerHome')
+const studentTable = () => import('@/application/work/page/manager/studentTable')
+const studentInfo = () => import('@/application/work/page/manager/studentInfo')
+
 
 //使用 vue-router
 Vue.use(VueRouter)
@@ -61,9 +69,29 @@ export default new VueRouter({
                     meta: {title: '作業提交'}
                 },
                 {
-                    path: '/complete',
-                    component: complete,
-                    meta: { title: '賽事' }
+                    path: '/discussBar',
+                    component: competition,
+                    meta: { title: '討論區' }
+                },
+                {
+                    path: '/recruit',
+                    component: recruit,
+                    meta: { title: '招募隊友' }
+                },
+                {
+                    path: '/discuss',
+                    component: discuss,
+                    meta: { title: '討論' }
+                },
+                {
+                    path: '/remind',
+                    component: remind,
+                    meta: { title: '提醒' }
+                },
+                {
+                    path: '/remindOther',
+                    component: remindOther,
+                    meta: { title: '發送提醒' }
                 },
                 {
                     path: '/manageClasses',
@@ -106,10 +134,26 @@ export default new VueRouter({
                     meta: { title: '作业页面' },
                 },
                 {
+                    path: '/ManagerHome',
+                    component: ManagerHome,
+                    meta: { title: '学生管理' },
+                },
+                {
+                    path: '/studentTable',
+                    component: studentTable,
+                    meta: { title: '学生名单' },
+                },
+                {
+                    path: '/studentInfo',
+                    component: studentInfo,
+                    meta: { title: '学生信息' },
+                },
+                {
                     path: '/announcement',
                     component: announcement,
                     meta: { title: '公告页面' },
                 },
+                
             ]
         },
     ]

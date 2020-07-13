@@ -23,10 +23,13 @@ export default new Vuex.Store({
         },
         //当前的workid,为当前课程的id,如果id为-1,那么说明当前为新增homework功能
         workid:-1,
+        currentStudentWork:{},
+
 
         //关于学生
+        studentList:[],
         currentStudent:{},
-        studentid:{},
+        studentid:-1,
     },
     getters:{
         newCurrentWork(state){
@@ -34,11 +37,14 @@ export default new Vuex.Store({
         }
     },
     mutations: {
+        //作业管理
         setWorkId(state,val){
             state.workid = val;
-            console.log('问题在拿')
-
-            console.log(val)
+            
+        },
+        setCurrentStudentWork(state,val){
+            state.currentStudentWork=val;
+            console.log(state.currentStudentWork)
         },
         clearCurrentWork(state){
             state.currentWork = {
@@ -74,8 +80,15 @@ export default new Vuex.Store({
             console.log(keys)
             console.log(state.currentWork)
 
-        },
+        },  
         
+
+
+
+        //学生管理
+        setStudentList(state,val){
+            state.studentList=val;
+        },
         setCurrentStudent(state,val){
             state.currentStudent=val;
             console.log(state.currentStudent)
@@ -83,10 +96,10 @@ export default new Vuex.Store({
         },
         setStudentId(state,val){
             state.studentid=val;
+        },
+        clearStudentInfo(state){
+            state.currentStudent="";
         }
-
     },
-    // modules:{
-    //     teacher
-    // }
+   
 });
