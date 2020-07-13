@@ -1,35 +1,25 @@
 <template>
     <div>
         <el-row>
-            <el-button @click="getHomeworkLists(1)">加载数据</el-button>
-            <el-col :span="16" :offset="3">
-                <el-card shadow="hover" class="mgb10" style="height:120px;">
-                    <el-col :span="18">
-                        <el-row class="class-info-cont">
-                            <div>
-                                <div class="class-info-name">
-                                    SSD7
-                                </div>
-                            </div>
-                            <div class="classIntroduce">2019-2020 2019-2020第二学期 建筑与艺术学院(教学)
-                            </div>
-                        </el-row>
-                    </el-col>
-                    <el-col :span="6" class="teacher_box">
-                        <span>授課教師：</span>
-                        <el-tooltip class="item" effect="dark" content="隔壁老王" placement="top">
-                            <a style="border-radius:100%">
-                                <img src="../../../../assets/img/1049843.png" class="user-avator" alt="alt"/>
-                            </a>
-                        </el-tooltip>
-                    </el-col>
+            <el-button @click="getStudents(1)">加载数据</el-button>
+             <el-col :span="18" :offset="3">
+                <el-card shadow="hover" class="mgb10" style="margin-bottom:10px">
+                    <div>
+                        <a class="class-info-name" @click="reloadStudentId" href="/work#/studentInfo">
+
+                            <el-button>新增学生</el-button>
+                        </a>
+                        <!-- <el-button @click="getWorks">获得mock</el-button> -->
+                    </div>
                 </el-card>
+            </el-col>
+            <el-col :span="16" :offset="3">
                 <el-card>
                     <a class="el-icon-caret-left" href="javascript:history.go(-1)">返回</a>
-                    <el-table :data="homeworkLists" border="border" style="width: 100%">
+                    <el-table :data="studentList" border="border" style="width: 100%">
                         <el-table-column type="index" :index="indexMethod"></el-table-column>
                         <el-table-column prop="studentid" label="序号" width="120px"></el-table-column>
-                        <el-table-column prop="studentname" label="姓名" width="120px"></el-table-column>
+                        <!-- <el-table-column prop="studentname" label="姓名" width="120px"></el-table-column>
                         <el-table-column label="状态" width="120px">
                             <template slot-scope="scope">
                                 <span
@@ -38,12 +28,15 @@
                                 <span v-else style="margin-left: 10px;color:green">已交</span>
 
                             </template>
-                        </el-table-column>
-                        <el-table-column prop="date" label="日期" width="150px"></el-table-column>
+                        </el-table-column> -->
+                        
                         <el-table-column fixed="right" label="操作">
                             <template slot-scope="scope" >
-                                <a class="class-info-name" href="/work#/studentHomework" v-if="homeworkLists[scope.$index].status===true">
-                                    <el-button size="small">批阅</el-button>
+                                <a class="class-info-name"  href="/work#/studentInfo">
+                                    <el-button size="small">修改</el-button>
+                                </a>
+                                <a class="class-info-name" >
+                                    <el-button size="small">删除</el-button>
                                 </a>
                             </template>
                         </el-table-column>
@@ -58,27 +51,34 @@
 </template>
 
 <script>
-    const studentHomework = () => import ("./studentHomework");
+    const studentInfo = () => import ("./studentInfo");
 
     export default {
-        components: {
-            studentHomework
-        },
-
+   
         data() {
             return {dialogVisible: false, currentRow: null}
         },
         computed: {
-            homeworkLists() {
-                return this.$store.state.homeworkLists
+            
+            studentList() {
+                return this.$store.state.studentList
             }
         },
         methods: {
-            getHomeworkList(val) {
+             reloadStudentId() {
+                console.log("我在这")
+                this
+                    .$store
+                    .commit('setStudentId', -1);
+                this
+                    .$store
+                    .commit('clearStudentInfo');
+            },
+            getStudents(val) {
                 console.log(val)
                 this
                     .$http
-                    .get('api/works/homeworkLists', val)
+                    .get('api/works/students')
                     .then(res => {
                         res = res.data
                         // console .log(res.data)
@@ -86,11 +86,9 @@
                             //遇到问题
                             this
                                 .$store
-                                .commit('setHomeworkLists', res.data);
-                            // setThisWorks();
+                                .commit('setStudentList', res.data.studentList);
 
-                            console.log(this.$store.state.homeworkLists)
-                            // this.$store.works
+                            console.log(this.$store.state.studentList)
                         } else {
                             // this     .$message     .warning(res.data.message)
                         }
@@ -105,7 +103,7 @@
             }
         },
         created() {
-            this.getHomeworkList();
+            this.getStudents();
         }
     }
 </script>

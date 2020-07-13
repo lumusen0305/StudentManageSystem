@@ -42,8 +42,39 @@
             homework() {
                 return this.data
             },
+            currentStudentWork: {
+                        get() {
+                            return this.$store.state.currentStudentWork;
+
+                        },
+                        set(value) {
+                            this
+                                .$store
+                                .commit('setCurrenStudenttWork', value);
+                        }
+                    },
             ...mapGetters(['newCurrentWork']),
         },
+        methods:{
+            getStudentWorkById(workid,studentid) {
+                        console.log(studentid)
+                        this
+                            .$http
+                            .get('api/works/currentStudentWork', val)
+                            .then(res => {
+                                res = res.data
+                                if (true) {
+                                    this.$store.commit('setStudentId',res.data.currentStudentWork.studentid)
+                                    console.log(res.data.currentStudentWork);
+                                    this
+                                        .$store
+                                        .commit('setCurrentStudentWork', res.data.currentStudentWork);
+                                } else {
+                                    // this     .$message     .warning(res.data.message)
+                                }
+                            })
+                    }
+        }
 
         // rules: {
         // //   name: [

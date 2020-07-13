@@ -114,7 +114,7 @@ export default{
     },
     currentWork:(val) =>{
         return {
-            code:2000,
+            code:20000,
             data:{
                 currentWork:{
                     title:Mock.Random.ctitle(),
@@ -129,6 +129,23 @@ export default{
             }
     }
 
+    },
+
+
+    currentStudentWork:(workid,studentid) => {
+        return{
+            code:20000,
+            data:{
+                currentStudentWork:{
+                    studentid:Mock.Random.integer(1,1000),
+                    workid:Mock.Random.integer(1,1000),
+                    studentWork:{
+                        name:Mock.Random.name(),
+                        url:Mock.Random.image(),
+                    },
+                }
+            }
+        }
     }
 }
 

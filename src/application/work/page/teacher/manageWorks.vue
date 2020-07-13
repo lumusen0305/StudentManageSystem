@@ -13,10 +13,10 @@
             <el-col :span="18" :offset="3">
                 <el-card shadow="hover" class="mgb10" style="margin-bottom:10px">
                     <div>
-                                                                    <a class="class-info-name"  @click="reloadWorkId" href="/work#/issueWorks" >
+                        <a class="class-info-name" @click="reloadWorkId" href="/work#/issueWorks">
 
                             <el-button>新增作业</el-button>
-                                                                    </a>
+                        </a>
                         <!-- <el-button @click="getWorks">获得mock</el-button> -->
                     </div>
                 </el-card>
@@ -76,9 +76,9 @@
                                         <span>截至:{{i.closetime}}</span>
                                     </el-col>
                                     <el-col :span="5" style="display:inline">
-                                                 <a class="class-info-name" href="/work#/issueWorks" >
-                                        <el-button type="primary" icon="el-icon-edit" @click="changeWorkId(3)">修改</el-button>
-                                                 </a>
+                                        <a class="class-info-name" href="/work#/issueWorks">
+                                            <el-button type="primary" icon="el-icon-edit" @click="changeWorkId(i.workid)">修改</el-button>
+                                        </a>
                                         <el-button type="danger" icon="el-icon-delete">删除</el-button>
                                     </el-col>
 
@@ -104,14 +104,20 @@
             }
         },
         methods: {
-            reloadWorkId(){
+            reloadWorkId() {
                 console.log("我在这")
-                this.$store.commit('setWorkId',-1);
-                this.$store.commit('clearCurrentWork');
+                this
+                    .$store
+                    .commit('setWorkId', -1);
+                this
+                    .$store
+                    .commit('clearCurrentWork');
             },
-            changeWorkId(val){
+            changeWorkId(val) {
                 console.log(val);
-                this.$store.commit('setWorkId',val);
+                this
+                    .$store
+                    .commit('setWorkId', val);
             },
             getWorks() {
                 this

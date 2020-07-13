@@ -5,35 +5,30 @@ import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 import App from './work.vue'
 import ElementUI from 'element-ui';
-
-
 import router from './router';
-import store from './store'
-
 import './assets/css/icon.css';
 import './common/directives';
 import 'babel-polyfill';
 import 'element-ui/lib/theme-chalk/index.css';
-<<<<<<< HEAD
-import http from './api/config';
-import './mock/index';
-
-
-
-import mavonEditor from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
-Vue.use(mavonEditor)
-
-=======
 import VueCookie from 'vue-cookie'
->>>>>>> d4ab6aa1b7f1cc3aef33bb9eb6a5e9738fcd5202
 Vue.config.productionTip = false
 Vue.use(VueQuillEditor)
 Vue.use(VueCookie)   // 掛在在全域性了
 
 
+//hgl的配置
+import store from './store'
+import http from './api/config';
+import './mock/index';
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+Vue.use(mavonEditor)
 //使得我们可以使用axiod
 Vue.prototype.$http = http
+
+
+Vue.config.productionTip = false
+
 
 Vue.use(ElementUI, {
     size: 'small'
