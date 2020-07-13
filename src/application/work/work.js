@@ -11,6 +11,10 @@ import './common/directives';
 import 'babel-polyfill';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueCookie from 'vue-cookie'
+import global_ from './Base.vue'
+import axios from 'axios'
+Vue.prototype.$ajax = axios
+
 Vue.config.productionTip = false
 Vue.use(VueQuillEditor)
 Vue.use(VueCookie)   // 掛在在全域性了
@@ -18,6 +22,8 @@ Vue.use(VueCookie)   // 掛在在全域性了
 Vue.use(ElementUI, {
     size: 'small'
 });
+Vue.prototype.GLOBAL = global_;
+axios.defaults.baseURL=global_.BASE_URL;
 router.beforeEach((to, from, next) => {
     document.title = `${to.meta.title} | vue-manage-system`;
     const role = localStorage.getItem('ms_username');

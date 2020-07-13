@@ -85,7 +85,7 @@
                         localStorage.setItem('ms_username', this.param.username);
                         axios({
                             method: 'get',
-                            url: 'http://api.tianapi.com/txapi/dujitang/index',
+                            url: this.GLOBAL.BASE_URL+'',
                             data:{},
                             headers: {
                                 'Content-Type': 'application/json',
