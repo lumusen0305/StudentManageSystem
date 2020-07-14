@@ -50,23 +50,17 @@ export default new Vuex.Store({
         studentList:[],
         currentStudent:{},
         studentid:-1,
-<<<<<<< HEAD
 
         //帖子
         postId:'',
         discussTitle:'',
-=======
->>>>>>> origin/master
     },
     getters:{
         newCurrentWork(state){
             return state.currentWork;
-<<<<<<< HEAD
         },
         getpostId(state){
             return state.postId;
-=======
->>>>>>> origin/master
         }
     },
     mutations: {
@@ -140,7 +134,6 @@ export default new Vuex.Store({
         },
         clearStudentInfo(state){
             state.currentStudent="";
-<<<<<<< HEAD
         },
         //帖子
         setDiscuss(state,val){
@@ -149,9 +142,6 @@ export default new Vuex.Store({
         setdiscussTitle(state,val){
             state.discussTitle=val;
         },
-=======
-        }
->>>>>>> origin/master
     },
    
 });
