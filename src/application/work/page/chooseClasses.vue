@@ -148,7 +148,7 @@
                                 <el-col :span="18">
                                     <el-row class="class-info-cont">
                                         <div>
-                                            <a class="class-info-name" href="/work#/classDetail" >
+                                            <a class="class-info-name"  @click="jumptoClass(i)" >
                                                 {{i.courseName}}
                                             </a>
                                         </div>
@@ -264,12 +264,12 @@
                 myClass:[
                     {
                         courseId : "课程id",
-                        courseName : "课程名",
+                        courseName : "课程名1",
                         credit : "课程学分"
                     },
                     {
                         courseId : "课程id",
-                        courseName : "课程名",
+                        courseName : "课程名2",
                         credit : "课程学分"
                     },
                 ],
@@ -309,6 +309,11 @@
                     message: '图片上传接口上传失败，可更改为自己的服务器接口'
                 });
             },
+            jumptoClass(item){
+                this.$store.state.studentHomeWorks=item
+                console.log(this.$store.state.studentHomeWorks.courseName)
+                document.location.href = "/work#/classDetail";
+            },
             getClasses(){
                 let jwt_tocken = localStorage.getItem('token')
                 axios({
@@ -324,12 +329,11 @@
                 }).then((response) => {
                     let item;
                     for (item in response.data){
-                        this.responsesDiscuss.push(
+                        this.myClass.push(
                             {
-                                account : JSON.parse(JSON.stringify(item.data))['account'],
-                                floorId : JSON.parse(JSON.stringify(item.data))['floorId'],
-                                floorText:JSON.parse(JSON.stringify(item.data))['floorText'],
-                                postId : JSON.parse(JSON.stringify(item.data))['postId']
+                                courseId : JSON.parse(JSON.stringify(item.data))['courseId'],
+                                courseName : JSON.parse(JSON.stringify(item.data))['courseName'],
+                                credit : JSON.parse(JSON.stringify(item.data))['credit']
                             })
                     }
                 })
@@ -340,6 +344,7 @@
         },
         created() {
             this.cropImg = this.defaultSrc;
+            this.getClasses();
         }
     }
 </script>

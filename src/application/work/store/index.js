@@ -37,7 +37,7 @@ export default new Vuex.Store({
         checkWorkId:-1,
         //学生的提交的具体的作业
         currentStudentWork:{
-            studentid:"",
+                    studentid:"",
                     studentname:"",
                     workid:"",
                     courseid:"",
@@ -54,6 +54,17 @@ export default new Vuex.Store({
         //帖子
         postId:'',
         discussTitle:'',
+
+        //學生提交作業
+        studentHomeWorks:{
+
+        },
+        classHomeWorkId:{
+
+        },
+        classHomeWork:{
+
+        }
     },
     getters:{
         newCurrentWork(state){

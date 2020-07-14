@@ -7,7 +7,7 @@
                         <el-row class="class-info-cont">
                             <div>
                                 <div class="class-info-name" >
-                                    SSD7
+                                    {{this.$store.state.studentHomeWorks.courseName}}
                                 </div>
                             </div>
                             <div class="classIntroduce">2019-2020 2019-2020第二学期 建筑与艺术学院(教学)
@@ -26,18 +26,18 @@
                         <a class="el-icon-caret-left"  href="javascript:history.go(-1)">返回</a>
 
                         <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
-                        <li v-for="i in classCount" class="infinite-list-item">
-                            <el-row class="class_box" justify="around" style=" font-size:20px; padding-left: 15px">
-                                <el-col :span="5">
-                                    <div  class="el-icon-edit">
-                                        <a class="homework_title" href="work#/homeWorkDetail">第一次作業</a>
-                                    </div>
-                                </el-col>
-                                <el-col :span="5" :offset="19" class="el-icon-check
+                            <li v-for="i in classHomeWork" class="infinite-list-item">
+                                <el-row class="class_box" justify="around" style=" font-size:20px; padding-left: 15px">
+                                    <el-col :span="5">
+                                        <div  class="el-icon-edit">
+                                            <a class="homework_title" @click="jumpToHomeWorkDetail(i)" >{{i.workRequire}}</a>
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="5" :offset="19" class="el-icon-check
 ">
-                                </el-col>
-                            </el-row>
-                        </li>
+                                    </el-col>
+                                </el-row>
+                            </li>
                         </ul>
                     </el-card>
             </el-col>
@@ -46,14 +46,94 @@
 </template>
 
 <script>
+    import axios from "axios";
+
     export default {
         name: "classDetail",
         data: function () {
             return {
-                defaultSrc: require('../../../assets/img/img.jpg'),
                 classCount:10,
+                classHomeWork:[
+                    {
+                        closeTime : "关闭时间",
+                        url : "附带文件下载",
+                        workId : "教师设置的作业id",
+                        workRequire : "要求",
+                        workText : "作业大致内容",
+                        workTime : "开放时间"
+                    },
+                    {
+                        closeTime : "关闭时间",
+                        url : "附带文件下载",
+                        workId : "教师设置的作业id",
+                        workRequire : "要求",
+                        workText : "作业大致内容",
+                        workTime : "开放时间"
+                    },
+                ]
             }
         },
+        computed: {
+            newWorks() {
+                return this.$store.state.studentHomeWorks
+            }
+        },
+        methods:{
+
+            jumpToHomeWorkDetail(item){
+                this.$store.state.classHomeWorkId=item
+                document.location.href = "/work#/homeWorkDetail";
+
+                // axios({
+                //     method: 'get',
+                //     url: this.GLOBAL.BASE_URL+'/getSingleWork',
+                //     data: {
+                //         'workId': item.workId,
+                //     },
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //         'Authorization': 'Bearer '+jwt_tocken
+                //     },
+                // }).then((response) => {
+                //
+                // })
+                //     .catch((err) => {
+                //         console.log(err)
+                //     })
+            },
+            getAllHomeWork(){
+                axios({
+                    method: 'get',
+                    url: this.GLOBAL.BASE_URL+'/getAllWorkByCourseId',
+                    data: {
+                        'courseId': this.$store.studentHomeWorks.courseId,
+                    },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer '+jwt_tocken
+                    },
+                }).then((response) => {
+                    let item;
+                    for (item in response.data){
+                        this.myClass.push(
+                            {
+                                courseId : JSON.parse(JSON.stringify(item.data))['courseId'],
+                                courseName : JSON.parse(JSON.stringify(item.data))['courseName'],
+                                credit : JSON.parse(JSON.stringify(item.data))['credit']
+                            })
+                    }
+                })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            }
+        },
+        created() {
+            this.getAllHomeWork();
+            console.log(this.$store.studentHomeWorks.courseName)
+
+        }
+
     }
 </script>
 

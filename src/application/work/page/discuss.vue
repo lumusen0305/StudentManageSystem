@@ -138,7 +138,7 @@
                         'floorText':this.content
                     }
                 }).then((response) => {
-                    console.log('success    ')
+                    console.log('success')
                 })
                     .catch((err) => {
                         console.log(err)
