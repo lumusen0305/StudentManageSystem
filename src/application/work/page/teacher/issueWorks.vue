@@ -4,18 +4,15 @@
             <el-col :span="18" :offset="3">
                 <el-card shadow="hover" class="mgb20">
                     <a class="el-icon-caret-left" href="javascript:history.go(-1)">返回</a>
-
                     <el-form v-if="this.$store.state.workid === -1">
                         <el-form-item label="标题">
                             <el-input v-model="currentWork.title"></el-input>
                         </el-form-item>
-
                         <el-form-item >
                             <span>作业说明</span>
                             <div >
                                 <mavon-editor v-model="currentWork.description"/>
                             </div>
-
                         </el-form-item>
                         <el-form-item>
                             <div class="block">
@@ -39,41 +36,23 @@
                         </el-form-item>
                         <el-form-item label="作业附件">
                             <el-upload
-                                action="#"
-                                list-type="picture-card"
-                                :auto-upload="false"
-                                :limit="1"
-                                :on-remove="handleRemove"
-                                :file-list="currentWork.fileList">
-                                <i slot="default" class="el-icon-plus"></i>
-                                <div slot="file" slot-scope="{file}">
-                                    <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
-                                        <span class="el-upload-list__item-actions">
-                                            <span
-                                                class="el-upload-list__item-preview"
-                                                @click="handlePictureCardPreview(file)">
-                                                <i class="el-icon-zoom-in"></i>
-                                            </span>
-                                            <span
-                                                v-if="!disabled"
-                                                class="el-upload-list__item-delete"
-                                                @click="handleDownload(file)">
-                                                <i class="el-icon-download"></i>
-                                            </span>
-                                            <span
-                                                v-if="!disabled"
-                                                class="el-upload-list__item-delete"
-                                                @click="handleRemove(file)">
-                                                <i class="el-icon-delete"></i>
-                                            </span>
-                                        </span>
-                                    </div>
-                                </el-upload>
+  class="upload-demo"
+  action="https://jsonplaceholder.typicode.com/posts/"
+  :on-change="handleChange"
+  :file-list="currentWork.fileList"
+  :on-success="appendFile"
+  :on-preview="handleDownload"
+  :limit="1"
+    :multiple="false">
+
+  <el-button size="small" type="primary">点击上传</el-button>
+  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+</el-upload>
 
                             </el-form-item>
 
                             <el-form-item >
-                                <el-button type="primary" @click="onSubmit">保存</el-button>
+                                <el-button type="primary" @click="onPostSubmit">保存</el-button>
                                 <el-button>取消</el-button>
                             </el-form-item>
                         </el-form>
@@ -112,41 +91,24 @@
                             </el-form-item>
                             <el-form-item label="作业附件">
                                 <el-upload
-                                    action="#"
-                                    list-type="picture-card"
-                                    :auto-upload="false"
-                                    :limit="1"
-                                    :on-remove="handleRemove"
-                                    :file-list="currentWork.fileList">
-                                    <i slot="default" class="el-icon-plus"></i>
-                                    <div slot="file" slot-scope="{file}">
-                                        <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
-                                            <span class="el-upload-list__item-actions">
-                                                <span
-                                                    class="el-upload-list__item-preview"
-                                                    @click="handlePictureCardPreview(file)">
-                                                    <i class="el-icon-zoom-in"></i>
-                                                </span>
-                                                <span
-                                                    v-if="!disabled"
-                                                    class="el-upload-list__item-delete"
-                                                    @click="handleDownload(file)">
-                                                    <i class="el-icon-download"></i>
-                                                </span>
-                                                <span
-                                                    v-if="!disabled"
-                                                    class="el-upload-list__item-delete"
-                                                    @click="handleRemove(file)">
-                                                    <i class="el-icon-delete"></i>
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </el-upload>
+  class="upload-demo"
+  action="https://jsonplaceholder.typicode.com/posts/"
+  :on-change="handleChange"
+  :file-list="currentWork.fileList"
+    :on-preview="handleDownload"
+
+    :on-success="appendFile"
+
+  :limit="1"
+  :multiple="false">
+  <el-button size="small" type="primary">点击上传</el-button>
+  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+</el-upload>
 
                                 </el-form-item>
 
                                 <el-form-item >
-                                    <el-button type="primary" @click="onSubmit">保存</el-button>
+                                    <el-button type="primary" @click="onPutSubmit">保存</el-button>
                                     <el-button>取消</el-button>
                                 </el-form-item>
                             </el-form>
@@ -166,15 +128,15 @@
                         //教师对于
                         currentWork: {
                             title: "",
-                            studentid: "",
                             workid: -1,
                             description: "",
                             opentime: "",
                             closetime: "",
-                            filelist: [
+                            fileList: [
                                 {
-                                    name: "-1",
-                                    url: "-1"
+                                    name: "",
+                                url: ""
+                                   
                                 }
                             ]
                         },
@@ -184,13 +146,8 @@
                         disabled: false,
                         fileList: [
                             {
-                                name: 'food.jpeg',
-                                url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageM' +
-                                        'ogr2/thumbnail/360x360/format/webp/quality/100'
-                            }, {
-                                name: 'food2.jpeg',
-                                url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageM' +
-                                        'ogr2/thumbnail/360x360/format/webp/quality/100'
+                                name: "-1",
+                                    url: "-1"
                             }
                         ]
                     };
@@ -211,6 +168,48 @@
                 },
 
                 methods: {
+
+                    //Post进行作业的添加
+                    onPostSubmit(){
+                        var formdata=new FormData();
+                        formdata.append("courseId",this.$store.state.currentClass),
+                        formdata.append("work",this.currentWork.description);
+                        formdata.append("url",this.currentWork.fileUrl);
+                        formdata.append("worktime",this.currentWork.opentime);
+                        formdata.append("closetime",this.currentWork.closetime);
+                        formdata.append("title",this.currentWork.title);
+
+                        this.$http.post("api/works/work",formdata).then(
+                            res => {
+                                res = res.data;
+                                if(res.code ===200)
+                                {
+                                    alert("成功");
+                                }
+                                else{
+                                    alert(res.code);
+                                }
+                            }
+                        )
+                    },
+                    onPutSubmit(){
+
+                    },
+
+
+                    //文件进行下载
+                    handleDownload(file){
+                        console.log(file);
+                    },
+                    onPutSubmit(){
+                        this.$http.put('api/');
+                    },
+                    //教师的作业要求文件上传后得到response回应,获得url
+                    appendFile(response,file,fileList){
+                        console.log("laila")
+                        this.currentWork.fileList[0].name=response.data.fileName;
+                        this.currentWork.fileList[0].url=response.data.fileUrl;
+                    },
 
                     //教师进行作业的设置
                     setTitle(e) {
@@ -259,6 +258,10 @@
                                     this.currentWork.description = this.$store.state.currentWork.description;
                                     this.currentWork.opentime = this.$store.state.currentWork.opentime;
                                     this.currentWork.closetime = this.$store.state.currentWork.closetime;
+                                    this.currentWork.fileList[0].name=this.$store.state.currentWork.filename;
+                                    this.currentWork.fileList[0].url=this.$store.state.currentWork.fileurl;
+                                    console.log("我来了");
+                                    console.log(this.currentWork.fileList[0].name)
                                 } else {
                                     // this     .$message     .warning(res.data.message)
                                 }

@@ -53,7 +53,12 @@
                                             <!-- <a class="class-info-name" href="/work#/classHome" >
                                                 SSD7
                                             </a> -->
-                                            <router-link to="/classHome">SSD7</router-link>
+                                            <!-- <router-link to="/classHome" >SSD7</router-link> -->
+                                            <div >
+                                            <a class="class-info-name" href="/work#/classHome" @click="setCurrentClass(1)" >
+                                               <a> SSD7</a>
+                                            </a>
+                                            </div>
                                         </div>
                                         <div class="classIntroduce">软件工程系 开课: 2019.11.13  － 课程结束日期: 2020.01.01</div>
                                         <div>授课班级: 软件工程1801-06 必选修别: 必修 学分数: 2.0 授课教师:    <el-tooltip class="item" effect="dark" content="隔壁老王" placement="top">
@@ -170,6 +175,11 @@
             VueCropper
         },
         methods: {
+            setCurrentClass(val){
+                console.log("我到setclass了")
+                val=1;
+                this.$store.commit("setCurrentClass",val);
+            },
             setImage(e) {
                 const file = e.target.files[0];
                 if (!file.type.includes('image/')) {

@@ -5,6 +5,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state:{
+        //教师当前管理的课程,-1代表当前没有管理的class
+        currentClass:-1,
+
         //关于作业
         works:{
             
@@ -26,6 +29,8 @@ export default new Vuex.Store({
             description:"",
             opentime:"",
             closetime:"",
+            filename:"",
+            fileurl:"",
             filelist:[{
                 name:"-1",
                 url:"-1",
@@ -57,6 +62,14 @@ export default new Vuex.Store({
         }
     },
     mutations: {
+        //当前课程管理
+        setCurrentClass(state,val){
+            console.log("什么")
+            console.log(val)
+            state.currentClass=val;
+        },
+
+
         //作业管理
         setWorkId(state,val){
             state.workid = val;  
