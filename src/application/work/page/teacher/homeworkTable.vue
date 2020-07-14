@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-row>
-            <el-button @click="getHomeworkLists(1)">加载数据</el-button>
+            <el-button @click="getHomeworkList(1)">加载数据</el-button>
             <el-col :span="16" :offset="3">
                 <el-card shadow="hover" class="mgb10" style="height:120px;">
                     <el-col :span="18">
@@ -42,8 +42,8 @@
                         <el-table-column prop="date" label="日期" width="150px"></el-table-column>
                         <el-table-column fixed="right" label="操作">
                             <template slot-scope="scope" >
-                                <a class="class-info-name" href="/work#/studentHomework" v-if="homeworkLists[scope.$index].status===true">
-                                    <el-button size="small">批阅</el-button>
+                                <a class="class-info-name" href="/work#/studentHomework" @click="changeStudentWorkId(homeworkLists[scope.$index].homeworkid)" v-if="homeworkLists[scope.$index].status===true">
+                                    <el-button  size="small">批阅</el-button>
                                 </a>
                             </template>
                         </el-table-column>
@@ -74,6 +74,13 @@
             }
         },
         methods: {
+            
+            //更改当前currentStudentWork,让studentHomeWork页面能够请求相应的数据
+            changeStudentWorkId(val){
+                this.$store.commit('setCurrentStudentWorkId',val)
+            },
+
+            //得到某次布置作业中所有学生的作业情况
             getHomeworkList(val) {
                 console.log(val)
                 this
@@ -105,7 +112,9 @@
             }
         },
         created() {
-            this.getHomeworkList();
+            this.getHomeworkList(this.$store.state.checkWorkId);
+            console.log("到了table的created");
+            console.log(this.$store.state.checkWorkId);
         }
     }
 </script>
