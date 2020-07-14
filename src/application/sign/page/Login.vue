@@ -29,7 +29,7 @@
 
 <script>
     export default {
-        data: function() {
+        data() {
             return {
                 param: {
                     username: 'admin',

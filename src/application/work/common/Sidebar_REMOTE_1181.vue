@@ -182,24 +182,7 @@
                         index: 'remindOther',
                         title: '發送提醒',
                     },
-                    //teacher
-                            {
-                        icon: 'el-icon-s-platform',
-                              index: "manageClasses",
-                              title: "课程管理"
-                            },
-                            {
-                        icon: 'el-icon-document',
-                              index: "announcement",
-                              title: "公告"
-                            },
 
-                    //manager
-                    {
-                        icon: 'el-icon-s-custom',
-                              index: "ManagerHome",
-                              title: "学生管理"
-                            },
                 ]
             };
         },
@@ -214,7 +197,6 @@
                 this.collapse = msg;
                 bus.$emit('collapse-content', msg);
             });
-
         }
     };
 </script>

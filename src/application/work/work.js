@@ -19,6 +19,21 @@ Vue.config.productionTip = false
 Vue.use(VueQuillEditor)
 Vue.use(VueCookie)   // 掛在在全域性了
 
+
+//hgl的配置
+import store from './store'
+import http from './api/config';
+import './mock/index';
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+Vue.use(mavonEditor)
+//使得我们可以使用axiod
+Vue.prototype.$http = http
+
+
+Vue.config.productionTip = false
+
+
 Vue.use(ElementUI, {
     size: 'small'
 });
@@ -45,5 +60,6 @@ router.beforeEach((to, from, next) => {
 });
 new Vue({
     router,
+    store,
     render: h => h(App)
 }).$mount('#app')

@@ -34,123 +34,26 @@
                         </el-col>
                     </el-row>
                 </el-card>
+
+                
                 <el-card shadow="hover">
-                    <div slot="header" class="clearfix">
-                        <el-row :gutter="20">
-
-                            <el-col :span="6">
-                                <div class="topBox">
-                                    <span >学年</span>
-                                    <el-select v-model="chooseSchoolYear" collapse-tags multiple placeholder="请选择"  style="width:80% ;display: flex;">
-
-                                        <el-option
-                                                v-for="item in schoolYears"
-                                                :key="item.value"
-                                                :label="item.label"
-                                                :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                            </div>
-                            </el-col>
-                            <el-col :span="6">
-                                <div class="topBox">
-                                    <span>学期</span>
-                                   <el-select v-model="chooseSemester" collapse-tags multiple placeholder="请选择"  style="width:80% ;display: flex;">
-                                        <el-option
-                                                v-for="item in semesters"
-                                                :key="item.value"
-                                                :label="item.label"
-                                                :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                            </div>
-                            </el-col>
-                            <el-col :span="6">
-                                <div class="topBox">
-                                    <span>状态</span>
-                                    <el-select v-model="chooseStatus" collapse-tags multiple placeholder="请选择"  style="width:80% ;display: flex;">
-                                        <el-option
-                                                v-for="item in status"
-                                                :key="item.value"
-                                                :label="item.label"
-                                                :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                            </div>
-                            </el-col>
-                            <el-col :span="6">
-                                <div class="topBox">
-                                    <span>角色</span>
-                                    <el-select v-model="chooseRole" collapse-tags multiple placeholder="请选择"  style="width:80% ;display: flex;">
-                                        <el-option
-                                                v-for="item in roles"
-                                                :key="item.value"
-                                                :label="item.label"
-                                                :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                            </div>
-                            </el-col>
-
-                        </el-row>
-                        <el-row :gutter="20">
-
-                            <el-col :span="6">
-                                <div class="topBox">
-                                    <span>院系</span>
-
-                                   <el-select v-model="chooseSemester" collapse-tags multiple placeholder="请选择"  style="width:80% ;display: flex;">
-                                        <el-option
-                                                v-for="item in options"
-                                                :key="item.value"
-                                                :label="item.label"
-                                                :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                                </div>
-                            </el-col>
-                            <el-col :span="6">
-                                <div class="topBox">
-                                    <span>年级</span>
-                                   <el-select v-model="chooseGrade" collapse-tags multiple placeholder="请选择"  style="width:80% ;display: flex;">
-                                        <el-option
-                                                v-for="item in grades"
-                                                :key="item.value"
-                                                :label="item.label"
-                                                :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                                </div>
-                            </el-col>
-                            <el-col :span="6">
-                                <div class="topBox">
-                                    <span>班级</span>
-                                   <el-select v-model="chooseClass" collapse-tags multiple placeholder="请选择"  style="width:80% ;display: flex;">
-                                        <el-option
-                                                v-for="item in classes"
-                                                :key="item.value"
-                                                :label="item.label"
-                                                :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                                </div>
-                            </el-col>
-                        </el-row>
-                    </div>
                     <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
-                        <li v-for="i in myClass" class="infinite-list-item">
+                        <li v-for="i in classCount" class="infinite-list-item" :key="i">
                             <el-row class="class_box" justify="around">
                                 <el-col :span="5">
                                     <div>
-                                        <img src="../../../assets/img/1049843.png" class="user-avator" alt />
+                                        <img src="../../../../assets/img/1049843.png" class="user-avator" alt />
                                     </div>
                                 </el-col>
                                 <el-col :span="18">
                                     <el-row class="class-info-cont">
                                         <div>
-                                            <a class="class-info-name" href="/work#/classDetail" >
-                                                {{i.courseName}}
-                                            </a>
+                                            <!-- 此处我们希望使用动态路由进行参数的传递，将这个id放入到state的currentClass中，下一步我们跳转，进行渲染
+                                            之前，我们就用该id向后台请求数据 -->
+                                            <!-- <a class="class-info-name" href="/work#/classHome" >
+                                                SSD7
+                                            </a> -->
+                                            <router-link to="/classHome">SSD7</router-link>
                                         </div>
                                         <div class="classIntroduce">软件工程系 开课: 2019.11.13  － 课程结束日期: 2020.01.01</div>
                                         <div>授课班级: 软件工程1801-06 必选修别: 必修 学分数: 2.0 授课教师:    <el-tooltip class="item" effect="dark" content="隔壁老王" placement="top">
@@ -170,14 +73,13 @@
 
 <script>
     import VueCropper from 'vue-cropperjs';
-    import axios from "axios";
 
     export default {
         name: 'commitHomework',
         data: function () {
             return {
                 dialogFormVisible: false,
-                defaultSrc: require('../../../assets/img/img.jpg'),
+                defaultSrc: require('../../../../assets/img/img.jpg'),
                 fileList: [],
                 imgSrc: '',
                 cropImg: '',
@@ -261,18 +163,6 @@
                     },
                 ],
                 chooseClass:[],
-                myClass:[
-                    {
-                        courseId : "课程id",
-                        courseName : "课程名",
-                        credit : "课程学分"
-                    },
-                    {
-                        courseId : "课程id",
-                        courseName : "课程名",
-                        credit : "课程学分"
-                    },
-                ],
                 classCount:10,
             }
         },
@@ -308,35 +198,8 @@
                     title: '上传失败',
                     message: '图片上传接口上传失败，可更改为自己的服务器接口'
                 });
-            },
-            getClasses(){
-                let jwt_tocken = localStorage.getItem('token')
-                axios({
-                    method: 'get',
-                    url: this.GLOBAL.BASE_URL+'/courses/getCourseByStuId',
-                    data: {
-                        'postId': this.$store.postId,
-                    },
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer '+jwt_tocken
-                    },
-                }).then((response) => {
-                    let item;
-                    for (item in response.data){
-                        this.responsesDiscuss.push(
-                            {
-                                account : JSON.parse(JSON.stringify(item.data))['account'],
-                                floorId : JSON.parse(JSON.stringify(item.data))['floorId'],
-                                floorText:JSON.parse(JSON.stringify(item.data))['floorText'],
-                                postId : JSON.parse(JSON.stringify(item.data))['postId']
-                            })
-                    }
-                })
-                    .catch((err) => {
-                        console.log(err)
-                    })
             }
+
         },
         created() {
             this.cropImg = this.defaultSrc;

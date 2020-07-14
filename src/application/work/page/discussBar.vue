@@ -1,5 +1,28 @@
 <template>
     <div>
+        <div>
+            <el-button type="primary" icon="el-icon-edit" class="select_top_button" circle  @click="discussDialog = true"></el-button>
+            <el-dialog title="新增帖子" :visible.sync="discussDialog"   width="30%"  center>
+                <el-form :model="form">
+                    <el-form-item label="輸入主題">
+                        <el-input v-model="title" autocomplete="off" class="classInput"></el-input>
+                    </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="dialogFormVisible = false">取 消</el-button>
+                    <el-button class="editor-btn" type="primary" @click="submit">發布主題</el-button>
+                </div>
+            </el-dialog>
+<!--            </el-dialog>-->
+<!--            <el-dialog title="填寫內文" :visible.sync="dialogFormVisible"   width="80%" center>-->
+<!--                <quill-editor ref="myTextEditor" v-model="content" :options="editorOption"></quill-editor>-->
+<!--                <div slot="footer" class="dialog-footer">-->
+<!--                    <el-button @click="dialogFormVisible = false">取 消</el-button>-->
+<!--                    <el-button class="editor-btn" type="primary" @click="submit">提交</el-button>-->
+<!--                    &lt;!&ndash;                    <el-button type="primary" @click="dialogFormVisible = false">確定添加</el-button>&ndash;&gt;-->
+<!--                </div>-->
+<!--            </el-dialog>-->
+        </div>
         <el-row style="padding-top: 30px">
                 <el-col :span="3" :offset="17">
                     <div>
@@ -19,25 +42,27 @@
                         Tag
                     </div>
                     <div style="padding-top: 15px">
-                        <el-button round>標籤</el-button>
-                        <el-button round>標籤</el-button>
-                        <el-button round>標籤</el-button>
+                        <el-button round v-for="item in tag" ref="tagBtn"  v-on:click="serchTag($event)">{{item.id}}</el-button>
+
+<!--                        <el-button round>標籤</el-button>-->
+<!--                        <el-button round>標籤</el-button>-->
+<!--                        <el-button round>標籤</el-button>-->
                     </div>
                 </el-card>
             </el-col>
             <el-col :span="12" :offset="1" style="padding-top: 20px" >
                 <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
-                    <li v-for="i in classCount"  class="mgb20"  >
+                    <li v-for="i in theme"  class="mgb20"  >
                 <div class="theme_title">
-                HelloWorld
+                {{i.subject}}
                 </div>
                 <el-card>
                     <div class="theme_post_date">
-                        Post on 2020年3月5號 20：20
+                        {{i.postDate}}
                     </div>
                     <div style="padding-top: 15px">
                         <el-tag style="margin-right: 10px"
-                                v-for="item in items"
+                                v-for="item in i.moduleId"
                                 :key="item.label"
                                 effect="dark">
                             {{ item.label }}
@@ -47,7 +72,7 @@
                         Some thing about des...
                     </div>
                     <div style="padding-top: 20px">
-                        <el-button  class="el-icon-search" style="width: 200px; height: 40px;font-size: 17px;padding-bottom: 10px" @click="jumpToDiscuss">
+                        <el-button  class="el-icon-search" style="width: 200px; height: 40px;font-size: 17px;padding-bottom: 10px" v-on:click="jumpToDiscuss(i)">
                             READ ME
                         </el-button>
                     </div>
@@ -61,10 +86,17 @@
 </template>
 
 <script>
+    import $ from 'jquery'
+    import axios from "axios";
+
     export default {
         name: "competition",
+
         data() {
             return {
+                title:'',
+                discussDialog:false,
+                dialogFormVisible:false,
                 classCount:5,
                 items: [
                     { label: '标签一' },
@@ -72,18 +104,120 @@
                     { label: '标签三' },
                     { label: '标签四' },
                     { label: '标签五' }
-                ]
+                ],
+                tag:[
+                    {
+                        "id" : "模块",
+                        "postSum" : 0,
+                        "setDate" : "string"
+                    }
+                ],
+
+                theme:[
+                    {
+                        account : "string",
+                        subject : "HelloWorld",
+                        postDate : '2020/1/1',
+                        postId : "HelloWorld",
+                        postStatus : "string",
+                        moduleId: [
+                            { label: '語文' },
+                            { label: '數學' },
+                        ],
+                        postTime:'2020/1/1',
+                    },
+                    {
+                        account : "string",
+                        subject : "HelloWorld1",
+                        postDate : '2020/1/1',
+                        postId : "HelloWorld1",
+                        postStatus : "string",
+                        moduleId: [
+                            { label: '語文' },
+                            { label: '數學' },
+                        ],
+                        postTime:'2020/1/1',
+                    },
+
+                ],
+            }
+        },
+        computed: {
+            getDiscuss() {
+                return this.$store.state.postId
             }
         },
         methods:{
-            jumpToDiscuss(){
+            serchTag :function(event){
+              console.log(event.target.innerText)
+                axios({
+                    method: 'get',
+                    url: this.GLOBAL.BASE_URL+'//getAllPostOfSingleModule',
+                    data: {
+                        'moduleId':event.target.innerText,
+                    }
+                }).then((response) => {
+                    let item;
+                    for (item in response.data){
+                        this.tag.push({
+                            moduleId: JSON.parse(JSON.stringify(item.data))['id'],
+                            postSum: JSON.parse(JSON.stringify(item.data))['postSum'],
+                            setDate: JSON.parse(JSON.stringify(item.data))['setDate']
+                        })
+                    }
+                })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            },
+            jumpToDiscuss(event){
+                this.$store.commit('setDiscuss', event.postId)
+                this.$store.commit('setdiscussTitle', event.subject)
+                console.log(this.$store.state.discussTitle)
                 document.location.href = "/work#/discuss";
+            },
+            submit(){
+                console.log(this.title);
+                this.$message.success('提交成功！');
+            },
+            getAlltag(){
+                axios({
+                    method: 'get',
+                    url: this.GLOBAL.BASE_URL+'/getPostModuleList',
+                        data: {
+                            'name': this.param.username,
+                        }
+                      }).then((response) => {
+                    let item;
+                    for (item in response.data){
+                        this.tag.push(
+                            {id: JSON.parse(JSON.stringify(item.data))['id'],
+                            postSum: JSON.parse(JSON.stringify(item.data))['postSum'],
+                            setDate: JSON.parse(JSON.stringify(item.data))['setDate']
+                        })
+                        }
+                })
+                    .catch((err) => {
+                        console.log(err)
+                    })
             }
+        },
+        created() {
+
         }
     }
 </script>
 
 <style scoped>
+    .select_top_button {
+        position: fixed; /*固定位置*/
+        z-index: 99; /*设置优先级显示，保证不会被覆盖*/
+        right: 5%;
+        top: 20%;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
     .theme_post_date{
         color: #ccc;
         font-size: 20px;
