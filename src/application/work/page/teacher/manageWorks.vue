@@ -1,14 +1,5 @@
 <template>
     <div>
-
-        <!-- <el-card v-for="work in newWorks.homework" :key="work.workid"> <el-row
-        :gutter="1" > <el-col :span="18"> <div > <h4>{{work.workid}}</h4> </div> <div>
-        </div> </el-col> </el-row> <el-row> <el-col :span="18"> <div :display="inline" >
-        <span :border="5">开放:{{work.opentime}}</span> <span>截至:{{work.closetime}}</span>
-        </div> </el-col> <el-col :span="6"> <el-button>修改</el-button>
-        <el-button>批阅</el-button> <el-button>删除</el-button> </el-col> </el-row>
-        </el-card> -->
-
         <el-row :gutter="20">
             <el-col :span="18" :offset="3">
                 <el-card shadow="hover" class="mgb10" style="margin-bottom:10px">
@@ -62,7 +53,7 @@
                                     style=" font-size:20px; padding-left: 15px">
                                     <el-col :span="5">
                                         <div class="el-icon-edit">
-                                            <a class="homework_title" href="work#/workHome">{{i.workid}}</a>
+                                            <a class="homework_title" @click="changeCheckWorkId(i.workid)" href="work#/workHome">{{i.worktitle}}</a>
                                         </div>
                                     </el-col>
 
@@ -72,14 +63,14 @@
                                     <el-col :span="19" style="display:inline">
 
                                         <span :border="5">开放:{{i.opentime}}</span>
-
+                                        
                                         <span>截至:{{i.closetime}}</span>
                                     </el-col>
                                     <el-col :span="5" style="display:inline">
-                                        <a class="class-info-name" href="/work#/issueWorks">
-                                            <el-button type="primary" icon="el-icon-edit" @click="changeWorkId(i.workid)">修改</el-button>
+                                        <a class="class-info-name" href="/work#/issueWorks" @click="changeWorkId(i.workid)">
+                                            <el-button type="primary" icon="el-icon-edit" >修改</el-button>
                                         </a>
-                                        <el-button type="danger" icon="el-icon-delete">删除</el-button>
+                                        <el-button type="danger" @click="deleteWork(i.workid)" icon="el-icon-delete">删除</el-button>
                                     </el-col>
 
                                 </el-row>
@@ -104,8 +95,13 @@
             }
         },
         methods: {
+
+            changeCheckWorkId(val){
+                this.$store.commit("setCheckWorkId",val);
+            },
+
+            //重设work,将vuex状态清空,用在新增作业上,防止修改作业的数据影响到新增
             reloadWorkId() {
-                console.log("我在这")
                 this
                     .$store
                     .commit('setWorkId', -1);
@@ -113,12 +109,14 @@
                     .$store
                     .commit('clearCurrentWork');
             },
+            //传递当前选中的要修改的workid给issueWork,让issueWork可以请求数据
             changeWorkId(val) {
                 console.log(val);
                 this
                     .$store
                     .commit('setWorkId', val);
             },
+            //得到所有的作业列表
             getWorks() {
                 this
                     .$http
@@ -133,18 +131,26 @@
                             this
                                 .$store
                                 .commit('setWorks', res.data);
-
-                            // setThisWorks();
-
-                            console.log(this.$store.state.works)
-                            // this.$store.works
                         } else {
                             this
                                 .$message
                                 .warning(res.data.message)
                         }
                     })
+            },
+            deleteWork(val){
+                this.$http.delete('api/works/work').then(res => {
+                    //这里为什么要res=res.data,这里发生了什么?
+                    res = res.data;
+                    if(res.code===20000){
+                        alert('删除成功');
+                    }
+                    else{
+                        alert(res.code);
+                    }
+                })
             }
+
         },
         created() {
             this.getWorks();

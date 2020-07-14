@@ -7,69 +7,79 @@
 
                     <el-form v-if="this.$store.state.workid === -1">
                         <el-form-item label="标题">
-                                <el-input v-model="currentWork.title"></el-input>
-                            </el-form-item>
-                            <el-form-item >
-                                <span>作业说明</span>
-                                <div >
-                                    <mavon-editor v-model="currentWork.description"/>
+                            <el-input v-model="currentWork.title"></el-input>
+                        </el-form-item>
 
-                                </div>
+                        <el-form-item >
+                            <span>作业说明</span>
+                            <div >
+                                <mavon-editor v-model="currentWork.description"/>
+                            </div>
 
-                            </el-form-item>
-                            <el-form-item label="作业附件">
-                                <el-upload
-                                    action="#"
-                                    list-type="picture-card"
-                                    :auto-upload="false"
-                                    :on-remove="handleRemove"
-                                    :file-list="newCurrentWork.fileList">
-                                    <i slot="default" class="el-icon-plus"></i>
-                                    <div slot="file" slot-scope="{file}">
-                                        <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
-                                            <span class="el-upload-list__item-actions">
-                                                <span
-                                                    class="el-upload-list__item-preview"
-                                                    @click="handlePictureCardPreview(file)">
-                                                    <i class="el-icon-zoom-in"></i>
-                                                </span>
-                                                <span
-                                                    v-if="!disabled"
-                                                    class="el-upload-list__item-delete"
-                                                    @click="handleDownload(file)">
-                                                    <i class="el-icon-download"></i>
-                                                </span>
-                                                <span
-                                                    v-if="!disabled"
-                                                    class="el-upload-list__item-delete"
-                                                    @click="handleRemove(file)">
-                                                    <i class="el-icon-delete"></i>
-                                                </span>
+                        </el-form-item>
+                        <el-form-item>
+                            <div class="block">
+                                <span class="demonstration">开始时间</span>
+                                <el-date-picker
+                                    v-model="currentWork.opentime"
+                                    type="datetime"
+                                    value-format="timestamp"
+                                    placeholder="选择日期时间"></el-date-picker>
+                            </div>
+                        </el-form-item>
+                        <el-form-item>
+                            <div class="block">
+                                <span class="demonstration">结束时间</span>
+                                <el-date-picker
+                                    v-model="currentWork.closetime"
+                                    type="datetime"
+                                    value-format="timestamp"
+                                    placeholder="选择日期时间"></el-date-picker>
+                            </div>
+                        </el-form-item>
+                        <el-form-item label="作业附件">
+                            <el-upload
+                                action="#"
+                                list-type="picture-card"
+                                :auto-upload="false"
+                                :limit="1"
+                                :on-remove="handleRemove"
+                                :file-list="currentWork.fileList">
+                                <i slot="default" class="el-icon-plus"></i>
+                                <div slot="file" slot-scope="{file}">
+                                    <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
+                                        <span class="el-upload-list__item-actions">
+                                            <span
+                                                class="el-upload-list__item-preview"
+                                                @click="handlePictureCardPreview(file)">
+                                                <i class="el-icon-zoom-in"></i>
                                             </span>
-                                        </div>
-                                    </el-upload>
-
-                                </el-form-item>
-                                <el-form-item label="作业时间">
-                                    <div class="block">
-                                        <el-date-picker
-                                            v-model="value2"
-                                            type="datetimerange"
-                                            :picker-options="pickerOptions"
-                                            range-separator="至"
-                                            start-placeholder="开始日期"
-                                            end-placeholder="结束日期"
-                                            align="right"></el-date-picker>
+                                            <span
+                                                v-if="!disabled"
+                                                class="el-upload-list__item-delete"
+                                                @click="handleDownload(file)">
+                                                <i class="el-icon-download"></i>
+                                            </span>
+                                            <span
+                                                v-if="!disabled"
+                                                class="el-upload-list__item-delete"
+                                                @click="handleRemove(file)">
+                                                <i class="el-icon-delete"></i>
+                                            </span>
+                                        </span>
                                     </div>
-                                </el-form-item>
-                                <el-form-item >
-                                    <el-button type="primary" @click="onSubmit">保存</el-button>
-                                    <el-button>取消</el-button>
-                                </el-form-item>
+                                </el-upload>
+
+                            </el-form-item>
+
+                            <el-form-item >
+                                <el-button type="primary" @click="onSubmit">保存</el-button>
+                                <el-button>取消</el-button>
+                            </el-form-item>
                         </el-form>
 
                         <el-form v-else>
-                            <el-form-item label="标题" >
+                            <el-form-item label="标题">
                                 <el-input v-model="currentWork.title"></el-input>
                             </el-form-item>
                             <el-form-item >
@@ -80,13 +90,34 @@
                                 </div>
 
                             </el-form-item>
+                            <el-form-item>
+                                <div class="block">
+                                    <span class="demonstration">开始时间</span>
+                                    <el-date-picker
+                                        v-model="currentWork.opentime"
+                                        type="datetime"
+                                        value-format="timestamp"
+                                        placeholder="选择日期时间"></el-date-picker>
+                                </div>
+                            </el-form-item>
+                            <el-form-item>
+                                <div class="block">
+                                    <span class="demonstration">结束时间</span>
+                                    <el-date-picker
+                                        v-model="currentWork.closetime"
+                                        type="datetime"
+                                        value-format="timestamp"
+                                        placeholder="选择日期时间"></el-date-picker>
+                                </div>
+                            </el-form-item>
                             <el-form-item label="作业附件">
                                 <el-upload
                                     action="#"
                                     list-type="picture-card"
                                     :auto-upload="false"
+                                    :limit="1"
                                     :on-remove="handleRemove"
-                                    :file-list="newCurrentWork.fileList">
+                                    :file-list="currentWork.fileList">
                                     <i slot="default" class="el-icon-plus"></i>
                                     <div slot="file" slot-scope="{file}">
                                         <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
@@ -113,25 +144,12 @@
                                     </el-upload>
 
                                 </el-form-item>
-                                <el-form-item label="作业时间">
-                                    <div class="block">
-                                        <el-date-picker
-                                            v-model="value2"
-                                            type="datetimerange"
-                                            :picker-options="pickerOptions"
-                                            range-separator="至"
-                                            start-placeholder="开始日期"
-                                            end-placeholder="结束日期"
-                                            align="right"></el-date-picker>
-                                    </div>
-                                </el-form-item>
+
                                 <el-form-item >
                                     <el-button type="primary" @click="onSubmit">保存</el-button>
                                     <el-button>取消</el-button>
                                 </el-form-item>
-
                             </el-form>
-
                         </el-card>
                     </el-col>
                 </el-row>
@@ -140,45 +158,27 @@
 
         <script>
 
-            import {mapGetters} from 'vuex'
+            import {mapGetters, mapState} from 'vuex'
 
             export default {
                 data() {
                     return {
-                        pickerOptions: {
-                            shortcuts: [
+                        //教师对于
+                        currentWork: {
+                            title: "",
+                            studentid: "",
+                            workid: -1,
+                            description: "",
+                            opentime: "",
+                            closetime: "",
+                            filelist: [
                                 {
-                                    text: '最近一周',
-                                    onClick(picker) {
-                                        const end = new Date();
-                                        const start = new Date();
-                                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                                        picker.$emit('pick', [start, end]);
-                                    }
-                                }, {
-                                    text: '最近一个月',
-                                    onClick(picker) {
-                                        const end = new Date();
-                                        const start = new Date();
-                                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                                        picker.$emit('pick', [start, end]);
-                                    }
-                                }, {
-                                    text: '最近三个月',
-                                    onClick(picker) {
-                                        const end = new Date();
-                                        const start = new Date();
-                                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                                        picker.$emit('pick', [start, end]);
-                                    }
+                                    name: "-1",
+                                    url: "-1"
                                 }
                             ]
                         },
-                        value1: [
-                            new Date(2000, 10, 10, 10, 10),
-                            new Date(2000, 10, 11, 10, 10)
-                        ],
-                        value2: '',
+
                         dialogImageUrl: '',
                         dialogVisible: false,
                         disabled: false,
@@ -197,24 +197,28 @@
                 },
 
                 computed: {
-                    currentWork: {
-                        get() {
-                            return this.$store.state.currentWork;
-
-                        },
-                        set(value) {
-                            this
-                                .$store
-                                .commit('setCurrentWork', value);
-                        }
-                    },
+                    // currentWork: {     get() {         return this.$store.state.currentWork; },
+                    // set(value) {         this             .$store .commit('setCurrentWork',
+                    // value);     } },
                     currentWorkId() {
                         return this.$store.state.workid;
                     },
-                    ...mapGetters(['newCurrentWork'])
+
+                    //currentWork的绑定工作
+
+                    ...mapGetters(['newCurrentWork']),
+                    ...mapState({})
                 },
 
                 methods: {
+
+                    //教师进行作业的设置
+                    setTitle(e) {
+                        this
+                            .$store
+                            .commit('updateMessagesetCurrentWorkTitle', e.target.value)
+                    },
+
                     handleRemove(file, fileList) {
                         console.log(file, fileList);
                         for (let i = 0; i < this.fileList.length; i++) {
@@ -233,25 +237,28 @@
                         console.log(file);
                     },
 
-                    onSubmit() {
-
-                    },
+                    onSubmit() {},
                     handleChange(file, fileList) {
                         this.fileList = fileList.slice(-3);
                     },
                     getWorkById(val) {
-                        console.log(val)
                         this
                             .$http
                             .get('api/works/currentWork', val)
                             .then(res => {
                                 res = res.data
                                 if (true) {
-                                    this.$store.commit('setWorkId',res.data.currentWork.workid)
                                     console.log(res.data.currentWork);
+
                                     this
                                         .$store
                                         .commit('setCurrentWork', res.data.currentWork);
+
+                                    this.currentWork.title = this.$store.state.currentWork.title;
+                                    console.log(this.currentWork.title);
+                                    this.currentWork.description = this.$store.state.currentWork.description;
+                                    this.currentWork.opentime = this.$store.state.currentWork.opentime;
+                                    this.currentWork.closetime = this.$store.state.currentWork.closetime;
                                 } else {
                                     // this     .$message     .warning(res.data.message)
                                 }
@@ -260,11 +267,16 @@
                 },
 
                 created() {
-                    if(this.$store.state.workid!==-1){
-                        console.log(this.$store.state.workid);
-                         this.getWorkById(this.$store.state.workid);
+
+                    console.log("zaizhe")
+                    console.log(this.$store.state.workid)
+                    if (this.$store.state.workid !== -1) {
+                        this.getWorkById(this.$store.state.workid);
+
+                        //!!!!!!!!!!!!!!!!!!!!!!又是同步问题,前面的getWorkById是一个异步操作,如果它在赋值后完成就会出问题.
+                        console.log(this.$store.state.currentWork);
+
                     }
-                     console.log(this.$store.state.workid);
 
                     // 我上面的axois是一个异步操作,可能我在执行下面的fileList初始化代码的时候,异步操作还没完成,
                     // 所以只有undefined,等axois完成的时候,这条语句已经跳过了
