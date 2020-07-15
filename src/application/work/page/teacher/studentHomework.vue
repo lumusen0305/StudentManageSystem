@@ -22,7 +22,7 @@
                             <a class='download' title="下载">作业下载</a>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type="primary">保存</el-button>
+                            <el-button type="primary" @click="patchSubmit">保存</el-button>
                             <el-button>重设</el-button>
                         </el-form-item>
                     </el-form>
@@ -67,6 +67,25 @@
             ...mapGetters(['newCurrentWork'])
         },
         methods: {
+            patchSubmit(){
+                var formdata=new FormData();
+                formdata.append("courseId",this.$store.state.currentClass);
+                formdata.append("studentWork",this.checkHomeWork.description);
+                formdata.append("studentId",this,checkHomeWork.studentid);
+                formdata.append("grade",this.checkHomeWork.score);
+                
+                this.$http.patch("/works/work",formdata).then(res=>{
+                    res=res.data;
+                    if(res.code===200){
+                        alert("保存成功")
+                    }
+                    else{
+                        alert(res.code);
+                    }
+                }
+                )
+
+            },
             getStudentWorkById(workid, studentid) {
                 console.log(studentid)
                 this
@@ -87,7 +106,7 @@
                             this.checkHomeWork.studentname = this.$store.state.currentStudentWork.studentname;
                             console.log(this.checkHomeWork.studentname)
                         } else {
-                            this.$message.warning(res.data.message)
+                            // this     .$message     .warning(res.data.message)
                         }
                     })
             }

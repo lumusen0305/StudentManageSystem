@@ -17,8 +17,7 @@ export default{
                     workrequire:Mock.Random.csentence(),
                     opentime:Mock.Random.datetime('yyyy-MM-dd HH:mm:ss'),
                     closetime:Mock.Random.datetime('yyyy-MM-dd HH:mm:ss'),
-                    //作业的文件url
-                    url:Mock.Random.image()
+                    
                 },
                 {
                     //这次作业的ID
@@ -28,18 +27,7 @@ export default{
                     workrequire:Mock.Random.csentence(),
                     opentime:Mock.Random.datetime('yyyy-MM-dd HH:mm:ss'),
                     closetime:Mock.Random.datetime('yyyy-MM-dd HH:mm:ss'),
-                    //作业的文件url
-                    url:Mock.Random.image()
-                },{
-                    //这次作业的ID
-                    workid: Mock.Random.integer(1,1000),
-                   worktitle:Mock.Random.ctitle(),
-                    worktext:Mock.Random.csentence(),
-                    workrequire:Mock.Random.csentence(),
-                    opentime:Mock.Random.datetime('yyyy-MM-dd HH:mm:ss'),
-                    closetime:Mock.Random.datetime('yyyy-MM-dd HH:mm:ss'),
-                    //作业的文件url
-                    url:Mock.Random.image()
+                  
                 },
             ]
             }
@@ -139,6 +127,8 @@ export default{
                     courseid:Mock.Random.integer(),
                     title:Mock.Random.ctitle(),
                     description:Mock.Random.csentence(),
+                    fileurl:Mock.Random.image(),
+                    filename:Mock.Random.cname(),
                     fileList:[{
                         name:Mock.Random.name(),
                         url:Mock.Random.image(),
@@ -164,7 +154,7 @@ export default{
                     workid:Mock.Random.integer(1,1000),
                     courseid:Mock.Random.integer(),
                     //学生提交作业附件的1url
-                    workurl:Mock.Random.image(),
+                    homeworkurl:Mock.Random.image(),
                     //学生提交作业附件的名称
                     homeworkname:Mock.Random.ctitle(),
                     studentWork:{

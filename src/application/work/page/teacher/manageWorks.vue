@@ -117,10 +117,12 @@
                     .commit('setWorkId', val);
             },
             //得到所有的作业列表
-            getWorks() {
+            getWorks(val) {
+                console.log("计算机原理什么作业?");
+                console.log(this.$store.state.currentClass);
                 this
                     .$http
-                    .get('api/works/getClasses')
+                    .get('api/works/getClasses',val)
                     .then(res => {
                         res = res
                             .data
@@ -153,7 +155,7 @@
 
         },
         created() {
-            this.getWorks();
+            this.getWorks(this.$store.state.currentClass);
         }
     }
 </script>
