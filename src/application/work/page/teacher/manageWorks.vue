@@ -85,6 +85,8 @@
     </div>
 </template>
 <script>
+    import axios from "axios";
+
     export default {
         data() {
             return {works: []}
@@ -120,16 +122,36 @@
             getWorks(val) {
                 console.log("计算机原理什么作业?");
                 console.log(this.$store.state.currentClass);
+                var formdata = new FormData();
+                formdata.append("userId","account");
+                formdata.append("courseId","01");
+
+
+                // axios({
+                //             method: 'get',
+                //             baseURL: 'http://35.238.213.70:8080',
+                //             url: '/works/courseworks',
+                //             Headers: [{token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJTZXJ2aWNlIiwiZXhwIjoxNTk0ODUxNDI3LCJ1c2VySWQiOiJhY2NvdW50IiwiaWF0IjoxNTk0ODQ0MjI3fQ.1z8A6ghHO0bVIwe3ql5DcFIhgF75gIWIWIvyY-3mOj4"}],
+                //             data: formdata
+                //         }).then(
+                //             res=>{
+                            
+                //                 console.log(res);
+                //             }
+                //         )
+
                 this
                     .$http
-                    .get('api/works/getClasses',val)
+                    .get('http://35.238.213.70:8080/works/courseworks',formdata)
                     .then(res => {
                         res = res
                             .data
                             console
                             .log(res.data)
-                        if (res.code == 20000) {
+                        if (res.code == 200) {
                             //遇到问题
+                            console.log("有token了");
+                            console.log(res.data);
                             this
                                 .$store
                                 .commit('setWorks', res.data);
