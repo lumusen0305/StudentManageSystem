@@ -26,9 +26,6 @@ import http from './api/config';
 import './mock/index';
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
-import live2d from 'live2d-vue'
-import 'vue-live2d/dist/vue-live2d.css'
-Vue.use(live2d)
 Vue.use(mavonEditor)
 //使得我们可以使用axiod
 Vue.prototype.$http = http

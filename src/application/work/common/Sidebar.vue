@@ -49,6 +49,8 @@
             </template>
 
             <template  v-else-if="this.$cookie.get('menber')=='sutdentLeader'">
+                <template>
+                </template>
                 <template v-for="item in students_leader_bar">
                     <template v-if="item.subs">
                         <el-submenu :index="item.index" :key="item.index">

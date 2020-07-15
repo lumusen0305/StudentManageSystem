@@ -31,7 +31,8 @@
         components: {
             vHead,
             vSidebar,
-            vTags
+            vTags,
+
         },
         created() {
             bus.$on('collapse-content', msg => {

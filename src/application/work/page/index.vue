@@ -1,5 +1,7 @@
 <template>
+
     <div id="Index">
+
         <el-row :gutter="20">
             <el-col :span="8">
                 <el-card shadow="hover" class="mgb20" style="height:252px;">
@@ -84,6 +86,7 @@
         name: 'Index',
         data() {
             return {
+
                 chickenSoup:"宁愿不说话看起来像个傻子，也不要，开口证明自己的确如此。",
                 name:this.$cookie.get('ms_username'),
 

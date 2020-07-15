@@ -115,12 +115,15 @@
                 }).then((response) => {
                     let item;
                     for (item in response.data){
-                        this.myClass.push(
+                        this.classHomeWork.push(
                             {
-                                courseId : JSON.parse(JSON.stringify(item.data))['courseId'],
-                                courseName : JSON.parse(JSON.stringify(item.data))['courseName'],
-                                credit : JSON.parse(JSON.stringify(item.data))['credit']
-                            })
+                                closeTime : JSON.parse(JSON.stringify(item.data))['closeTime'],
+                                workId : JSON.parse(JSON.stringify(item.data))['workId'],
+                                workRequire : JSON.parse(JSON.stringify(item.data))['workRequire'],
+                                workText : JSON.parse(JSON.stringify(item.data))['workText'],
+                                workTime : JSON.parse(JSON.stringify(item.data))['workTime'],
+
+                                })
                     }
                 })
                     .catch((err) => {
