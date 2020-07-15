@@ -46,16 +46,16 @@
         methods: {
             submitForm() {
                 this.$refs.login.validate(valid => {
+                    let formdata = new FormData();
+                    formdata.append("username","account");
+                    formdata.append("password","pass")
                     if (valid) {
                         axios({
                             method: 'post',
-                            baseURL: 'http://localhost:12345',
+                            baseURL: 'http://localhost:8080',
                             url: '/login',
-                            headers: { 'Content-Type': 'application/json'},
-                            data: {
-                                account: this.param.username,
-                                password: this.param.password
-                            }
+                            headers: [],
+                            data: formdata
                         })
                             .then((response) => {
                                 this.$cookie.set('menber', JSON.parse(JSON.stringify(response.data))['identity'], 1);

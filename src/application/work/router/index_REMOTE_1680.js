@@ -15,10 +15,7 @@ Vue.use(VueRouter)
 
 //匯出vue-router 設置
 export default new VueRouter({
-    routes: [{
-        path: '/',
-        redirect: '/Index'
-    },
+    routes: [
         {
             path: '/',
             component: () => import(/* webpackChunkName: "home" */ '../common/Home.vue'),
