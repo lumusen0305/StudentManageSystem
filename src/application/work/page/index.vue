@@ -84,7 +84,7 @@
         data() {
             return {
                 chickenSoup:"宁愿不说话看起来像个傻子，也不要，开口证明自己的确如此。",
-                name:"User",
+                name:this.$cookie.get('ms_username'),
 
                 // name: localStorage.getItem('user-info-name'),
                 options: {

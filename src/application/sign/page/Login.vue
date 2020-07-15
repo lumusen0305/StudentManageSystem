@@ -28,8 +28,10 @@
 </template>
 
 <script>
+    import axios from "axios";
+
     export default {
-        data: function() {
+        data() {
             return {
                 param: {
                     username: 'admin',
@@ -45,9 +47,33 @@
             submitForm() {
                 this.$refs.login.validate(valid => {
                     if (valid) {
-                        this.$message.success('登录成功');
-                        localStorage.setItem('ms_username', this.param.username);
-                        this.$options.methods.login()
+                        axios({
+                            method: 'post',
+                            baseURL: 'http://localhost:12345',
+                            url: '/login',
+                            headers: { 'Content-Type': 'application/json'},
+                            data: {
+                                account: this.param.username,
+                                password: this.param.password
+                            }
+                        })
+                            .then((response) => {
+                                this.$cookie.set('menber', JSON.parse(JSON.stringify(response.data))['identity'], 1);
+                                localStorage.setItem('token',JSON.parse(JSON.stringify(response.data))['token'])
+                                this.$message.success('登录成功');
+                                this.$cookie.set('ms_username',this.param.username, 1);
+                                // localStorage.setItem('ms_username', this.param.username);
+                                document.location.href = "/work";
+
+                            })
+                            .catch((err) => {
+                                // this.$message.error('登录失敗');                             this.$message.error('登录失敗');
+                                this.$cookie.set('menber', 'sutdentLeader', 1);
+                                this.$cookie.set('ms_username',this.param.username, 1);
+                                document.location.href = "/work";
+
+                            })
+
                     } else {
                         this.$message.error('请输入账号和密码');
                         console.log('error submit!!');

@@ -7,7 +7,7 @@
                         <el-row class="class-info-cont">
                             <div>
                                 <div class="class-info-name" >
-                                    SSD7
+                                    {{this.$store.state.studentHomeWorks.courseName}}
                                 </div>
                             </div>
                             <div class="classIntroduce">2019-2020 2019-2020第二学期 建筑与艺术学院(教学)
@@ -68,7 +68,7 @@
                                                 <div style="height: 25px;">作业交付截止</div>
                                             </el-col>
                                             <el-col :span="6" :offset="1">
-                                                <nav style="height: 25px;">2020.04.18 00:27</nav>
+                                                <nav style="height: 25px;">{{this.$store.state.classHomeWorkId.closeTime}}</nav>
                                             </el-col>
                                         </el-row>
 
@@ -121,7 +121,9 @@
                                                     <el-row style="padding-top:12px">
                                                         <el-col :span="18">
                                                             <span class="el-icon-document"></span>
-                                                            <span style="padding-left: 10px">数据库系统练习_1.docx</span>
+                                                            <span style="padding-left: 10px">
+                                                                {{fileName}}
+                                                            </span>
                                                         </el-col>
                                                         <el-col :span="6">
                                                             <span>15 KB</span>
@@ -171,15 +173,18 @@
                                                         class="upload-demo"
                                                         drag
                                                         action="https://jsonplaceholder.typicode.com/posts/"
+                                                        :file-list="modeList"
+                                                        :http-request="modeUpload"
                                                         multiple>
                                                     <i class="el-icon-upload"></i>
                                                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                                                     <div class="el-upload__tip" slot="tip" style="color: #ccc">只能上传jpg/png文件，且不超过500kb</div>
+
                                                 </el-upload>
                                             </div>
                                             <div slot="footer" class="dialog-footer">
                                                 <el-button @click="commitPage = false">取 消</el-button>
-                                                <el-button type="primary" @click="commitPage = false">確定提交</el-button>
+                                                <el-button type="primary" @click="submitBtn">確定提交</el-button>
                                             </div>
                                         </el-dialog>
                                     </el-col>
@@ -198,16 +203,56 @@
         name: "homeWorkDetail",
         data() {
             return {
-                activeName: 'second',
-                classCount:2,
-                homeworkLog: true,
+                fileName:'',
+                activeName: 'first',
+                classCount:1,
+                homeworkLog: false,
                 commitPage:false,
+                mode: {}
             };
             },
         methods :{
-            jump() {
-                alert("123")
+            modeUpload(item){
+                this.mode = item.file
             },
+            jump() {
+            },
+            submitBtn(){
+                this.commitPage=false;
+                let fd = new FormData()
+                fd.append('templateFile', this.mode)
+                axios.post(this.GLOBAL.BASE_URL+'/SubmitHomeWork', fd, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then(response => {
+                    console.log(response.data);
+                })
+            },
+            getDetail(){
+                axios({
+                    method: 'get',
+                    url: this.GLOBAL.BASE_URL+'/getSingleWork',
+                    data: {
+                        'workId': item.workId,
+                    },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer '+jwt_tocken
+                    },
+                }).then((response) => {
+
+                })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            },
+
+        },
+        created() {
+            const vm = this
+            this.fileName=vm.$store.state.classHomeWorkId.workText;
+            // this.getDetail();
         }
     }
 </script>

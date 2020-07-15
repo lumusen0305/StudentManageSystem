@@ -138,7 +138,7 @@
                         </el-row>
                     </div>
                     <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
-                        <li v-for="i in classCount" class="infinite-list-item">
+                        <li v-for="i in myClass" class="infinite-list-item">
                             <el-row class="class_box" justify="around">
                                 <el-col :span="5">
                                     <div>
@@ -148,8 +148,8 @@
                                 <el-col :span="18">
                                     <el-row class="class-info-cont">
                                         <div>
-                                            <a class="class-info-name" href="/work#/classDetail" >
-                                                SSD7
+                                            <a class="class-info-name"  @click="jumptoClass(i)" >
+                                                {{i.courseName}}
                                             </a>
                                         </div>
                                         <div class="classIntroduce">软件工程系 开课: 2019.11.13  － 课程结束日期: 2020.01.01</div>
@@ -170,6 +170,7 @@
 
 <script>
     import VueCropper from 'vue-cropperjs';
+    import axios from "axios";
 
     export default {
         name: 'commitHomework',
@@ -260,6 +261,18 @@
                     },
                 ],
                 chooseClass:[],
+                myClass:[
+                    {
+                        courseId : "课程id",
+                        courseName : "课程名1",
+                        credit : "课程学分"
+                    },
+                    {
+                        courseId : "课程id",
+                        courseName : "课程名2",
+                        credit : "课程学分"
+                    },
+                ],
                 classCount:10,
             }
         },
@@ -295,11 +308,43 @@
                     title: '上传失败',
                     message: '图片上传接口上传失败，可更改为自己的服务器接口'
                 });
+            },
+            jumptoClass(item){
+                this.$store.state.studentHomeWorks=item
+                console.log(this.$store.state.studentHomeWorks.courseName)
+                document.location.href = "/work#/classDetail";
+            },
+            getClasses(){
+                let jwt_tocken = localStorage.getItem('token')
+                axios({
+                    method: 'get',
+                    url: this.GLOBAL.BASE_URL+'/courses/getCourseByStuId',
+                    data: {
+                        'postId': this.$store.postId,
+                    },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer '+jwt_tocken
+                    },
+                }).then((response) => {
+                    let item;
+                    for (item in response.data){
+                        this.myClass.push(
+                            {
+                                courseId : JSON.parse(JSON.stringify(item.data))['courseId'],
+                                courseName : JSON.parse(JSON.stringify(item.data))['courseName'],
+                                credit : JSON.parse(JSON.stringify(item.data))['credit']
+                            })
+                    }
+                })
+                    .catch((err) => {
+                        console.log(err)
+                    })
             }
-
         },
         created() {
             this.cropImg = this.defaultSrc;
+            this.getClasses();
         }
     }
 </script>

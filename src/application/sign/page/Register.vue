@@ -3,12 +3,16 @@
         <div class="ms-login">
             <div class="ms-title">中難大學教務系統</div>
             <el-form :model="param" :rules="rules" ref="register" label-width="0px" class="ms-content">
-                <el-form-item prop="username">
-                    <el-input v-model="param.username" placeholder="username">
+                <el-form-item prop="account">
+                    <el-input v-model="param.username" placeholder="account">
                         <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
                     </el-input>
                 </el-form-item>
-
+                <el-form-item prop="account">
+                    <el-input v-model="param.account" placeholder="account">
+                        <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
+                    </el-input>
+                </el-form-item>
                 <el-form-item prop="password">
                     <el-input
                             type="password"
@@ -42,7 +46,7 @@
                 </el-form-item>
 
                 <div class="login-btn">
-                    <el-button type="primary" @click="submitForm()">註冊</el-button>
+                    <el-button type="primary" @click="submitRegister">註冊</el-button>
                 </div>
                 <a class="login-tips" href="/sign#/Login">登入</a>
             </el-form>
@@ -55,9 +59,10 @@
     import axios from "axios";
 
     export default {
-        data: function() {
+        data() {
             return {
                 param: {
+                    account:'',
                     username: '',
                     password: '',
                     email : '',
@@ -78,21 +83,31 @@
             };
         },
         methods: {
-            submitForm() {
+            submitRegister() {
+
                 this.$refs.register.validate(valid => {
                     if (valid) {
-                        this.$message.success('登入成功');
+                        this.$message.success('成功');
+                        alert(this.param.email)
                         localStorage.setItem('ms_username', this.param.username);
                         axios({
-                            method: 'get',
-                            url: 'http://api.tianapi.com/txapi/dujitang/index',
-                            data:{},
+
+                            method: 'post',
+                            url: this.GLOBAL.BASE_URL+'/accounts/student',
+                            data:{
+                                'account':{
+                                    'account':this.param.account,
+                                    'mail':this.param.email,
+                                    'password':this.param.password,
+                                    'identity':'學生',
+                                },
+                                student: {
+                                    'name': this.param.username,
+                                }
+                            },
                             headers: {
                                 'Content-Type': 'application/json',
                             },
-                            params: {
-                                key:'95f3103398a0a3217e75e3c1c04c313e'
-                            }
                         }).then((response) => {
 
                             this.chickenSoup =JSON.parse(JSON.stringify(response.data))['newslist'][0].content
