@@ -3,7 +3,7 @@
 import Mock from 'mockjs'
 import manageClassAPi from './manageClasses'
 import managerAPI from './manager'
-import msgAPI from './msg'
+// import msgAPI from './msg'
 //设置后端返回的延时
 Mock.setup({
     timeout:'200-1000'
@@ -21,4 +21,4 @@ Mock.mock(/\/works\/students/,'get',managerAPI.students)
 
 
 //消息页面
-Mock.mock(/\/Message\/getMsgById/,'get',msgAPI.getMsgById)
+// Mock.mock(/\/Message\/getMsgById/,'get',msgAPI.getMsgById)

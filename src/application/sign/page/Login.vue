@@ -49,12 +49,12 @@
                     if (valid) {
                         axios({
                             method: 'post',
-                            baseURL: 'http://localhost:12345',
+                            baseURL: 'http://35.238.213.70:8080/',
                             url: '/login',
-                            headers: { 'Content-Type': 'application/json'},
+                            headers: [],
                             data: {
-                                account: this.param.username,
-                                password: this.param.password
+                                username:"account",
+                                password: "pass"
                             }
                         })
                             .then((response) => {
