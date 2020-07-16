@@ -176,28 +176,8 @@
 
                     //Post进行作业的添加
                     onPostSubmit(){
-                        var formdata=new FormData();
-                        formdata.append("workId",this.$store.state.currentClass),
-                        formdata.append("workText",this.currentWork.description);
-                        formdata.append("c",this.currentWork.fileUrl);
-                        formdata.append("openTime",this.currentWork.opentime);
-                        formdata.append("closeTime",this.currentWork.closetime);
-
-
-    //                     axios({method:'post',url:'http://139.186.71.42:8080/works/work',header:[{
-    //                         token:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJTZXJ2aWNlIiwiZXhwIjoxNTk0OTI0ODA3LCJ1c2VySWQiOiJ0ZWFjaGVyIiwiaWF0IjoxNTk0OTE3NjA3fQ.s7vR8kMusAf9v_Nj0HURiDNhcoF-TPSkYiR1N9O8f2o'
-    //                     }],data:{
-    //                         workId:"03",
-    // workText:"12345",
-    // workRequire:"259",
-    // openTime:"",
-    // closeTime:"",
-    // url:"url"
-    //                     }}).then(res => {
-    //                         res = res.data;
-    //                         console.log(res);
-    //                     })
-
+                      
+                        this.currentWork.url = this.currentWork.fileList[0].fileUrl;
 
                         this.$http.post("http://139.186.71.42:8080/works/work",{
                             workId:this.currentWork.workId,
@@ -206,12 +186,7 @@
                             openTime:this.currentWork.openTime,
                             closeTime:this.currentWork.closeTime,
                             url:this.currentWork.url,
-    //                          workId:"05",
-    // workText:"12345",
-    // workRequire:"259",
-    // openTime:"",
-    // closeTime:"",
-    // url:"url"
+
                         }).then(
                             res => {
                                 res =res.data;
@@ -288,11 +263,9 @@
                                     this.currentWork.openTime = res.data.work.openTime;
                                     this.currentWork.closeTime = res.data.work.closeTime;
                                     this.currentWork.fileList[0].fileName = "123.txt";
-                                    this.currentWork.fileList[0].fileUrl = "https://zhuanlan.zhihu.com/p/117581935";
+                                    this.currentWork.fileList[0].fileUrl = res.data.work.url;
                                     console.log(this.currentWork.fileList[0].fileName)
 
-                                    // this.currentWork.fileList[0].name=this.$store.state.currentWork.filename;
-                                    // this.currentWork.fileList[0].url=this.$store.state.currentWork.fileurl;
                                     console.log("我来了");
                                     console.log(this.currentWork.fileList[0].name)
                                 } else {

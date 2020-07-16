@@ -191,11 +191,11 @@
                         index: "manageClasses",
                         title: "课程管理"
                     },
-                    {
-                        icon: 'el-icon-document',
-                        index: "announcement",
-                        title: "公告"
-                    },
+                    // {
+                    //     icon: 'el-icon-document',
+                    //     index: "announcement",
+                    //     title: "公告"
+                    // },
 
                     //manager
                     {
