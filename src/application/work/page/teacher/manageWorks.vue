@@ -142,7 +142,7 @@
 
                 this
                     .$http
-                    .get('http://35.238.213.70:8080/works/courseworks',formdata)
+                    .get('http://127.0.0.1:8080/works/courseworks',formdata)
                     .then(res => {
                         res = res
                             .data

@@ -6,6 +6,7 @@ export default{
     
     //教师管理作业,通过课程的id,得到这个课程下所有教师已经发布的作业
     getWorkByClassId: (classId) =>{
+        console.log(classId);
         return {
             code:20000,
             data:{

@@ -45,6 +45,9 @@ Vue.prototype.GLOBAL = global_;
 axios.defaults.baseURL=global_.BASE_URL;
 router.beforeEach((to, from, next) => {
     document.title = `${to.meta.title} | vue-manage-system`;
+
+
+    //此处出现一个bug，login处到底是使用cookie存放username还是localstorage呢？
     const role = localStorage.getItem('ms_username');
     if (!role && to.path !== '/login') {
         next('/login');

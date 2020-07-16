@@ -22,3 +22,7 @@ Mock.mock(/\/works\/students/,'get',managerAPI.students)
 
 //消息页面
 // Mock.mock(/\/Message\/getMsgById/,'get',msgAPI.getMsgById)
+
+
+//login登录
+Mock.mock(/a\/login/,manageClassAPi.getWorkByClassId);
