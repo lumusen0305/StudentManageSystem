@@ -10,6 +10,11 @@ const service = axios.create({
 //进行添加token等等操作
 service.interceptors.request.use(
     config =>{
+        //添加token
+        if(localStorage.getItem('token')){
+            config.headers.common['token']=localStorage.getItem('token');
+            }
+
         return config
 
     },

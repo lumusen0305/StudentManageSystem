@@ -20,6 +20,10 @@ Vue.use(VueQuillEditor)
 Vue.use(VueCookie)   // 掛在在全域性了
 
 
+
+// axios.defaults.headers.common['token'] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJTZXJ2aWNlIiwiZXhwIjoxNTk0ODUxNDI3LCJ1c2VySWQiOiJhY2NvdW50IiwiaWF0IjoxNTk0ODQ0MjI3fQ.1z8A6ghHO0bVIwe3ql5DcFIhgF75gIWIWIvyY-3mOj4";
+axios.defaults.headers.common['token'] = localStorage.getItem('token');
+
 //hgl的配置
 import store from './store'
 import http from './api/config';

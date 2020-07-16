@@ -5,6 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state:{
+
+        //用户账号信息,全局使用
+        account:{
+            identity:"",
+            username:"",
+        },
+
+
         //教师当前管理的课程,-1代表当前没有管理的class
         currentClass:-1,
 
