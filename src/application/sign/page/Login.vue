@@ -53,8 +53,8 @@
                             url: '/login',
                             headers: { 'Content-Type': 'application/json'},
                             params: {
-                                username: 'account',
-                                password: 'pass',
+                                username: this.param.username,
+                                password: this.param.password,
                             },
                         })
                             .then((response) => {
@@ -64,11 +64,13 @@
                                 this.$cookie.set('ms_username',response.data.data.userId, 1);
                                 localStorage.setItem('ms_username', response.data.data.userId);
                                 console.log(response.data.data)
-                                document.location.href = "/work";
+                                // document.location.href = "/work";
 
                             })
                             .catch((err) => {
-                                // this.$message.error('登录失敗');                             this.$message.error('登录失敗');
+                                // this.$message.error('登录失敗');
+                                // this.$message.success('登录成功');
+                                this.$message.error('登录失敗');
                                 this.$cookie.set('menber', 'sutdent', 1);
                                 this.$cookie.set('ms_username',this.param.username, 1);
                                 // document.location.href = "/work";

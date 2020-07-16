@@ -42,7 +42,7 @@
                         Tag
                     </div>
                     <div style="padding-top: 15px">
-                        <el-button round v-for="item in tag" ref="tagBtn"  v-on:click="serchTag($event)">{{item.id}}</el-button>
+                        <el-button round v-for="item in tag" ref="tagBtn"  v-on:click="serchTag($event,item)">{{item.module}}</el-button>
 
 <!--                        <el-button round>標籤</el-button>-->
 <!--                        <el-button round>標籤</el-button>-->
@@ -60,14 +60,7 @@
                     <div class="theme_post_date">
                         {{i.postDate}}
                     </div>
-                    <div style="padding-top: 15px">
-                        <el-tag style="margin-right: 10px"
-                                v-for="item in i.moduleId"
-                                :key="item.label"
-                                effect="dark">
-                            {{ item.label }}
-                        </el-tag>
-                    </div>
+
                     <div style="padding-top: 15px">
                         Some thing about des...
                     </div>
@@ -107,21 +100,8 @@
                     { label: '标签五' }
                 ],
                 tag:[
-                    {
-                        "id" : "學習",
-                        "postSum" : 0,
-                        "setDate" : "string"
-                    },
-                    {
-                        "id" : "競賽",
-                        "postSum" : 0,
-                        "setDate" : "string"
-                    },
-                    {
-                        "id" : "生活",
-                        "postSum" : 0,
-                        "setDate" : "string"
-                    },
+
+
                 ],
 
                 theme:[
@@ -131,10 +111,8 @@
                         postDate : '2020/1/1',
                         postId : "HelloWorld",
                         postStatus : "string",
-                        moduleId: [
-                            { label: '競賽' },
-                        ],
-                        label: '競賽',
+                        moduleId:'竞赛',
+                        label: '竞赛',
                         postTime:'2020/1/1',
                     },
                     {
@@ -143,10 +121,8 @@
                         postDate : '2020/1/1',
                         postId : "HelloWorld1",
                         postStatus : "string",
-                        moduleId: [
-                            { label: '學習' },
-                        ],
-                        label: '學習',
+                        moduleId: '学习',
+                        label: '学习',
                         postTime:'2020/1/1',
                     },
                     {
@@ -155,10 +131,8 @@
                         postDate : '2020/1/1',
                         postId : "HelloWorld1",
                         postStatus : "string",
-                        moduleId: [
-                            { label: '生活' },
-                        ],
-                        label: '生活',
+                        moduleId: '讨论',
+                        label: '讨论',
                         postTime:'2020/1/1',
                     },
                     {
@@ -167,10 +141,8 @@
                         postDate : '2020/1/1',
                         postId : "HelloWorld1",
                         postStatus : "string",
-                        moduleId: [
-                            { label: '學習' },
-                        ],
-                        label: '學習',
+                        moduleId:'学习',
+                        label: '学习',
                         postTime:'2020/1/1',
                     },
                     {
@@ -179,10 +151,8 @@
                         postDate : '2020/1/1',
                         postId : "HelloWorld",
                         postStatus : "string",
-                        moduleId: [
-                            { label: '競賽' },
-                        ],
-                        label: '競賽',
+                        moduleId: '竞赛',
+                        label: '竞赛',
                         postTime:'2020/1/1',
                     },
                     {
@@ -191,10 +161,8 @@
                         postDate : '2020/1/1',
                         postId : "HelloWorld",
                         postStatus : "string",
-                        moduleId: [
-                            { label: '競賽' },
-                        ],
-                        label: '競賽',
+                        moduleId: '竞赛',
+                        label: '竞赛',
                         postTime:'2020/1/1',
                     },
                     {
@@ -203,10 +171,8 @@
                         postDate : '2020/1/1',
                         postId : "HelloWorld",
                         postStatus : "string",
-                        moduleId: [
-                            { label: '競賽' },
-                        ],
-                        label: '生活',
+                        moduleId:  '竞赛',
+                        label: '讨论',
                         postTime:'2020/1/1',
                     },
                 ],
@@ -218,30 +184,45 @@
             }
         },
         methods:{
-            serchTag :function(event){
-              console.log(event.target.innerText);
+            serchTag :function(event,item){
+              console.log(item.id);
               this.BtnChooses=event.target.innerText;
-                // axios({
-                //     method: 'get',
-                //     url: this.GLOBAL.BASE_URL+'//getAllPostOfSingleModule',
-                //     data: {
-                //         'moduleId':event.target.innerText,
-                //     }
-                // }).then((response) => {
-                //     let item;
-                //     for (item in response.data){
-                //         this.tag.push({
-                //             moduleId: JSON.parse(JSON.stringify(item.data))['id'],
-                //             postSum: JSON.parse(JSON.stringify(item.data))['postSum'],
-                //             setDate: JSON.parse(JSON.stringify(item.data))['setDate']
-                //         })
-                //     }
-                // })
-                //     .catch((err) => {
-                //         console.log(err)
-                //     })
+
+                axios({
+                    method: 'get',
+                    baseURL: 'http://139.186.71.42:8080',
+                    url: '/getAllPostOfSingleModule',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': localStorage.getItem('token')
+                        // 'token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJTZXJ2aWNlIiwiZXhwIjoxNTk0ODkxNjk0LCJ1c2VySWQiOiJhY2NvdW50IiwiaWF0IjoxNTk0ODg0NDk0fQ.vaoRng0IG_DAlWnzOgRyOjv-pTz3lrjdZNOeVSMI3q0'
+                    },
+                    params: {
+                        'moduleId':item.id
+                    }
+                }).then((response) => {
+                    let index;
+                    for (index in response.data.data.moduleList){
+                        console.log(response.data.data)
+                        this.theme.push(
+                            {
+                            postId: response.data.data.moduleList[index].postId,
+                            account: response.data.data.moduleList[index].account,
+                            moduleId:response.data.data.moduleList[index].moduleId,
+                            postDate:response.data.data.moduleList[index].postDate,
+                            label:event.target.innerText,
+                            postStatus: response.data.data.moduleList[index].postStatus,
+                            subject:response.data.data.moduleList[index].subject,
+                        }
+                        )
+                    }
+                })
+                    .catch((err) => {
+                        console.log(err)
+                    })
             },
             jumpToDiscuss(event){
+                this.$store.state.Floor=event
                 this.$store.commit('setDiscuss', event.postId)
                 this.$store.commit('setdiscussTitle', event.subject)
                 console.log(this.$store.state.discussTitle)
@@ -251,9 +232,9 @@
                 this.theme.push(
                     {
                         subject:this.title,
-                        label: '競賽',
+                        label: '竞赛',
                         moduleId: [
-                            { label: '競賽' },
+                            { label: '竞赛' },
                         ],
                         postDate : '2020/1/1',
                     })
@@ -264,17 +245,23 @@
             getAlltag(){
                 axios({
                     method: 'get',
-                    url: this.GLOBAL.BASE_URL+'/getPostModuleList',
-                        data: {
-                            'name': this.param.username,
-                        }
+                    baseURL: 'http://139.186.71.42:8080',
+                    url:'/getPostModuleList',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': localStorage.getItem('token')
+                        // 'token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJTZXJ2aWNlIiwiZXhwIjoxNTk0ODkxNjk0LCJ1c2VySWQiOiJhY2NvdW50IiwiaWF0IjoxNTk0ODg0NDk0fQ.vaoRng0IG_DAlWnzOgRyOjv-pTz3lrjdZNOeVSMI3q0'
+                    },
                       }).then((response) => {
                     let item;
-                    for (item in response.data){
+
+                    for (item in response.data.data.moduleList){
                         this.tag.push(
-                            {id: JSON.parse(JSON.stringify(item.data))['id'],
-                            postSum: JSON.parse(JSON.stringify(item.data))['postSum'],
-                            setDate: JSON.parse(JSON.stringify(item.data))['setDate']
+                            {
+                                module:response.data.data.moduleList[item].module,
+                                postSum:response.data.data.moduleList[item].postSum,
+                                setDate:response.data.data.moduleList[item].setDate,
+                                id:response.data.data.moduleList[item].id
                         })
                         }
                 })
@@ -284,7 +271,7 @@
             }
         },
         created() {
-
+            this.getAlltag();
         }
     }
 </script>
