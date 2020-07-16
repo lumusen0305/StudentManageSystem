@@ -12,9 +12,10 @@ service.interceptors.request.use(
     config =>{
         //添加token
         if(localStorage.getItem('token')){
-            config.headers.common['token']=localStorage.getItem('token');
+            config.headers['token']=localStorage.getItem('token');
             }
 
+            console.log(config)
         return config
 
     },

@@ -27,7 +27,7 @@ import './mock/index';
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 Vue.use(mavonEditor)
-//使得我们可以使用axiod
+//使得我们可以使用axios
 Vue.prototype.$http = http
 
 

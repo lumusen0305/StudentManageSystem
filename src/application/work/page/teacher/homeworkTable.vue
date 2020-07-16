@@ -26,11 +26,11 @@
                 </el-card>
                 <el-card>
                     <a class="el-icon-caret-left" href="javascript:history.go(-1)">返回</a>
-                    <el-table :data="homeworkLists" border="border" style="width: 100%">
+                    <el-table :data="studentWorks" border="border" style="width: 100%">
                         <el-table-column type="index" :index="indexMethod"></el-table-column>
-                        <el-table-column prop="studentid" label="序号" width="120px"></el-table-column>
-                        <el-table-column prop="studentname" label="姓名" width="120px"></el-table-column>
-                        <el-table-column label="状态" width="120px">
+                        <el-table-column prop="studentId" label="序号" width="120px"></el-table-column>
+                        <el-table-column prop="studentName" label="姓名" width="120px"></el-table-column>
+                        <!-- <el-table-column label="状态" width="120px">
                             <template slot-scope="scope">
                                 <span
                                     v-if="homeworkLists[scope.$index].status!==true"
@@ -38,11 +38,11 @@
                                 <span v-else style="margin-left: 10px;color:green">已交</span>
 
                             </template>
-                        </el-table-column>
-                        <el-table-column prop="date" label="日期" width="150px"></el-table-column>
+                        </el-table-column> -->
+                        <el-table-column prop="grade" label="成绩" width="150px"></el-table-column>
                         <el-table-column fixed="right" label="操作">
                             <template slot-scope="scope" >
-                                <a class="class-info-name" href="/work#/studentHomework" @click="changeStudentWorkId(homeworkLists[scope.$index].homeworkid)" v-if="homeworkLists[scope.$index].status===true">
+                                <a class="class-info-name" href="/work#/studentHomework" @click="setCurrentStudentWork(scope.$index)">
                                     <el-button  size="small">批阅</el-button>
                                 </a>
                             </template>
@@ -66,7 +66,22 @@
         },
 
         data() {
-            return {dialogVisible: false, currentRow: null}
+            return {dialogVisible: false, currentRow: null,
+            studentWorks: [
+            {
+                studentId: "account",
+                studentName: "name",
+                courseId: "01",
+                courseName: "cc",
+                workId: "01",
+                url: "test",
+                grade: 90,
+                viewText: "12314"
+            },
+            
+            ]
+            }
+
         },
         computed: {
             homeworkLists() {
@@ -76,17 +91,27 @@
         methods: {
             
             //更改当前currentStudentWork,让studentHomeWork页面能够请求相应的数据
-            changeStudentWorkId(val){
-                this.$store.commit('setCurrentStudentWorkId',val)
+            setCurrentStudentWork(val){
+                console.log("gaibian")
+                console.log(val);
+                this.$store.commit('setCurrentStudentWork',this.studentWorks[val]);
             },
 
             //得到某次布置作业中所有学生的作业情况
             getHomeworkList(val) {
+                                        console.log("lai")
+
                 console.log(val)
                 this
                     .$http
-                    .get('api/works/homeworkLists', val)
+                    .get('http://139.186.71.42:8080/works/studentWorks', {params:{
+                        courseId:"01",
+                        workId:"01"
+                    }})
                     .then(res => {
+                        console.log("lai")
+                                                console.log(res)
+
                         res = res.data
                         // console .log(res.data)
                         if (true) {
@@ -97,6 +122,11 @@
                             // setThisWorks();
 
                             console.log(this.$store.state.homeworkLists)
+
+
+
+                            this.studentWorks = res.data.studentWorks;
+               
                             // this.$store.works
                         } else {
                             // this     .$message     .warning(res.data.message)

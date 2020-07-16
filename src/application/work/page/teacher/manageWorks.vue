@@ -42,7 +42,7 @@
 
                 <el-card shadow="hover" class="mgb20">
                     <ul class="infinite-list" style="overflow:auto">
-                        <li v-for="i in newWorks.homework" class="infinite-list-item" :key="i.workid">
+                        <li v-for="i in works" class="infinite-list-item" :key="i.workId">
                             <div
                                 style="padding-bottom: 15px;
     border-bottom: 3px solid #ccc;
@@ -53,7 +53,7 @@
                                     style=" font-size:20px; padding-left: 15px">
                                     <el-col :span="5">
                                         <div class="el-icon-edit">
-                                            <a class="homework_title" @click="changeCheckWorkId(i.workid)" href="work#/workHome">{{i.worktitle}}</a>
+                                            <a class="homework_title" @click="changeCheckWorkId(i.workId)" href="work#/workHome">{{i.workText}}</a>
                                         </div>
                                     </el-col>
 
@@ -62,15 +62,15 @@
 
                                     <el-col :span="19" style="display:inline">
 
-                                        <span :border="5">开放:{{i.opentime}}</span>
+                                        <span :border="5">开放:{{i.openTime}}</span>
                                         
-                                        <span>截至:{{i.closetime}}</span>
+                                        <span>截至:{{i.closeTime}}</span>
                                     </el-col>
                                     <el-col :span="5" style="display:inline">
-                                        <a class="class-info-name" href="/work#/issueWorks" @click="changeWorkId(i.workid)">
+                                        <a class="class-info-name" href="/work#/issueWorks" @click="changeWorkId(i.workId)">
                                             <el-button type="primary" icon="el-icon-edit" >修改</el-button>
                                         </a>
-                                        <el-button type="danger" @click="deleteWork(i.workid)" icon="el-icon-delete">删除</el-button>
+                                        <el-button type="danger" @click="deleteWork(i.workId)" icon="el-icon-delete">删除</el-button>
                                     </el-col>
 
                                 </el-row>
@@ -89,7 +89,14 @@
 
     export default {
         data() {
-            return {works: []}
+            return {works: [{
+                workId:"",
+                workText:"",
+                workRequire:"",
+                openTime:"",
+                closeTime:"",
+                url:""
+            }]}
         },
         computed: {
             newWorks() {
@@ -118,55 +125,50 @@
                     .$store
                     .commit('setWorkId', val);
             },
+
+      
+
             //得到所有的作业列表
             getWorks(val) {
                 console.log("计算机原理什么作业?");
                 console.log(this.$store.state.currentClass);
                 var formdata = new FormData();
-                formdata.append("userId","account");
+                formdata.append("userId","teacher");
                 formdata.append("courseId","01");
 
 
-                // axios({
-                //             method: 'get',
-                //             baseURL: 'http://35.238.213.70:8080',
-                //             url: '/works/courseworks',
-                //             Headers: [{token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJTZXJ2aWNlIiwiZXhwIjoxNTk0ODUxNDI3LCJ1c2VySWQiOiJhY2NvdW50IiwiaWF0IjoxNTk0ODQ0MjI3fQ.1z8A6ghHO0bVIwe3ql5DcFIhgF75gIWIWIvyY-3mOj4"}],
-                //             data: formdata
-                //         }).then(
-                //             res=>{
-                            
-                //                 console.log(res);
-                //             }
-                //         )
+          
 
+                //之前我的参数请求方式错误，低级写法错误！！！！！！！！！！！！！
                 this
                     .$http
-                    .get('http://127.0.0.1:8080/works/courseworks',formdata)
+                    .get('http://139.186.71.42:8080/works/courseworks',{params:{userId:"teacher",courseId:"01"}})
                     .then(res => {
-                        res = res
-                            .data
-                            console
-                            .log(res.data)
-                        if (res.code == 200) {
+                        if (res.data.code == 200) {
+                            res = res.data;
                             //遇到问题
                             console.log("有token了");
-                            console.log(res.data);
+                   
                             this
                                 .$store
                                 .commit('setWorks', res.data);
+                                this.works=res.data.works;
+
                         } else {
                             this
                                 .$message
                                 .warning(res.data.message)
                         }
-                    })
+                    }
+                    )
             },
             deleteWork(val){
-                this.$http.delete('api/works/work').then(res => {
+                this.$http.delete('http://139.186.71.42:8080/works/delWork',{params:{
+                    workId:val,
+                }}).then(res => {
                     //这里为什么要res=res.data,这里发生了什么?
                     res = res.data;
-                    if(res.code===20000){
+                    if(res.code===200){
                         alert('删除成功');
                     }
                     else{

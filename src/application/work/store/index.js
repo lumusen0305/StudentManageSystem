@@ -127,9 +127,9 @@ export default new Vuex.Store({
            
 
             //我知道了,我给它原本的currentWork={currentWork:{...}},早成了currenWork对象只有一个内容,这个内容的key是currentWork,我afadkjngwiosadfnqj(广西粗话)
-            var keys = Object.keys(state.currentWork)
-            console.log(keys)
-            console.log(state.currentWork)
+            // var keys = Object.keys(state.currentWork)
+            // console.log(keys)
+            // console.log(state.currentWork)
 
         },  
 

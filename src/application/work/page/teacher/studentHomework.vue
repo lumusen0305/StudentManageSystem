@@ -7,14 +7,14 @@
 
                     <el-form label-width="80px">
                         <el-form-item label="姓名">
-                            {{checkHomeWork.studentname}}
+                            {{checkHomeWork.studentName}}
                         </el-form-item>
 
                         <el-form-item label="成绩" required="">
-                            <el-input style="width:100px" v-model="checkHomeWork.score"></el-input>
+                            <el-input style="width:100px" v-model="checkHomeWork.grade"></el-input>
                         </el-form-item>
                         <el-form-item label="评语" required="">
-                            <mavon-editor v-model="checkHomeWork.description"/>
+                            <mavon-editor v-model="checkHomeWork.viewText"/>
                         </el-form-item>
                         <el-form-item>
                             <i class="el-icon-download"></i>
@@ -39,12 +39,14 @@
         data() {
             return {
                 checkHomeWork: {
-                    studentid: "",
-                    studentname: "",
-                    workurl: "",
-                    workname:"",
-                    score: "",
-                    description: ""
+                    studentId: "account",
+                studentName: "name",
+                courseId: "01",
+                courseName: "cc",
+                workId: "01",
+                url: "test",
+                grade: 90,
+                viewText: "12314"
                 }
             }
         },
@@ -68,19 +70,39 @@
         },
         methods: {
             patchSubmit(){
+                this.$http.put("http://139.186.71.42:8080/works/studentWork",{
+                    studentId: this.checkHomeWork.studentId,
+                studentName: this.checkHomeWork.studentName,
+                courseId: this.checkHomeWork.courseId,
+                courseName: this.checkHomeWork.courseName,
+                workId: this.checkHomeWork.workId,
+                url: this.checkHomeWork.url,
+                grade:this.checkHomeWork.grade,
+                viewText:this.checkHomeWork.viewText
+                }).then(res=>{
+                    res = res.data;
+                    if(res.code==200){
                 this.$message.success("修改成功")
+
+                    }
+                    else{
+                        alert("错误");
+                    }
+                })
             },
-            getStudentWorkById(workid, studentid) {
+            getStudentWorkById(workid) {
                 console.log(studentid)
                 this
                     .$http
-                    .get('api/works/currentStudentWork', workid)
+                    .get('http://139.186.71.42:8080/getSingleWork',{params:{
+                        workId:"02"
+                    }})
                     .then(res => {
 
                         //这里的res.code有点奇葩
                          res = res.data
                         console.log(res.code);
-                        if (res.code ===20000) {
+                        if (res.code ===200) {
                            
                             console.log(res.data.currentStudentWork);
                             this
@@ -96,12 +118,11 @@
             }
         },
         created() {
-            this.getStudentWorkById(1, 1);
+            // this.getStudentWorkById(1, 1);
+            this.checkHomeWork=this.$store.state.currentStudentWork;
         }
 
-        // rules: {    name: [      { required: true, message: '请输入活动名称', trigger:
-        // 'blur' },      { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-        // ], }
+        
     }
 </script>
 
