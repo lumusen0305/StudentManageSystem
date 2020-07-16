@@ -20,10 +20,6 @@ Vue.use(VueQuillEditor)
 Vue.use(VueCookie)   // 掛在在全域性了
 
 
-
-// axios.defaults.headers.common['token'] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJTZXJ2aWNlIiwiZXhwIjoxNTk0ODUxNDI3LCJ1c2VySWQiOiJhY2NvdW50IiwiaWF0IjoxNTk0ODQ0MjI3fQ.1z8A6ghHO0bVIwe3ql5DcFIhgF75gIWIWIvyY-3mOj4";
-axios.defaults.headers.common['token'] = localStorage.getItem('token');
-
 //hgl的配置
 import store from './store'
 import http from './api/config';
@@ -41,30 +37,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI, {
     size: 'small'
 });
-Vue.prototype.GLOBAL = global_;
-axios.defaults.baseURL=global_.BASE_URL;
-router.beforeEach((to, from, next) => {
-    document.title = `${to.meta.title} | vue-manage-system`;
 
-
-    //此处出现一个bug，login处到底是使用cookie存放username还是localstorage呢？
-    const role = localStorage.getItem('ms_username');
-    if (!role && to.path !== '/login') {
-        next('/login');
-    } else if (to.meta.permission) {
-        // 如果是管理员权限则可进入，这里只是简单的模拟管理员权限而已
-        role === 'admin' ? next() : next('/403');
-    } else {
-        // 简单的判断IE10及以下不进入富文本编辑器，该组件不兼容
-        if (navigator.userAgent.indexOf('MSIE') > -1 && to.path === '/editor') {
-            Vue.prototype.$alert('vue-quill-editor组件不兼容IE10及以下浏览器，请使用更高版本的浏览器查看', '浏览器不兼容通知', {
-                confirmButtonText: '确定'
-            });
-        } else {
-            next();
-        }
-    }
-});
 new Vue({
     router,
     store,

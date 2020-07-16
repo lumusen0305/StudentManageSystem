@@ -30,18 +30,10 @@
                             <el-col :span="18">
                                 <el-row class="class-info-cont">
                                     <div>
-                                        <a class="class-info-name" @click="jumpToCommit" >
+                                        <a class="class-info-name" @click="showCommite = true" >
                                             {{i.courseName}}
                                         </a>
                                         <el-dialog title="發送提醒" :visible.sync="showCommite"   width="20%" center>
-                                            <el-select v-model="value" placeholder="请选择作業">
-                                                <el-option
-                                                        v-for="item in classHomeWork"
-                                                        :key="item.workRequire"
-                                                        :label="item.workRequire"
-                                                        :value="item.workRequire">
-                                                </el-option>
-                                            </el-select>
                                             <div slot="footer" >
                                                 <el-button @click="showCommite = false">取 消</el-button>
                                                 <el-button type="primary" @click="showCommite = false">確定發送</el-button>
@@ -65,126 +57,65 @@
 
 <script>
     import VueCropper from 'vue-cropperjs';
-    import axios from "axios";
 
     export default {
         name: 'remindOther',
         data: function () {
             return {
-                classHomeWork:[
-                    {
-                        closeTime : "关闭时间",
-                        url : "附带文件下载",
-                        workId : "教师设置的作业id",
-                        workRequire : "要求",
-                        workText : "作业大致内容",
-                        workTime : "开放时间"
-                    },
-                    {
-                        closeTime : "关闭时间",
-                        url : "附带文件下载",
-                        workId : "教师设置的作业id",
-                        workRequire : "要求",
-                        workText : "作业大致内容",
-                        workTime : "开放时间"
-                    },
-                ],
                 showCommite :false,
                 defaultSrc: require('../../../assets/img/img.jpg'),
                 fileList: [],
                 imgSrc: '',
                 cropImg: '',
-                options: [{
-                    label: '黄金糕'
-                }, {
-                    label: '双皮奶'
-                }, {
-                    label: '蚵仔煎'
-                }, {
-                    label: '龙须面'
-                }, {
-                    label: '北京烤鸭'
-                }],
-                value:{},
-                myClass:[
-                    {
-                        courseId : "课程id",
-                        courseName : "课程名1",
-                        credit : "课程学分"
-                    },
-                    {
-                        courseId : "课程id",
-                        courseName : "课程名2",
-                        credit : "课程学分"
-                    },
-
-                ],
                 dialogVisible: false,
                 form: {
                     classId: '',
                 },
                 formLabelWidth: '60px',
                 classCount:10,
+                myClass:[
+                    {
+                        courseId : "课程id",
+                        courseName : "SSD1",
+                        credit : "课程学分"
+                    },
+                    {
+                        courseId : "课程id",
+                        courseName : "SSD7",
+                        credit : "课程学分"
+                    },
+                    {
+                        courseId : "课程id",
+                        courseName : "計算機網路",
+                        credit : "课程学分"
+                    },
+                    {
+                        courseId : "课程id",
+                        courseName : "算法",
+                        credit : "课程学分"
+                    },
+                    {
+                        courseId : "课程id",
+                        courseName : "數據結構",
+                        credit : "课程学分"
+                    },
+                    {
+                        courseId : "课程id",
+                        courseName : "計算機組成原理",
+                        credit : "课程学分"
+                    },
+                    {
+                        courseId : "课程id",
+                        courseName : "java",
+                        credit : "课程学分"
+                    },
+                ],
             }
         },
         components: {
             VueCropper
         },
         methods: {
-            jumpToCommit(){
-                let courseId='';
-                axios({
-                    method: 'get',
-                    url: this.GLOBAL.BASE_URL+'/courses/getCourseByStuId',
-                    data: {
-                        'postId': this.$store.postId,
-                    },
-                    headers: {
-                        'Content-Type': 'application/json',
-                        // 'Authorization': 'Bearer '+jwt_tocken
-                    },
-                }).then((response) => {
-                    let item;
-                    for (item in response.data){
-                        this.myClass.push(
-                            {
-                                courseId : JSON.parse(JSON.stringify(item.data))['courseId']
-                            })
-                    }
-                })
-                    .catch((err) => {
-                        console.log(err)
-                    })
-                axios({
-                    method: 'get',
-                    url: this.GLOBAL.BASE_URL+'/getAllWorkByCourseId',
-                    data: {
-                        'courseId':courseId,
-                    },
-                    headers: {
-                        'Content-Type': 'application/json',
-                        // 'Authorization': 'Bearer '+jwt_tocken
-                    },
-                }).then((response) => {
-                    let item;
-                    for (item in response.data){
-                        this.classHomeWork.push(
-                            {
-                                closeTime : JSON.parse(JSON.stringify(item.data))['closeTime'],
-                                workId : JSON.parse(JSON.stringify(item.data))['workId'],
-                                workRequire : JSON.parse(JSON.stringify(item.data))['workRequire'],
-                                workText : JSON.parse(JSON.stringify(item.data))['workText'],
-                                workTime : JSON.parse(JSON.stringify(item.data))['workTime'],
-
-                            })
-                    }
-                })
-                    .catch((err) => {
-                        console.log(err)
-                    })
-
-                this.showCommite = true
-            },
             setImage(e) {
                 const file = e.target.files[0];
                 if (!file.type.includes('image/')) {

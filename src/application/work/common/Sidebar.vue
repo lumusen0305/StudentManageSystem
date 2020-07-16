@@ -10,7 +10,7 @@
                 unique-opened
                 router
         >
-            <template  v-if="this.$cookie.get('menber')=='sutdent'">
+            <template  v-if="this.$cookie.get('menber')=='学生'">
             <template v-for="item in students_bar">
                 <template v-if="item.subs">
                     <el-submenu :index="item.index" :key="item.index">
@@ -49,8 +49,6 @@
             </template>
 
             <template  v-else-if="this.$cookie.get('menber')=='sutdentLeader'">
-                <template>
-                </template>
                 <template v-for="item in students_leader_bar">
                     <template v-if="item.subs">
                         <el-submenu :index="item.index" :key="item.index">
@@ -88,8 +86,8 @@
                 </template>
             </template>
 
-            <template  v-if="this.$cookie.get('menber')=='sutdent'">
-                <template v-for="item in students_bar">
+            <template  v-if="this.$cookie.get('menber')=='teacher'">
+                <template v-for="item in teacher_bar">
                     <template v-if="item.subs">
                         <el-submenu :index="item.index" :key="item.index">
                             <template slot="title">
@@ -185,24 +183,27 @@
                         title: '發送提醒',
                     },
                     //teacher
-                            {
+
+                ],
+                teacher_bar:[
+                    {
                         icon: 'el-icon-s-platform',
-                              index: "manageClasses",
-                              title: "课程管理"
-                            },
-                            {
+                        index: "manageClasses",
+                        title: "课程管理"
+                    },
+                    {
                         icon: 'el-icon-document',
-                              index: "announcement",
-                              title: "公告"
-                            },
+                        index: "announcement",
+                        title: "公告"
+                    },
 
                     //manager
                     {
                         icon: 'el-icon-s-custom',
-                              index: "ManagerHome",
-                              title: "学生管理"
-                            },
-                ]
+                        index: "ManagerHome",
+                        title: "学生管理"
+                    },
+                ],
             };
         },
         computed: {

@@ -11,8 +11,8 @@
             <div class="handle-box">
 
                 <el-select v-model="query.address" placeholder="學年" class="handle-select mr10">
-                    <el-option key="1" label="广东省" value="2020"></el-option>
-                    <el-option key="2" label="湖南省" value="2019"></el-option>
+                    <el-option key="1" label="2020" value="2020"></el-option>
+                    <el-option key="2" label="2019" value="2019"></el-option>
                 </el-select>
                     <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
             </div>

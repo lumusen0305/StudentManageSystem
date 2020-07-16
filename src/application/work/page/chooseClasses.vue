@@ -264,12 +264,37 @@
                 myClass:[
                     {
                         courseId : "课程id",
-                        courseName : "课程名1",
+                        courseName : "SSD1",
                         credit : "课程学分"
                     },
                     {
                         courseId : "课程id",
-                        courseName : "课程名2",
+                        courseName : "SSD7",
+                        credit : "课程学分"
+                    },
+                    {
+                        courseId : "课程id",
+                        courseName : "計算機網路",
+                        credit : "课程学分"
+                    },
+                    {
+                        courseId : "课程id",
+                        courseName : "算法",
+                        credit : "课程学分"
+                    },
+                    {
+                        courseId : "课程id",
+                        courseName : "數據結構",
+                        credit : "课程学分"
+                    },
+                    {
+                        courseId : "课程id",
+                        courseName : "計算機組成原理",
+                        credit : "课程学分"
+                    },
+                    {
+                        courseId : "课程id",
+                        courseName : "java",
                         credit : "课程学分"
                     },
                 ],
@@ -318,22 +343,24 @@
                 let jwt_tocken = localStorage.getItem('token')
                 axios({
                     method: 'get',
-                    url: this.GLOBAL.BASE_URL+'/courses/getCourseByStuId',
+                    baseURL: 'http://139.186.71.42:8080',
+                    url: '/courses/getCourseByStuId',
                     data: {
                         'postId': this.$store.postId,
                     },
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer '+jwt_tocken
+                        'token': localStorage.getItem('token')
                     },
                 }).then((response) => {
+                    console.log(response.data.data)
                     let item;
-                    for (item in response.data){
+                    for (item in response.data.data){
                         this.myClass.push(
                             {
-                                courseId : JSON.parse(JSON.stringify(item.data))['courseId'],
-                                courseName : JSON.parse(JSON.stringify(item.data))['courseName'],
-                                credit : JSON.parse(JSON.stringify(item.data))['credit']
+                                courseId : item.courseId,
+                                courseName : item.courseeName,
+                                credit :item.courseId.credit
                             })
                     }
                 })

@@ -23,7 +23,7 @@ const issueWorks = () => import('@/application/work/page/teacher/issueWorks')
 const studentHomework = () => import('@/application/work/page/teacher/studentHomework')
 const workHome = () => import('@/application/work/common/WorkHome')
 const announcement = () => import('@/application/work/page/teacher/announcement')
-const ManagerHome = () => import('@/application/work/common/ManagerHome')
+const ManagerHome = () => import('@/application/work/page/teacher/ManagerHome')
 const studentTable = () => import('@/application/work/page/manager/studentTable')
 const studentInfo = () => import('@/application/work/page/manager/studentInfo')
 

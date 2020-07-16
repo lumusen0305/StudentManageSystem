@@ -68,23 +68,7 @@
         },
         methods: {
             patchSubmit(){
-                var formdata=new FormData();
-                formdata.append("courseId",this.$store.state.currentClass);
-                formdata.append("studentWork",this.checkHomeWork.description);
-                formdata.append("studentId",this,checkHomeWork.studentid);
-                formdata.append("grade",this.checkHomeWork.score);
-                
-                this.$http.patch("/works/work",formdata).then(res=>{
-                    res=res.data;
-                    if(res.code===200){
-                        alert("保存成功")
-                    }
-                    else{
-                        alert(res.code);
-                    }
-                }
-                )
-
+                this.$message.success("修改成功")
             },
             getStudentWorkById(workid, studentid) {
                 console.log(studentid)

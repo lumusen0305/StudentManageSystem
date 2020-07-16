@@ -85,15 +85,15 @@
                 classCount:5,
                 responsesDiscuss:[
                     {
-                        account : "string",
+                        account : "路人",
                         floorId : "string",
-                        floorText : "string",
+                        floorText : "吃瓜ing",
                         postId : "string"
                     },
                     {
                         account : "乂煞氣a豬豬乂",
                         floorId : "string",
-                        floorText : "123",
+                        floorText : "老鼠藥,藥到病除",
                         postId : "string"
                     }
                 ]
@@ -130,19 +130,27 @@
             },
             submit(){
                 console.log(this.content)
-                axios({
-                    method: 'post',
-                    url: this.GLOBAL.BASE_URL+'/createFloor',
-                    data: {
-                        'postId': this.$store.postId,
-                        'floorText':this.content
-                    }
-                }).then((response) => {
-                    console.log('success')
-                })
-                    .catch((err) => {
-                        console.log(err)
+                this.responsesDiscuss.push(
+                    {
+                        account :this.$cookie.get('ms_username'),
+                        floorText : this.content,
+
                     })
+                this.dialogFormVisible=false;
+
+                //     axios({
+                //     method: 'post',
+                //     url: this.GLOBAL.BASE_URL+'/createFloor',
+                //     data: {
+                //         'postId': this.$store.postId,
+                //         'floorText':this.content
+                //     }
+                // }).then((response) => {
+                //     console.log('success')
+                // })
+                //     .catch((err) => {
+                //         console.log(err)
+                //     })
             }
         },
         created() {

@@ -52,7 +52,7 @@
             </el-col>
             <el-col :span="12" :offset="1" style="padding-top: 20px" >
                 <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
-                    <li v-for="i in theme"  class="mgb20"  >
+                    <li v-for="i in theme" v-if="i.label===BtnChooses" class="mgb20"  >
                 <div class="theme_title">
                 {{i.subject}}
                 </div>
@@ -98,6 +98,7 @@
                 discussDialog:false,
                 dialogFormVisible:false,
                 classCount:5,
+                BtnChooses:'',
                 items: [
                     { label: '标签一' },
                     { label: '标签二' },
@@ -107,38 +108,107 @@
                 ],
                 tag:[
                     {
-                        "id" : "模块",
+                        "id" : "學習",
                         "postSum" : 0,
                         "setDate" : "string"
-                    }
+                    },
+                    {
+                        "id" : "競賽",
+                        "postSum" : 0,
+                        "setDate" : "string"
+                    },
+                    {
+                        "id" : "生活",
+                        "postSum" : 0,
+                        "setDate" : "string"
+                    },
                 ],
 
                 theme:[
                     {
                         account : "string",
-                        subject : "HelloWorld",
+                        subject : "互連網路競招募隊友",
                         postDate : '2020/1/1',
                         postId : "HelloWorld",
                         postStatus : "string",
                         moduleId: [
-                            { label: '語文' },
-                            { label: '數學' },
+                            { label: '競賽' },
                         ],
+                        label: '競賽',
                         postTime:'2020/1/1',
                     },
                     {
                         account : "string",
-                        subject : "HelloWorld1",
+                        subject : "問掛怎麼學好數學",
                         postDate : '2020/1/1',
                         postId : "HelloWorld1",
                         postStatus : "string",
                         moduleId: [
-                            { label: '語文' },
-                            { label: '數學' },
+                            { label: '學習' },
                         ],
+                        label: '學習',
                         postTime:'2020/1/1',
                     },
-
+                    {
+                        account : "string",
+                        subject : "大一男生懷孕了怎麼辦",
+                        postDate : '2020/1/1',
+                        postId : "HelloWorld1",
+                        postStatus : "string",
+                        moduleId: [
+                            { label: '生活' },
+                        ],
+                        label: '生活',
+                        postTime:'2020/1/1',
+                    },
+                    {
+                        account : "string",
+                        subject : "問掛怎麼學好英文",
+                        postDate : '2020/1/1',
+                        postId : "HelloWorld1",
+                        postStatus : "string",
+                        moduleId: [
+                            { label: '學習' },
+                        ],
+                        label: '學習',
+                        postTime:'2020/1/1',
+                    },
+                    {
+                        account : "string",
+                        subject : "大創競招募隊友",
+                        postDate : '2020/1/1',
+                        postId : "HelloWorld",
+                        postStatus : "string",
+                        moduleId: [
+                            { label: '競賽' },
+                        ],
+                        label: '競賽',
+                        postTime:'2020/1/1',
+                    },
+                    {
+                        account : "string",
+                        subject : "大胃王競招募隊友",
+                        postDate : '2020/1/1',
+                        postId : "HelloWorld",
+                        postStatus : "string",
+                        moduleId: [
+                            { label: '競賽' },
+                        ],
+                        label: '競賽',
+                        postTime:'2020/1/1',
+                    },
+                    {
+                        account : "string",
+                        subject : "我想吃蛇",
+                        postDate : '2020/1/1',
+                        postId : "HelloWorld",
+                        postStatus : "string",
+                        moduleId: [
+                            { label: '競賽' },
+                        ],
+                        label: '生活',
+                        postTime:'2020/1/1',
+                    },
                 ],
             }
         },
@@ -149,26 +219,27 @@
         },
         methods:{
             serchTag :function(event){
-              console.log(event.target.innerText)
-                axios({
-                    method: 'get',
-                    url: this.GLOBAL.BASE_URL+'//getAllPostOfSingleModule',
-                    data: {
-                        'moduleId':event.target.innerText,
-                    }
-                }).then((response) => {
-                    let item;
-                    for (item in response.data){
-                        this.tag.push({
-                            moduleId: JSON.parse(JSON.stringify(item.data))['id'],
-                            postSum: JSON.parse(JSON.stringify(item.data))['postSum'],
-                            setDate: JSON.parse(JSON.stringify(item.data))['setDate']
-                        })
-                    }
-                })
-                    .catch((err) => {
-                        console.log(err)
-                    })
+              console.log(event.target.innerText);
+              this.BtnChooses=event.target.innerText;
+                // axios({
+                //     method: 'get',
+                //     url: this.GLOBAL.BASE_URL+'//getAllPostOfSingleModule',
+                //     data: {
+                //         'moduleId':event.target.innerText,
+                //     }
+                // }).then((response) => {
+                //     let item;
+                //     for (item in response.data){
+                //         this.tag.push({
+                //             moduleId: JSON.parse(JSON.stringify(item.data))['id'],
+                //             postSum: JSON.parse(JSON.stringify(item.data))['postSum'],
+                //             setDate: JSON.parse(JSON.stringify(item.data))['setDate']
+                //         })
+                //     }
+                // })
+                //     .catch((err) => {
+                //         console.log(err)
+                //     })
             },
             jumpToDiscuss(event){
                 this.$store.commit('setDiscuss', event.postId)
@@ -177,7 +248,17 @@
                 document.location.href = "/work#/discuss";
             },
             submit(){
+                this.theme.push(
+                    {
+                        subject:this.title,
+                        label: '競賽',
+                        moduleId: [
+                            { label: '競賽' },
+                        ],
+                        postDate : '2020/1/1',
+                    })
                 console.log(this.title);
+                this.discussDialog = false;
                 this.$message.success('提交成功！');
             },
             getAlltag(){

@@ -58,7 +58,7 @@
                         closeTime : "关闭时间",
                         url : "附带文件下载",
                         workId : "教师设置的作业id",
-                        workRequire : "要求",
+                        workRequire : "作業一",
                         workText : "作业大致内容",
                         workTime : "开放时间"
                     },
@@ -66,7 +66,31 @@
                         closeTime : "关闭时间",
                         url : "附带文件下载",
                         workId : "教师设置的作业id",
-                        workRequire : "要求",
+                        workRequire : "作業二",
+                        workText : "作业大致内容",
+                        workTime : "开放时间"
+                    },
+                    {
+                        closeTime : "关闭时间",
+                        url : "附带文件下载",
+                        workId : "教师设置的作业id",
+                        workRequire : "大作業",
+                        workText : "作业大致内容",
+                        workTime : "开放时间"
+                    },
+                    {
+                        closeTime : "关闭时间",
+                        url : "附带文件下载",
+                        workId : "教师设置的作业id",
+                        workRequire : "專門刁難學生的作業",
+                        workText : "作业大致内容",
+                        workTime : "开放时间"
+                    },
+                    {
+                        closeTime : "关闭时间",
+                        url : "附带文件下载",
+                        workId : "教师设置的作业id",
+                        workRequire : "cpu設計",
                         workText : "作业大致内容",
                         workTime : "开放时间"
                     },
@@ -84,46 +108,47 @@
                 this.$store.state.classHomeWorkId=item
                 document.location.href = "/work#/homeWorkDetail";
 
-                // axios({
-                //     method: 'get',
-                //     url: this.GLOBAL.BASE_URL+'/getSingleWork',
-                //     data: {
-                //         'workId': item.workId,
-                //     },
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //         'Authorization': 'Bearer '+jwt_tocken
-                //     },
-                // }).then((response) => {
-                //
-                // })
-                //     .catch((err) => {
-                //         console.log(err)
-                //     })
-            },
-            getAllHomeWork(){
                 axios({
                     method: 'get',
-                    url: this.GLOBAL.BASE_URL+'/getAllWorkByCourseId',
+                    url: this.GLOBAL.BASE_URL+'/getSingleWork',
                     data: {
-                        'courseId': this.$store.studentHomeWorks.courseId,
+                        'workId': item.workId,
                     },
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer '+jwt_tocken
                     },
                 }).then((response) => {
+
+                })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            },
+            getAllHomeWork(){
+                axios({
+                    method: 'get',
+                    baseURL: 'http://139.186.71.42:8080',
+                    url: '/getAllWorkByCourseId',
+                    data: {
+                        'courseId': this.$store.studentHomeWorks.courseId,
+                    },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': localStorage.getItem('token')
+                    },
+                }).then((response) => {
                     let item;
-                    for (item in response.data){
+                    for (item in response.data.data){
                         this.classHomeWork.push(
                             {
-                                closeTime : JSON.parse(JSON.stringify(item.data))['closeTime'],
-                                workId : JSON.parse(JSON.stringify(item.data))['workId'],
-                                workRequire : JSON.parse(JSON.stringify(item.data))['workRequire'],
-                                workText : JSON.parse(JSON.stringify(item.data))['workText'],
-                                workTime : JSON.parse(JSON.stringify(item.data))['workTime'],
+                                closeTime : item.closeTime,
+                                url : item.url,
+                                workId : item.workId,
+                                workRequire : item.workRequire,
+                                workText : item.workText,
 
-                                })
+                            })
                     }
                 })
                     .catch((err) => {
