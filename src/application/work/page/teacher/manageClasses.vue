@@ -38,7 +38,7 @@
                 
                 <el-card shadow="hover">
                     <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
-                        <li v-for="i in classCount" class="infinite-list-item" :key="i">
+                        <li v-for="i in myClass" class="infinite-list-item" :key="i">
                             <el-row class="class_box" justify="around">
                                 <el-col :span="5">
                                     <div>
@@ -56,7 +56,7 @@
                                             <!-- <router-link to="/classHome" >SSD7</router-link> -->
                                             <div >
                                             <a class="class-info-name" href="/work#/classHome" @click="setCurrentClass(1)" >
-                                               <a> SSD7</a>
+                                               <a> {{i.courseName}}</a>
                                             </a>
                                             </div>
                                         </div>
@@ -92,6 +92,43 @@
                 form: {
                     classId: '',
                 },
+                myClass:[
+                    {
+                        courseId : "课程id",
+                        courseName : "SSD1",
+                        credit : "课程学分"
+                    },
+                    {
+                        courseId : "课程id",
+                        courseName : "SSD7",
+                        credit : "课程学分"
+                    },
+                    {
+                        courseId : "课程id",
+                        courseName : "計算機網路",
+                        credit : "课程学分"
+                    },
+                    {
+                        courseId : "课程id",
+                        courseName : "算法",
+                        credit : "课程学分"
+                    },
+                    {
+                        courseId : "课程id",
+                        courseName : "數據結構",
+                        credit : "课程学分"
+                    },
+                    {
+                        courseId : "课程id",
+                        courseName : "計算機組成原理",
+                        credit : "课程学分"
+                    },
+                    {
+                        courseId : "课程id",
+                        courseName : "java",
+                        credit : "课程学分"
+                    },
+                ],
                 formLabelWidth: '60px',
                 schoolYears: [{
                     value: '选项1',

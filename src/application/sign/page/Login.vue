@@ -34,8 +34,8 @@
         data() {
             return {
                 param: {
-                    username: 'admin',
-                    password: '123123',
+                    username: 'account',
+                    password: 'pass',
                 },
                 rules: {
                     username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
@@ -49,28 +49,29 @@
                     if (valid) {
                         axios({
                             method: 'post',
-                            baseURL: 'http://localhost:12345',
+                            baseURL: 'http://139.186.71.42:8080',
                             url: '/login',
                             headers: { 'Content-Type': 'application/json'},
-                            data: {
-                                account: this.param.username,
-                                password: this.param.password
-                            }
+                            params: {
+                                username: 'account',
+                                password: 'pass',
+                            },
                         })
                             .then((response) => {
-                                this.$cookie.set('menber', JSON.parse(JSON.stringify(response.data))['identity'], 1);
-                                localStorage.setItem('token',JSON.parse(JSON.stringify(response.data))['token'])
+                                this.$cookie.set('menber',response.data.data.identity, 1);
+                                localStorage.setItem('token',response.data.data.token)
                                 this.$message.success('登录成功');
-                                this.$cookie.set('ms_username',this.param.username, 1);
-                                // localStorage.setItem('ms_username', this.param.username);
+                                this.$cookie.set('ms_username',response.data.data.userId, 1);
+                                localStorage.setItem('ms_username', response.data.data.userId);
+                                console.log(response.data.data)
                                 document.location.href = "/work";
 
                             })
                             .catch((err) => {
                                 // this.$message.error('登录失敗');                             this.$message.error('登录失敗');
-                                this.$cookie.set('menber', 'sutdentLeader', 1);
+                                this.$cookie.set('menber', 'sutdent', 1);
                                 this.$cookie.set('ms_username',this.param.username, 1);
-                                document.location.href = "/work";
+                                // document.location.href = "/work";
 
                             })
 
@@ -82,11 +83,11 @@
                 });
             },
             login(){
-                document.location.href = "/work";
+                // document.location.href = "/work";
             }
         },
         created() {
-            this.$cookie.set('menber', 'sutdentLeader', 1);
+            this.$cookie.set('menber', 'sutdent', 1);
             console.log(this.$cookie.get('menber'));
         }
     };

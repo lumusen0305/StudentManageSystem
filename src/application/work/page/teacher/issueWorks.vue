@@ -192,17 +192,12 @@
                             }
                         )
                     },
+
+
+
+
                     onPutSubmit(){
-
-                    },
-
-
-                    //文件进行下载
-                    handleDownload(file){
-                        console.log(file);
-                    },
-                    onPutSubmit(){
-                        this.$http.put('api/');
+                        this.$message.success("修改成功")
                     },
                     //教师的作业要求文件上传后得到response回应,获得url
                     appendFile(response,file,fileList){

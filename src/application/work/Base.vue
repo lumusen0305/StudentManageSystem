@@ -1,8 +1,8 @@
 
 <script>
-    const BASE_URL='localhost://8080'
+    const BASE_URL='http://139.186.71.42:8080'
         export default {
-        name: "Base",
+        name: "Base"
     }
 </script>
 

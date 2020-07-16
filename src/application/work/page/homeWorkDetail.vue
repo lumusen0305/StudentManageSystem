@@ -25,17 +25,26 @@
                 <el-card shadow="hover" class="mgb20">
                     <a class="el-icon-caret-left"  href="javascript:history.go(-1)">返回</a>
                     <div class="homework-info-name" >
-                        练习2
+                        {{this.$store.state.classHomeWorkId.workRequire}}
                     </div>
                     <div style="padding-top: 1%;
 ">
-                    <el-alert
-                            title="已交付"
-                            type="success"
-                            show-icon
-                            style="height: 50px;"
-                    >
-                    </el-alert>
+                        <el-alert
+                                title="未交付"
+                                type="error"
+                                show-icon
+                                style="height: 50px;"
+                                v-if="homeworkLog===false"
+                        >
+                        </el-alert>
+                        <el-alert
+                                title="已交付"
+                                type="success"
+                                show-icon
+                                style="height: 50px;"
+                                v-if="homeworkLog===true"
+                        >
+                        </el-alert>
                     </div>
                     <el-tabs v-model="activeName" @tab-click="handleClick"style="padding-top: 20px">
                         <el-tab-pane label="作業要求" name="first">
@@ -137,7 +146,7 @@
                             </el-row>
                         </el-tab-pane>
                         <el-tab-pane label="我的作業" name="second">
-                            <div v-if="homeworkLog">
+                            <div v-if="homeworkLog===true">
                                 <div class="thrid_box">
                                     <el-row class="homework_log_titile">
                                         <el-col :span="18">
@@ -150,7 +159,7 @@
                                                 <el-row style="padding-top:12px">
                                                     <el-col :span="18">
                                                         <span class="el-icon-document"></span>
-                                                        <span style="padding-left: 10px">2020.06.25 04:08</span>
+                                                        <span style="padding-left: 10px">{{date}}</span>
                                                     </el-col>
                                                     <el-col :span="6">
                                                     </el-col>
@@ -160,7 +169,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div v-else>
+                            <div v-else-if="homeworkLog===false">
                                 <el-row style="padding-top:20px;padding-bottom: 200px">
                                     <el-col :span="18">
                                         <span style="padding-left: 12px;">你尚未交付该作业，请尽快交付</span>
@@ -208,7 +217,8 @@
                 classCount:1,
                 homeworkLog: false,
                 commitPage:false,
-                mode: {}
+                mode: {},
+                date:'',
             };
             },
         methods :{
@@ -218,7 +228,10 @@
             jump() {
             },
             submitBtn(){
+                var myDate = new Date();
+                this.date=myDate.toLocaleString();
                 this.commitPage=false;
+                this.homeworkLog=true;
                 let fd = new FormData()
                 fd.append('templateFile', this.mode)
                 axios.post(this.GLOBAL.BASE_URL+'/SubmitHomeWork', fd, {
