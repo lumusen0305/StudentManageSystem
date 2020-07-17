@@ -86,7 +86,7 @@
                 </template>
             </template>
 
-            <template  v-if="this.$cookie.get('menber')=='teacher'">
+            <template  v-if="this.$cookie.get('menber')=='教师'">
                 <template v-for="item in teacher_bar">
                     <template v-if="item.subs">
                         <el-submenu :index="item.index" :key="item.index">

@@ -53,15 +53,16 @@
                             url: '/login',
                             headers: { 'Content-Type': 'application/json'},
                             params: {
-                                username: 'teacher',
-                                password: 'pass',
+                                username: this.param.username,
+                                                                password: this.param.password,
                             },
                         })
                             .then((response) => {
-                                this.$cookie.set('menber',"teacher", 1);
+                                
+                                this.$cookie.set('menber',response.data.data.identity, 1);
                                 localStorage.setItem('token',response.data.data.token)
                                 this.$message.success('登录成功');
-                                this.$cookie.set('ms_username',response.data.data.userId,1);
+                                this.$cookie.set('ms_username',response.data.data.userId, 1);
                                 localStorage.setItem('ms_username', response.data.data.userId);
                                 console.log(response.data.data)
                                 document.location.href = "/work";

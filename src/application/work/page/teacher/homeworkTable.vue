@@ -69,14 +69,14 @@
             return {dialogVisible: false, currentRow: null,
             studentWorks: [
             {
-                studentId: "account",
-                studentName: "name",
-                courseId: "01",
-                courseName: "cc",
-                workId: "01",
-                url: "test",
-                grade: 90,
-                viewText: "12314"
+                // studentId: "account",
+                // studentName: "name",
+                // courseId: "01",
+                // courseName: "cc",
+                // workId: "01",
+                // url: "test",
+                // grade: 90,
+                // viewText: "12314"
             },
             
             ]
@@ -92,16 +92,12 @@
             
             //更改当前currentStudentWork,让studentHomeWork页面能够请求相应的数据
             setCurrentStudentWork(val){
-                console.log("gaibian")
-                console.log(val);
                 this.$store.commit('setCurrentStudentWork',this.studentWorks[val]);
             },
 
             //得到某次布置作业中所有学生的作业情况
             getHomeworkList(val) {
-                                        console.log("lai")
 
-                console.log(val)
                 this
                     .$http
                     .get('http://139.186.71.42:8080/works/studentWorks', {params:{
@@ -109,22 +105,14 @@
                         workId:"01"
                     }})
                     .then(res => {
-                        console.log("lai")
-                                                console.log(res)
-
+            
                         res = res.data
-                        // console .log(res.data)
                         if (true) {
                             //遇到问题
                             this
                                 .$store
                                 .commit('setHomeworkLists', res.data);
                             // setThisWorks();
-
-                            console.log(this.$store.state.homeworkLists)
-
-
-
                             this.studentWorks = res.data.studentWorks;
                
                             // this.$store.works
@@ -143,8 +131,7 @@
         },
         created() {
             this.getHomeworkList(this.$store.state.checkWorkId);
-            console.log("到了table的created");
-            console.log(this.$store.state.checkWorkId);
+
         }
     }
 </script>

@@ -49,7 +49,7 @@ export default new Vuex.Store({
                     homeworkId:"",
                     workurl:"",
         },
-
+        Floor:{},
 
         //关于学生
         studentList:[],

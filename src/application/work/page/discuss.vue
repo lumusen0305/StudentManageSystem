@@ -27,7 +27,7 @@
                             </el-row>
                         </el-col>
                         <el-col :span="5"  :offset="1" class="username_info" >
-                            <span>用戶A</span>
+                            <span>{{this.$store.state.Floor.account}}</span>
                         </el-col>
 
                     </el-card>
@@ -100,27 +100,31 @@
             }
         },
         methods:{
-            escapeStringHTML(str) {
-                str = str.replace(/&lt;/g,'<');
-                str = str.replace(/&gt;/g,'>');
-                return str;
-            },
+
             getDiscuss(){
                 axios({
                     method: 'get',
-                    url: this.GLOBAL.BASE_URL+'/getAllPostOfSingleModule',
-                    data: {
-                        'postId': this.$store.postId,
+                    baseURL: 'http://139.186.71.42:8080',
+                    url:'/getAllFloorOfSinglePost',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': localStorage.getItem('token')
+                        // 'token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJTZXJ2aWNlIiwiZXhwIjoxNTk0ODkxNjk0LCJ1c2VySWQiOiJhY2NvdW50IiwiaWF0IjoxNTk0ODg0NDk0fQ.vaoRng0IG_DAlWnzOgRyOjv-pTz3lrjdZNOeVSMI3q0'
+                    },
+                    params: {
+                        'postId':this.$store.state.Floor.postId
                     }
                 }).then((response) => {
+                    console.log(response.data.data)
                     let item;
-                    for (item in response.data){
+
+                    for (item in response.data.data.moduleList){
                         this.responsesDiscuss.push(
                             {
-                                account : JSON.parse(JSON.stringify(item.data))['account'],
-                                floorId : JSON.parse(JSON.stringify(item.data))['floorId'],
-                                floorText:JSON.parse(JSON.stringify(item.data))['floorText'],
-                                postId : JSON.parse(JSON.stringify(item.data))['postId']
+                                floorId:response.data.data.moduleList[item].floorId,
+                                postId:response.data.data.moduleList[item].postId,
+                                account:response.data.data.moduleList[item].account,
+                                floorText:response.data.data.moduleList[item].floorText
                             })
                     }
                 })
@@ -129,7 +133,7 @@
                     })
             },
             submit(){
-                console.log(this.content)
+
                 this.responsesDiscuss.push(
                     {
                         account :this.$cookie.get('ms_username'),
@@ -137,6 +141,25 @@
 
                     })
                 this.dialogFormVisible=false;
+                axios({
+                    method: 'post',
+                    baseURL: 'http://139.186.71.42:8080',
+                    url:'/createFloor',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': localStorage.getItem('token')
+                        // 'token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJTZXJ2aWNlIiwiZXhwIjoxNTk0ODkxNjk0LCJ1c2VySWQiOiJhY2NvdW50IiwiaWF0IjoxNTk0ODg0NDk0fQ.vaoRng0IG_DAlWnzOgRyOjv-pTz3lrjdZNOeVSMI3q0'
+                    },
+                    params: {
+                        'postId':this.$store.state.Floor.postId,
+                        'floorText':this.content
+                    }
+                }).then((response) => {
+                })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+                console.log(this.content)
 
                 //     axios({
                 //     method: 'post',
@@ -154,6 +177,7 @@
             }
         },
         created() {
+
             this.getDiscuss();
         }
     }
