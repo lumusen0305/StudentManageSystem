@@ -3981,9 +3981,9 @@ highlight.js-async-webpack@^1.0.4:
   integrity sha1-wGtnv5nwSQRdYrdW5YVbCRLsYWw=
 
 highlight.js@^9.11.0, highlight.js@^9.6.0:
-  version "9.18.1"
-  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.18.1.tgz#ed21aa001fe6252bb10a3d76d47573c6539fe13c"
-  integrity sha512-OrVKYz70LHsnCgmbXctv/bfuvntIKDz177h0Co37DQ5jamGZLVmoCVMtjMtNZY3X9DrCcKfklHPNeA0uPZhSJg==
+  version "9.18.5"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.18.5.tgz#d18a359867f378c138d6819edfc2a8acd5f29825"
+  integrity sha512-a5bFyofd/BHCX52/8i8uJkjr9DYwXIPnM/plwI6W7ezItLGqzt7X2G2nXuYSfsIJdkwwj/g9DG1LkcGJI/dDoA==
 
 hmac-drbg@^1.0.0:
   version "1.0.1"
@@ -7984,6 +7984,11 @@ vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
   integrity sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==
+
+vue-live2d-model@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/vue-live2d-model/-/vue-live2d-model-1.1.6.tgz#0fd6ade2ef387dc5d37bca5524e2ba0370f2f12c"
+  integrity sha512-KjGl4p22etDDTXo8lavDO8I5t9QhNyNVg2ZG1MN4Dl0SwVqeiciaMzNtGkHKUY3y48tUToXcEwuiTxQpNTiFNg==
 
 vue-live2d@^1.0.3:
   version "1.0.3"
