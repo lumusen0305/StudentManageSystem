@@ -7985,6 +7985,11 @@ vue-hot-reload-api@^2.3.0:
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
   integrity sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==
 
+vue-live2d-model@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/vue-live2d-model/-/vue-live2d-model-1.1.6.tgz#0fd6ade2ef387dc5d37bca5524e2ba0370f2f12c"
+  integrity sha512-KjGl4p22etDDTXo8lavDO8I5t9QhNyNVg2ZG1MN4Dl0SwVqeiciaMzNtGkHKUY3y48tUToXcEwuiTxQpNTiFNg==
+
 vue-live2d@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/vue-live2d/-/vue-live2d-1.0.3.tgz#92d2c0d3ed028ac3e133efded81d9ed8f25aff02"
@@ -8296,9 +8301,9 @@ wrappy@1:
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
 
 ws@^6.0.0, ws@^6.2.1:
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-6.2.1.tgz#442fdf0a47ed64f59b6a5d8ff130f4748ed524fb"
-  integrity sha512-GIyAXC2cB7LjvpgMt9EKS2ldqr0MTrORaleiOno6TweZ6r3TKtoFQWay/2PceJ3RuBasOHzXNn5Lrw1X0bEjqA==
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-6.2.2.tgz#dd5cdbd57a9979916097652d78f1cc5faea0c32e"
+  integrity sha512-zmhltoSR8u1cnDsD43TX59mzoMZsLKqUweyYBAIvTngR3shc0W6aOZylZmq/7hqyVxPdi+5Ud2QInblgyE72fw==
   dependencies:
     async-limiter "~1.0.0"
 
